@@ -75,12 +75,11 @@ const newNodelet = (name, key, secret) => {
 
     console.log('dblog: ' + JSON.stringify(dbLog))
 
-    if (!dbLog) {
+    if (dbLog===undefined) {
+        console.log('createall..')
         db.createAll(nodelet.id)
     }
 
-
-    return
 
     let ws = undefined
 
@@ -121,6 +120,10 @@ const newNodelet = (name, key, secret) => {
 
 
     log('[nodelet ' + nodelet.id + ' starting..(' + '#46ffc7' + ')]')
+
+
+
+    return
 
 
     /// deribit ws
