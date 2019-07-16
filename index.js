@@ -73,12 +73,17 @@ const newNodelet = (name, key, secret) => {
 
     let dbLog = db.get('log'+nodelet.id)
 
-    console.log('dblog: ' + JSON.stringify(dbLog))
+    setTimeout(()=>{
+        if (dbLog===undefined) {
+            console.log('createall..')
+            db.createAll(nodelet.id)
+        }
 
-    if (dbLog===undefined) {
-        console.log('createall..')
-        db.createAll(nodelet.id)
-    }
+        console.log('dblog: ' + JSON.stringify(dbLog))
+        
+    },3000)
+
+
 
 
     let ws = undefined
