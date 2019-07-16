@@ -39,3 +39,5 @@ client.query('SELECT * FROM log', (err, res) => {
     client.end();
 });
 
+
+setInterval(()=>{console.log('5s loop')},5000)
