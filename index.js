@@ -16,6 +16,20 @@ const client = new Client({
 
 client.connect();
 
+
+client.query('SELECT * FROM log', (err, res) => {
+    if (err) throw err;
+    for (let row of res.rows) {
+        console.log(JSON.stringify(row));
+    }
+    client.end();
+});
+
+
+setInterval(()=>{console.log('5s loop')},5000)
+
+
+
 // client.query('CREATE TABLE log (\n' +
 //     '  ID SERIAL PRIMARY KEY,\n' +
 //     '  text VARCHAR(200),\n' +
@@ -57,27 +71,27 @@ client.connect();
 //     }
 //     client.end();
 // });
-
-client.query('CREATE TABLE strat (\n' +
-    '  ID SERIAL PRIMARY KEY,\n' +
-    '  name VARCHAR(30),\n' +
-    '  symbol VARCHAR(30),\n' +
-    '  tf NUMERIC\n,' +
-    '  tpPercent NUMERIC\n,' +
-    '  stopPercent NUMERIC\n,' +
-    '  size NUMERIC\n,' +
-    '  scalePercent NUMERIC\n,' +
-    '  scaleQty NUMERIC\n,' +
-    '  scaleWeight NUMERIC\n,' +
-    '  trigger VARCHAR(30)\n,' +
-    '  scaleChase BOOLEAN\n,' +
-    ');', (err, res) => {
-    if (err) throw err;
-    for (let row of res.rows) {
-        console.log(JSON.stringify(row));
-    }
-    // client.end();
-});
+//
+// client.query('CREATE TABLE strat (\n' +
+//     '  ID SERIAL PRIMARY KEY,\n' +
+//     '  name VARCHAR(30),\n' +
+//     '  symbol VARCHAR(30),\n' +
+//     '  tf NUMERIC\n,' +
+//     '  tpPercent NUMERIC\n,' +
+//     '  stopPercent NUMERIC\n,' +
+//     '  size NUMERIC\n,' +
+//     '  scalePercent NUMERIC\n,' +
+//     '  scaleQty NUMERIC\n,' +
+//     '  scaleWeight NUMERIC\n,' +
+//     '  trigger VARCHAR(30)\n,' +
+//     '  scaleChase BOOLEAN\n,' +
+//     ');', (err, res) => {
+//     if (err) throw err;
+//     for (let row of res.rows) {
+//         console.log(JSON.stringify(row));
+//     }
+//     // client.end();
+// });
 
 // client.query('INSERT INTO log (text, time)\n' +
 //     '  VALUES (\'Jerry\', 11), (\'George\', 22);', (err, res) => {
@@ -88,13 +102,4 @@ client.query('CREATE TABLE strat (\n' +
 //     client.end();
 // });
 
-client.query('SELECT * FROM log', (err, res) => {
-    if (err) throw err;
-    for (let row of res.rows) {
-        console.log(JSON.stringify(row));
-    }
-    client.end();
-});
 
-
-setInterval(()=>{console.log('5s loop')},5000)
