@@ -142,7 +142,7 @@ client.query('CREATE TABLE strat (\n' +
     '  scaleQty NUMERIC\n,' +
     '  scaleWeight NUMERIC\n,' +
     '  trigger VARCHAR(30)\n,' +
-    '  scaleChase BOOLEAN\n,' +
+    '  scaleChase BOOLEAN\n' +
     ');', (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
