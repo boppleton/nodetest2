@@ -28,35 +28,35 @@ client.connect();
 //     client.end();
 // });
 
-client.query('CREATE TABLE trades (\n' +
-    '  ID SERIAL PRIMARY KEY,\n' +
-    '  active BOOLEAN,\n' +
-    '  trigger VARCHAR(30),\n' +
-    '  entryPrice NUMERIC,\n' +
-    '  entrySize NUMERIC,\n' +
-    '  tpPrice NUMERIC,\n' +
-    '  stopPrice NUMERIC,\n' +
-
-    '  startBalance NUMERIC,\n' +
-    '  endingBalance NUMERIC,\n' +
-    '  pnl NUMERIC,\n' +
-    '  diff VARCHAR(50),\n' +
-    '  resultType VARCHAR(30),\n' +
-    '  resultMove NUMERIC,\n' +
-    '  filled NUMERIC,\n' +
-    '  startTime NUMERIC,\n' +
-    '  endTime NUMERIC,\n' +
-    '  endPrice NUMERIC,\n' +
-    '  startStartEquity NUMERIC\n' +
-
-
-    ');', (err, res) => {
-    if (err) throw err;
-    for (let row of res.rows) {
-        console.log(JSON.stringify(row));
-    }
-    client.end();
-});
+// client.query('CREATE TABLE trades (\n' +
+//     '  ID SERIAL PRIMARY KEY,\n' +
+//     '  active BOOLEAN,\n' +
+//     '  trigger VARCHAR(30),\n' +
+//     '  entryPrice NUMERIC,\n' +
+//     '  entrySize NUMERIC,\n' +
+//     '  tpPrice NUMERIC,\n' +
+//     '  stopPrice NUMERIC,\n' +
+//
+//     '  startBalance NUMERIC,\n' +
+//     '  endingBalance NUMERIC,\n' +
+//     '  pnl NUMERIC,\n' +
+//     '  diff VARCHAR(50),\n' +
+//     '  resultType VARCHAR(30),\n' +
+//     '  resultMove NUMERIC,\n' +
+//     '  filled NUMERIC,\n' +
+//     '  startTime NUMERIC,\n' +
+//     '  endTime NUMERIC,\n' +
+//     '  endPrice NUMERIC,\n' +
+//     '  startStartEquity NUMERIC\n' +
+//
+//
+//     ');', (err, res) => {
+//     if (err) throw err;
+//     for (let row of res.rows) {
+//         console.log(JSON.stringify(row));
+//     }
+//     client.end();
+// });
 
 client.query('CREATE TABLE strat (\n' +
     '  ID SERIAL PRIMARY KEY,\n' +
@@ -76,7 +76,7 @@ client.query('CREATE TABLE strat (\n' +
     for (let row of res.rows) {
         console.log(JSON.stringify(row));
     }
-    client.end();
+    // client.end();
 });
 
 // client.query('INSERT INTO log (text, time)\n' +
