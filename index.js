@@ -78,7 +78,7 @@ const newNodelet = (name, key, secret) => {
     if (!dbLog) {
         db.createAll(nodelet.id)
     }
-    
+
 
     return
 
@@ -1243,4 +1243,8 @@ const newNodelet = (name, key, secret) => {
 
 newNodelet('dbbacc1', process.env['KEY'+(nodelets.length+1)], process.env['SEC'+(nodelets.length+1)])
 
-newNodelet('dbbacc2', process.env['KEY'+(nodelets.length+1)], process.env['SEC'+(nodelets.length+1)])
+setTimeout(()=>{
+
+    newNodelet('dbbacc2', process.env['KEY'+(nodelets.length+1)], process.env['SEC'+(nodelets.length+1)])
+
+},5000)
