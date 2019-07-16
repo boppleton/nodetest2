@@ -114,7 +114,7 @@ const newNodelet = (name, key, secret) => {
 
         // log('heyooo ' + Math.random())
 
-        db.update('log', 'set text=\"updated\", time=9001')
+        db.update('log', 'set text=\'updated\', time=9001')
 
 
 
