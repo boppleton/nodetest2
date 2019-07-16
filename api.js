@@ -14,6 +14,10 @@ module.exports = {
         //root endpoint
         api.get('/', (req, res) => res.send('[///]'))
 
+        api.post('/', function (request, response) {
+            console.log('request: ' + request.body)
+        })
+
         // Parse URL-encoded bodies (as sent by HTML forms)
         api.use(express.urlencoded());
 
