@@ -23,7 +23,7 @@ module.exports = {
     get: (name) => {
         client.query('SELECT * FROM ' + name, (err, res) => {
             if (err) {
-                if (err.includes('does not exist')) {
+                if (err.toString().includes('does not exist')) {
                     return 0
                 } else {
                     throw err
