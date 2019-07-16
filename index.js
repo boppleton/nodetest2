@@ -27,6 +27,27 @@ client.query('INSERT INTO log (text, time) VALUES ($1, $2)',['logtextt hi', 9001
 
 
 
+client.query('INSERT INTO trades (active, trigger, entryPrice, entrySize, tpPrice, stopPrice, ' +
+    'startBalance, endingBalance, pnl, diff, resultType, resultMove, filled, startTime, endTime, endPrice, startStartEquity ) ' +
+    'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)',
+    [false, 'xdivtrig', 9001, 25, 9100, 8900, 8880, 0.01, 0.0115, 0.001, 'diffff', 'tp', 1, 100, 100808080, 100080080, 9001, 0.01], (err, res) => {
+    if (err) throw err;
+    for (let row of res.rows) {
+        console.log(JSON.stringify(row));
+    }
+    // client.end();
+});
+
+client.query('INSERT INTO strat (name, symbol, tf, tpPercent, stopPercent, size, scalePercent, scaleQty, scaleWeight, trigger, scaleChase ) ' +
+    'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)',
+    ['strat111', 'XBTUSD', 1, 0.36, 2.1, 10, 2, 20, 5, 'xdiv', true], (err, res) => {
+        if (err) throw err;
+        for (let row of res.rows) {
+            console.log(JSON.stringify(row));
+        }
+        // client.end();
+    });
+
 
 
 setInterval(()=>{
@@ -34,6 +55,26 @@ setInterval(()=>{
     console.log('\n printing log..')
 
     client.query('SELECT * FROM log', (err, res) => {
+        if (err) throw err;
+        for (let row of res.rows) {
+            console.log(JSON.stringify(row));
+        }
+        // client.end();
+    });
+
+    console.log('printing strat..')
+
+    client.query('SELECT * FROM strat', (err, res) => {
+        if (err) throw err;
+        for (let row of res.rows) {
+            console.log(JSON.stringify(row));
+        }
+        // client.end();
+    });
+
+    console.log('printing trades..')
+
+    client.query('SELECT * FROM trades', (err, res) => {
         if (err) throw err;
         for (let row of res.rows) {
             console.log(JSON.stringify(row));
