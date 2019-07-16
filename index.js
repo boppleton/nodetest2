@@ -78,6 +78,7 @@ const newNodelet = (name, key, secret) => {
     if (!dbLog) {
         db.createAll(nodelet.id)
     }
+    
 
     return
 
