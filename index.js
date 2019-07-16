@@ -1,47 +1,37 @@
 ///
 /// botism node v1.2
 ///
+require('dotenv').config();
 const WebSocket = require('ws')
 const rp = require('request-promise')
 const _ = require('lodash')
-const tulind = require('tulind')
 const api = require('./api.js').start()
 const db = require('./db.js')
+const utils = require('./utils.js')
+
+console.log('starting botism node at ' + new Date())
+
 db.start()
 
-const loop = (t, x, timeout) => setTimeout(() => {
-    setInterval(x, t)
-}, timeout || 5000)
-
-console.log('starting botism node')
-
-
-
-
-
 let nodelets = []
-
 api.get('/nodelets', (req, res) => res.send(nodelets))
 
+newNodelet('dbbacc1', process.env['KEY'+(nodelets.length+1)], process.env['SEC'+(nodelets.length+1)])
 
-const newNodelet = (name, key, secret) => {
+newNodelet('dbbacc2', process.env['KEY'+(nodelets.length+1)], process.env['SEC'+(nodelets.length+1)])
+
+newNodelet = (name, key, secret) => {
 
     console.log('starting new nodelet, name: ' + name)
-
-
 
     let nodelet = {
         id: nodelets.length + 1,
         running: false,
         name: name,
-        // key: key,
-        // secret: secret,
-
 
         pnlAll: 0,
 
         startingEquity: 0,
-
 
         currentBid: 0,
         currentSize: 0,
@@ -54,7 +44,6 @@ const newNodelet = (name, key, secret) => {
 
         resetCount: 0,
         lastBid: 0,
-
 
         info: {start: true},
 
@@ -85,6 +74,12 @@ const newNodelet = (name, key, secret) => {
 
 
 
+    let dbLog = db.get('log'+nodelet.id)
+
+    console.log('dblog: ' + JSON.stringify(dbLog))
+
+    return
+
     let ws = undefined
 
     let bars = []
@@ -97,30 +92,30 @@ const newNodelet = (name, key, secret) => {
     ///
     const log = s => {
         // nodelet.log = [[s, new Date().getTime()], ...nodelet.log]
-        db.add('log', 'text, time', [s, 900000000 ])
+        db.add('log'+nodelet.id, 'text, time', [s, 900000000 ])
     }
 
-    setInterval(()=>{
-
-        console.log('loop start')
-
-        let currentLog = db.get('log')
-
-        console.log('logdb:')
-
-        console.log(currentLog)
-
-        console.log('adding to it now')
-
-        
-
-        // log('heyooo ' + Math.random())
-
-        db.update('log', 'set text=\'updated\', time=9001')
-
-
-
-    }, 10000)
+    // setInterval(()=>{
+    //
+    //     console.log('loop start')
+    //
+    //     let currentLog = db.get('log')
+    //
+    //     console.log('logdb:')
+    //
+    //     console.log(currentLog)
+    //
+    //     console.log('adding to it now')
+    //
+    //
+    //
+    //     // log('heyooo ' + Math.random())
+    //
+    //     db.update('log', 'text=\'updated\', time=9001')
+    //
+    //
+    //
+    // }, 10000)
 
 
     log('[nodelet ' + nodelet.id + ' starting..(' + '#46ffc7' + ')]')
@@ -179,17 +174,18 @@ const newNodelet = (name, key, secret) => {
         // } )
     }
     const socketErrorListener = (e) => {
+        log('deribit websocket: [error(orange)]: ' + JSON.stringify(e))
         // errorCatcher('deribitWebsocket', e)
     }
     const socketCloseListener = (e) => {
-        if (ws) {
-            console.error('deribit close')
-            log('deribit websocket: [disconnected(brightred)]')
-        }
+        console.error('deribit close')
+        log('deribit websocket: [close(brightred)] code: ' + e.code )
 
         if (e && e.code === 1000) {
             return
         }
+
+        log('deribit websocket: [starting..(brightred)]')
 
         ws = new WebSocket('wss://www.deribit.com/ws/api/v2')
         ws.addEventListener('open', socketOpenListener)
@@ -1241,190 +1237,5 @@ const newNodelet = (name, key, secret) => {
 
 
 }
-
-
-newNodelet('benn', 'LDB1OWbZ', 'Q5aT7pI73fp7uZeZaZURtdqw52kTAIH4E6DAKES7Xv8')
-// newNodelet('dbit2', '6HQn5E16jvhjk', 'S4RWAJNR5EGQ2ZTFKJ5ZNGCPUTTIPYX5')
-
-
-// const {Client} = require('pg')
-//
-// const client = new Client({
-//     connectionString: process.env.DATABASE_URL,
-//     ssl: true,
-// })
-//
-// client.connect()
-//
-//
-// client.query('CREATE TABLE log;', (err, res) => {
-//     if (err) throw err
-//     for (let row of res.rows) {
-//         console.log(JSON.stringify(row))
-//     }
-//     client.end()
-// })
-//
-//
-
-
-
-// console.log('nodetest2 startt')
-//
-// const api = require('./api.js').start()
-//
-// const { Client } = require('pg');
-//
-// const client = new Client({
-//     connectionString: process.env.DATABASE_URL,
-//     ssl: true,
-// });
-//
-// client.connect();
-//
-// // client.query('INSERT INTO log (text, time) VALUES ($1, $2)',['logtextt hi', 90015132000], (err, res) => {
-// //     if (err) throw err;
-// //     for (let row of res.rows) {
-// //         console.log(JSON.stringify(row));
-// //     }
-// //     // client.end();
-// // });
-// //
-// //
-// //
-// client.query('INSERT INTO trades (active, trigger, entryPrice, entrySize, tpPrice, stopPrice, ' +
-//     'startBalance, endingBalance, pnl, diff, resultType, resultMove, filled, startTime, endTime, endPrice, startStartEquity ) ' +
-//     'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)',
-//     [false, 'xdivtrig', 7008, 250, 9100, 8900, 0.01, 0.0115, 0.001, 'diffff', 'tp', 1, 100, 100808080, 100080080, 9001, 0.01], (err, res) => {
-//     if (err) throw err;
-//     for (let row of res.rows) {
-//         console.log(JSON.stringify(row));
-//     }
-//     // client.end();
-// });
-// //
-// client.query('INSERT INTO strat (name, symbol, tf, tpPercent, stopPercent, size, scalePercent, scaleQty, scaleWeight, trigger, scaleChase ) ' +
-//     'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)',
-//     ['strat111', 'XBTUSD', 1, 0.36, 2.1, 10, 2, 20, 5, 'xdiv', true], (err, res) => {
-//         if (err) throw err;
-//         for (let row of res.rows) {
-//             console.log(JSON.stringify(row));
-//         }
-//         // client.end();
-//     });
-// //
-// //
-// //
-// setInterval(()=>{
-//
-//
-//
-//     client.query('SELECT * FROM log', (err, res) => {
-//         if (err) throw err;
-//         console.log('\n printing log..')
-//         for (let row of res.rows) {
-//             console.log(JSON.stringify(row));
-//         }
-//         // client.end();
-//     });
-//
-//
-//
-//     client.query('SELECT * FROM strat', (err, res) => {
-//         if (err) throw err;
-//         console.log('printing strat..')
-//         for (let row of res.rows) {
-//             console.log(JSON.stringify(row));
-//         }
-//         // client.end();
-//     });
-//
-//
-//
-//     client.query('SELECT * FROM trades', (err, res) => {
-//         if (err) throw err;
-//         console.log('printing trades..')
-//         for (let row of res.rows) {
-//             console.log(JSON.stringify(row));
-//         }
-//         // client.end();
-//     });
-//
-//
-//
-// },5000)
-
-
-// client.query('CREATE TABLE log (\n' +
-//     '  ID SERIAL PRIMARY KEY,\n' +
-//     '  text VARCHAR(200),\n' +
-//     '  time BIGINT\n' +
-//     ');', (err, res) => {
-//     if (err) throw err;
-//     for (let row of res.rows) {
-//         console.log(JSON.stringify(row));
-//     }
-//     client.end();
-// });
-
-// client.query('CREATE TABLE trades (\n' +
-//     '  ID SERIAL PRIMARY KEY,\n' +
-//     '  active BOOLEAN,\n' +
-//     '  trigger VARCHAR(30),\n' +
-//     '  entryPrice NUMERIC,\n' +
-//     '  entrySize NUMERIC,\n' +
-//     '  tpPrice NUMERIC,\n' +
-//     '  stopPrice NUMERIC,\n' +
-//
-//     '  startBalance NUMERIC,\n' +
-//     '  endingBalance NUMERIC,\n' +
-//     '  pnl NUMERIC,\n' +
-//     '  diff VARCHAR(50),\n' +
-//     '  resultType VARCHAR(30),\n' +
-//     '  resultMove NUMERIC,\n' +
-//     '  filled NUMERIC,\n' +
-//     '  startTime NUMERIC,\n' +
-//     '  endTime NUMERIC,\n' +
-//     '  endPrice NUMERIC,\n' +
-//     '  startStartEquity NUMERIC\n' +
-//
-//
-//     ');', (err, res) => {
-//     if (err) throw err;
-//     for (let row of res.rows) {
-//         console.log(JSON.stringify(row));
-//     }
-//     client.end();
-// });
-//
-// client.query('CREATE TABLE strat (\n' +
-//     '  ID SERIAL PRIMARY KEY,\n' +
-//     '  name VARCHAR(30),\n' +
-//     '  symbol VARCHAR(30),\n' +
-//     '  tf NUMERIC\n,' +
-//     '  tpPercent NUMERIC\n,' +
-//     '  stopPercent NUMERIC\n,' +
-//     '  size NUMERIC\n,' +
-//     '  scalePercent NUMERIC\n,' +
-//     '  scaleQty NUMERIC\n,' +
-//     '  scaleWeight NUMERIC\n,' +
-//     '  trigger VARCHAR(30)\n,' +
-//     '  scaleChase BOOLEAN\n' +
-//     ');', (err, res) => {
-//     if (err) throw err;
-//     for (let row of res.rows) {
-//         console.log(JSON.stringify(row));
-//     }
-// client.end();
-// });
-
-// client.query('INSERT INTO log (text, time)\n' +
-//     '  VALUES (\'Jerry\', 11), (\'George\', 22);', (err, res) => {
-//     if (err) throw err;
-//     for (let row of res.rows) {
-//         console.log(JSON.stringify(row));
-//     }
-//     client.end();
-// });
 
 
