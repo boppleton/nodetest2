@@ -16,9 +16,6 @@ db.start()
 let nodelets = []
 api.get('/nodelets', (req, res) => res.send(nodelets))
 
-newNodelet('dbbacc1', process.env['KEY'+(nodelets.length+1)], process.env['SEC'+(nodelets.length+1)])
-
-newNodelet('dbbacc2', process.env['KEY'+(nodelets.length+1)], process.env['SEC'+(nodelets.length+1)])
 
 const newNodelet = (name, key, secret) => {
 
@@ -1239,3 +1236,6 @@ const newNodelet = (name, key, secret) => {
 }
 
 
+newNodelet('dbbacc1', process.env['KEY'+(nodelets.length+1)], process.env['SEC'+(nodelets.length+1)])
+
+newNodelet('dbbacc2', process.env['KEY'+(nodelets.length+1)], process.env['SEC'+(nodelets.length+1)])
