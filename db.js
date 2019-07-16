@@ -22,7 +22,14 @@ module.exports = {
 
     get: (name) => {
         client.query('SELECT * FROM ' + name, (err, res) => {
-            if (err) throw err
+            if (err) {
+                if (err.includes('does not exist')) {
+                    return 0
+                } else {
+                    throw err
+                }
+
+            }
             console.log('\n printing ' + name + '..')
             for (let row of res.rows) {
                 console.log(JSON.stringify(row))
