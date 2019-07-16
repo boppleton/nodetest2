@@ -1239,7 +1239,7 @@ const newNodelet = (name, key, secret) => {
 }
 
 
-// newNodelet('benn', 'LDB1OWbZ', 'Q5aT7pI73fp7uZeZaZURtdqw52kTAIH4E6DAKES7Xv8')
+newNodelet('benn', 'LDB1OWbZ', 'Q5aT7pI73fp7uZeZaZURtdqw52kTAIH4E6DAKES7Xv8')
 // newNodelet('dbit2', '6HQn5E16jvhjk', 'S4RWAJNR5EGQ2ZTFKJ5ZNGCPUTTIPYX5')
 
 
