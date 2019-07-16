@@ -41,7 +41,7 @@ module.exports = {
         }
 
         client.query('INSERT INTO '+name+' ('+strings+')\n' +
-            '  VALUES '+varstring+';', vars, (err, res) => {
+            '  VALUES ('+varstring+');', vars, (err, res) => {
             if (err) throw err
             for (let row of res.rows) {
                 console.log(JSON.stringify(row))
