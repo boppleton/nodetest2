@@ -40,6 +40,8 @@ module.exports = {
             varstring.concat('$'+(i+1)+(i===varstring.length-1?'':', '))
         }
 
+        console.log('varstring: ' + varstring)
+
         client.query('INSERT INTO '+name+' ('+strings+')\n' +
             '  VALUES ('+varstring+');', vars, (err, res) => {
             if (err) throw err
