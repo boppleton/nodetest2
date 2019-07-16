@@ -36,8 +36,8 @@ module.exports = {
 
         let varstring = ''
 
-        for (let i = 0; i < varstring.length; i++) {
-            varstring.concat('$'+(i+1)+(i===varstring.length-1?'':', '))
+        for (let i = 0; i < vars.length; i++) {
+            varstring.concat('$'+(i+1)+(i===vars.length-1?'':', '))
         }
 
         console.log('varstring: ' + varstring)
