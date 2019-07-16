@@ -17,16 +17,33 @@ const client = new Client({
 client.connect();
 
 
-client.query('SELECT * FROM log', (err, res) => {
+client.query('INSERT INTO log (text, time) VALUES ($1, $2)',['logtextt hi', 90015132000], (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
         console.log(JSON.stringify(row));
     }
-    client.end();
+    // client.end();
 });
 
 
-setInterval(()=>{console.log('5s loop')},5000)
+
+
+
+setInterval(()=>{
+
+    console.log('\n printing log..')
+
+    client.query('SELECT * FROM log', (err, res) => {
+        if (err) throw err;
+        for (let row of res.rows) {
+            console.log(JSON.stringify(row));
+        }
+        client.end();
+    });
+
+
+
+},5000)
 
 
 
