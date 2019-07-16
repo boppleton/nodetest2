@@ -112,7 +112,9 @@ const newNodelet = (name, key, secret) => {
 
         console.log('adding to it now')
 
-        log('heyooo ' + Math.random())
+        // log('heyooo ' + Math.random())
+
+        db.update('log', 'text=updated, time=9001')
 
 
 

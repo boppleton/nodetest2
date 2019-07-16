@@ -52,6 +52,19 @@ module.exports = {
             }
             // client.end()
         })
+    },
+
+    update: (name, vars) => {
+        client.query('UPDATE '+name+'\n' +
+            vars +
+            // 'set outtime = now()\n' +
+            ' WHERE id = (select max(id) from '+name+');', vars, (err, res) => {
+            if (err) throw err
+            for (let row of res.rows) {
+                console.log(JSON.stringify(row))
+            }
+            // client.end()
+        })
     }
 
 }
