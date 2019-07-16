@@ -75,6 +75,10 @@ const newNodelet = (name, key, secret) => {
 
     console.log('dblog: ' + JSON.stringify(dbLog))
 
+    if (!dbLog) {
+        db.createAll(nodelet.id)
+    }
+
     return
 
     let ws = undefined
