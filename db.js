@@ -58,7 +58,7 @@ module.exports = {
         client.query('UPDATE '+name+'\n' +
             vars +
             // 'set outtime = now()\n' +
-            ' WHERE id = (select max(id) from '+name+');', vars, (err, res) => {
+            ' WHERE id = (select max(id) from '+name+');', (err, res) => {
             if (err) throw err
             for (let row of res.rows) {
                 console.log(JSON.stringify(row))
