@@ -22,7 +22,8 @@ client.connect();
 // });
 
 
-client.query('SELECT * FROM log', (err, res) => {
+client.query('INSERT INTO log (text, time)\n' +
+    '  VALUES (\'Jerry\', 11), (\'George\', 22);', (err, res) => {
     if (err) throw err;
     for (let row of res.rows) {
         console.log(JSON.stringify(row));
