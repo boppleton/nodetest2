@@ -38,53 +38,53 @@ client.connect();
 //     // client.end();
 // });
 //
-// client.query('INSERT INTO strat (name, symbol, tf, tpPercent, stopPercent, size, scalePercent, scaleQty, scaleWeight, trigger, scaleChase ) ' +
-//     'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)',
-//     ['strat111', 'XBTUSD', 1, 0.36, 2.1, 10, 2, 20, 5, 'xdiv', true], (err, res) => {
-//         if (err) throw err;
-//         for (let row of res.rows) {
-//             console.log(JSON.stringify(row));
-//         }
-//         // client.end();
-//     });
+client.query('INSERT INTO strat (name, symbol, tf, tpPercent, stopPercent, size, scalePercent, scaleQty, scaleWeight, trigger, scaleChase ) ' +
+    'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)',
+    ['strat111', 'XBTUSD', 1, 0.36, 2.1, 10, 2, 20, 5, 'xdiv', true], (err, res) => {
+        if (err) throw err;
+        for (let row of res.rows) {
+            console.log(JSON.stringify(row));
+        }
+        // client.end();
+    });
 //
 //
 //
-// setInterval(()=>{
-//
-//     console.log('\n printing log..')
-//
-//     client.query('SELECT * FROM log', (err, res) => {
-//         if (err) throw err;
-//         for (let row of res.rows) {
-//             console.log(JSON.stringify(row));
-//         }
-//         // client.end();
-//     });
-//
-//     console.log('printing strat..')
-//
-//     client.query('SELECT * FROM strat', (err, res) => {
-//         if (err) throw err;
-//         for (let row of res.rows) {
-//             console.log(JSON.stringify(row));
-//         }
-//         // client.end();
-//     });
-//
-//     console.log('printing trades..')
-//
-//     client.query('SELECT * FROM trades', (err, res) => {
-//         if (err) throw err;
-//         for (let row of res.rows) {
-//             console.log(JSON.stringify(row));
-//         }
-//         // client.end();
-//     });
-//
-//
-//
-// },5000)
+setInterval(()=>{
+
+    console.log('\n printing log..')
+
+    client.query('SELECT * FROM log', (err, res) => {
+        if (err) throw err;
+        for (let row of res.rows) {
+            console.log(JSON.stringify(row));
+        }
+        // client.end();
+    });
+
+    console.log('printing strat..')
+
+    client.query('SELECT * FROM strat', (err, res) => {
+        if (err) throw err;
+        for (let row of res.rows) {
+            console.log(JSON.stringify(row));
+        }
+        // client.end();
+    });
+
+    console.log('printing trades..')
+
+    client.query('SELECT * FROM trades', (err, res) => {
+        if (err) throw err;
+        for (let row of res.rows) {
+            console.log(JSON.stringify(row));
+        }
+        // client.end();
+    });
+
+
+
+},5000)
 
 
 
@@ -130,26 +130,26 @@ client.connect();
 //     client.end();
 // });
 //
-client.query('CREATE TABLE strat (\n' +
-    '  ID SERIAL PRIMARY KEY,\n' +
-    '  name VARCHAR(30),\n' +
-    '  symbol VARCHAR(30),\n' +
-    '  tf NUMERIC\n,' +
-    '  tpPercent NUMERIC\n,' +
-    '  stopPercent NUMERIC\n,' +
-    '  size NUMERIC\n,' +
-    '  scalePercent NUMERIC\n,' +
-    '  scaleQty NUMERIC\n,' +
-    '  scaleWeight NUMERIC\n,' +
-    '  trigger VARCHAR(30)\n,' +
-    '  scaleChase BOOLEAN\n' +
-    ');', (err, res) => {
-    if (err) throw err;
-    for (let row of res.rows) {
-        console.log(JSON.stringify(row));
-    }
+// client.query('CREATE TABLE strat (\n' +
+//     '  ID SERIAL PRIMARY KEY,\n' +
+//     '  name VARCHAR(30),\n' +
+//     '  symbol VARCHAR(30),\n' +
+//     '  tf NUMERIC\n,' +
+//     '  tpPercent NUMERIC\n,' +
+//     '  stopPercent NUMERIC\n,' +
+//     '  size NUMERIC\n,' +
+//     '  scalePercent NUMERIC\n,' +
+//     '  scaleQty NUMERIC\n,' +
+//     '  scaleWeight NUMERIC\n,' +
+//     '  trigger VARCHAR(30)\n,' +
+//     '  scaleChase BOOLEAN\n' +
+//     ');', (err, res) => {
+//     if (err) throw err;
+//     for (let row of res.rows) {
+//         console.log(JSON.stringify(row));
+//     }
     // client.end();
-});
+// });
 
 // client.query('INSERT INTO log (text, time)\n' +
 //     '  VALUES (\'Jerry\', 11), (\'George\', 22);', (err, res) => {
