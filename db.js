@@ -40,7 +40,7 @@ module.exports = {
             varstring.concat('$'+(i+1)+(i===varstring.length-1?'':', '))
         }
 
-        client.query('INSERT INTO'+name+' ('+strings+')\n' +
+        client.query('INSERT INTO '+name+' ('+strings+')\n' +
             '  VALUES '+varstring+';', vars, (err, res) => {
             if (err) throw err
             for (let row of res.rows) {
