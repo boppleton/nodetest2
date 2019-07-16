@@ -20,7 +20,7 @@ newNodelet('dbbacc1', process.env['KEY'+(nodelets.length+1)], process.env['SEC'+
 
 newNodelet('dbbacc2', process.env['KEY'+(nodelets.length+1)], process.env['SEC'+(nodelets.length+1)])
 
-newNodelet = (name, key, secret) => {
+const newNodelet = (name, key, secret) => {
 
     console.log('starting new nodelet, name: ' + name)
 
