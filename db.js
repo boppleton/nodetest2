@@ -109,6 +109,12 @@ module.exports = {
         })
     },
 
+    truncate: (name) => {
+        client.query('TRUNCATE ' + name + ';', (err, res) => {
+            if (err) throw err
+        })
+    },
+
     createAll: (id) => {
 
         client.query('CREATE TABLE log'+id+' (\n' +

@@ -13,6 +13,15 @@ console.log('+++ starting botism node at ' + new Date())
 
 db.start()
 
+db.truncate('log1')
+db.truncate('log2')
+db.truncate('trades1')
+db.truncate('trades2')
+db.truncate('strat1')
+db.truncate('strat2')
+
+return
+
 let nodelets = []
 api.get('/nodelets', (req, res) => res.send(nodelets))
 
@@ -49,30 +58,65 @@ const newNodelet = (name, key, secret) => {
     nodelets.push(nodelet)
 
     setTimeout(()=>{
-        // nodelet.log = db.get('log'+nodelet.id)
-        // nodelet.trades = db.get('trades'+nodelet.id)
-        // nodelet.strat = db.get('strat'+nodelet.id)
-    },5000)
-
-    utils.loop(5000, ()=>{
         db.get('log'+nodelet.id, (log)=>{
-            if (log) {
-                nodelet.log = log
-            }
-        })
+                    if (log) {
+                        nodelet.log = log
+                    }
+                })
+
         db.get('trades'+nodelet.id, (trades)=>{
             if (trades) {
                 nodelet.trades = trades
             }
         })
+
         db.get('strat'+nodelet.id, (strat)=>{
             if (strat) {
                 nodelet.strat = strat
             }
         })
 
+        // nodelet.log = db.get('log'+nodelet.id)
+        // nodelet.trades = db.get('trades'+nodelet.id)
+        // nodelet.strat = db.get('strat'+nodelet.id)
+    },5000)
+
+    utils.loop(5000, ()=>{
+        // db.get('log'+nodelet.id, (log)=>{
+        //     if (log) {
+        //         nodelet.log = log
+        //     }
+        // })
+        // db.get('trades'+nodelet.id, (trades)=>{
+        //     if (trades) {
+        //         nodelet.trades = trades
+        //     }
+        // })
+
+        db.update('strat'+nodelet.id,
+            'name='+nodelet.strat.name +
+            ', symbol='+nodelet.strat.symbol +
+            ', tf='+nodelet.strat.tf +
+            ', tpPercent='+nodelet.strat.tpPercent +
+            ', stopPercent='+nodelet.strat.stopPercent +
+            ', size='+nodelet.strat.size +
+            ', scalePercent='+nodelet.strat.scalePercent +
+            ', scaleQty='+nodelet.strat.scaleQty +
+            ', scaleWeight='+nodelet.strat.scaleWeight +
+            ', trigger='+nodelet.strat.trigger +
+            ', scaleChase='+nodelet.strat.scaleChase
+        )
+
+
+
+        // db.get('strat'+nodelet.id, (strat)=>{
+        //     if (strat) {
+        //         nodelet.strat = strat
+        //     }
+        // })
+
         // console.log('trades: ' + JSON.stringify(trades))
-    }, 1000)
+    }, 2000)
 
 
     /// set data GET endpoints
@@ -81,8 +125,9 @@ const newNodelet = (name, key, secret) => {
 
     ///
     const log = s => {
-        // nodelet.log = [[s, new Date().getTime()], ...nodelet.log]
+        nodelet.log = [[s, new Date().getTime()], ...nodelet.log]
         db.add('log'+nodelet.id, 'text, time', [s, new Date().getTime() ])
+
 
         console.log('log: ')
         console.log(JSON.stringify(nodelet.log))
@@ -327,13 +372,22 @@ const newNodelet = (name, key, secret) => {
 
         t.diff = (((t.endBalance - t.startBalance) / t.startBalance) * 100).toFixed(2) + "%  ($" + ((t.endBalance - t.startBalance) * nodelet.currentBid).toFixed(2) + ")"
 
+
+        // db.update('trades'+nodelet.id,
+        //     'endBalance=' + nodelet.trades[0].endBalance + ', ' +
+        //     'pnl=' + nodelet.trades[0].pnl + ', ' +
+        //     'entryPrice=' + nodelet.trades[0].entryPrice + ', ' +
+        //     'resultMove=' + nodelet.trades[0].resultMove + ', ' +
+        //     'diff=' + nodelet.trades[0].diff
+        // )
+
     }, 2000)
 
     const triggerLoop = utils.loop(10000, () => {
 
         // console.log('nodelet ' + nodelet.id + ' triggerloop, balance: ' + nodelet.currentEquity)
 
-        log('triglooop')
+        // log('triglooop')
 
         if (!nodelet.running) {
             return
