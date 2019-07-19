@@ -106,7 +106,7 @@ module.exports = {
         client.query('UPDATE ' + name + '\n ' +
             'SET ' + vars +
             // 'set outtime = now(),\n' +
-            ' WHERE id = (select max(id) from ' + name + ');', (err, res) => {
+            ' WHERE id = 1;', (err, res) => {
             if (err) throw err
 
         })
