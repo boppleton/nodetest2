@@ -20,7 +20,7 @@ module.exports = {
         return client
     },
 
-    get: (name) => {
+    get: (name, callback) => {
         client.query('SELECT * FROM ' + name, (err, res) => {
             if (err) {
                 if (err.toString().includes('does not exist')) {
@@ -35,7 +35,8 @@ module.exports = {
                 // console.log(JSON.stringify(row))
             }
             // client.end();
-            return res.rows
+            // return res.rows
+            callback(res.rows)
         })
     },
 
