@@ -56,6 +56,8 @@ const newNodelet = (name, key, secret) => {
 
     utils.loop(5000, ()=>{
         let trades = db.get('trades'+nodelet.id)
+
+        console.log('trades: ' + JSON.stringify(trades))
     }, 5000)
 
 
