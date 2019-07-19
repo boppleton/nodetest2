@@ -91,13 +91,12 @@ const newNodelet = (name, key, secret) => {
         ])
 
 
-
-    setTimeout(()=>{
+    utils.loop(5000, ()=>{
         db.get('log'+nodelet.id, (log)=>{
-                    if (log) {
-                        nodelet.log = log
-                    }
-                })
+            if (log) {
+                nodelet.log = log
+            }
+        })
 
         db.get('trades'+nodelet.id, (trades)=>{
             if (trades) {
@@ -110,11 +109,16 @@ const newNodelet = (name, key, secret) => {
                 nodelet.strat = strat
             }
         })
+    }, 5000)
 
-        // nodelet.log = db.get('log'+nodelet.id)
-        // nodelet.trades = db.get('trades'+nodelet.id)
-        // nodelet.strat = db.get('strat'+nodelet.id)
-    },2000)
+
+    // setTimeout(()=>{
+    //
+    //
+    //     // nodelet.log = db.get('log'+nodelet.id)
+    //     // nodelet.trades = db.get('trades'+nodelet.id)
+    //     // nodelet.strat = db.get('strat'+nodelet.id)
+    // },2000)
 
     utils.loop(5000, ()=>{
 
