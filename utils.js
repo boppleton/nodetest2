@@ -1,8 +1,6 @@
-///
-/// setup the api server with base endpoint, returns obj to set GETs and POSTS from
-///
-
-const express = require('express')
+//
+// stuff
+//
 
 module.exports = {
 
@@ -10,7 +8,13 @@ module.exports = {
         setTimeout(() => {
             setInterval(fun, ms)
         }, timeout || 0)
-    }
+    },
+
+    last: (array) => {
+        return array[array.length-1]
+    },
+
+
 
 
 }
