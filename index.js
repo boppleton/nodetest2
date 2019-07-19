@@ -13,14 +13,14 @@ console.log('+++ starting botism node at ' + new Date())
 
 db.start()
 
-db.truncate('log1')
-db.truncate('log2')
-db.truncate('trades1')
-db.truncate('trades2')
-db.truncate('strat1')
-db.truncate('strat2')
-
-return
+// db.truncate('log1')
+// db.truncate('log2')
+// db.truncate('trades1')
+// db.truncate('trades2')
+// db.truncate('strat1')
+// db.truncate('strat2')
+//
+// return
 
 let nodelets = []
 api.get('/nodelets', (req, res) => res.send(nodelets))
