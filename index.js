@@ -129,14 +129,14 @@ const newNodelet = (name, key, secret) => {
         //     ', scaleChase='+nodelet.strat.scaleChase
         // )
 
-        utils.loop(20000, ()=>{
+        utils.loop(5000, ()=>{
 
             nodelet.strat.size = new Date().getTime()
 
-            console.log('vals: ' + Object.values(utils.last(nodelet.strat)))
+            console.log('vals: ' + _.values(utils.last(nodelet.strat)))
 
             db.deleteRecent('strat'+nodelet.id)
-            db.add('strat'+nodelet.id, 'ID', 'name, symbol, tf, tpPercent, stopPercent, size, scalePercent, scaleQty, scaleWeight, trigger, scaleChase', ...Object.values(utils.last(nodelet.strat)))
+            db.add('strat'+nodelet.id, 'ID', 'name, symbol, tf, tpPercent, stopPercent, size, scalePercent, scaleQty, scaleWeight, trigger, scaleChase', _.values(utils.last(nodelet.strat)))
 
             // db.update('strat'+nodelet.id, 'size=' + new Date().getTime())
 
