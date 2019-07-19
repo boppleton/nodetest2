@@ -208,7 +208,7 @@ const newNodelet = (name, key, secret) => {
     }
     const socketCloseListener = (e) => {
         console.error('deribit close')
-        log('deribit websocket: [close(brightred)] code: ' + e?e.code:'none' )
+        log('deribit websocket: [close(brightred)] code: ' + e.code||'none' )
 
         if (e && e.code === 1000) {
             return
