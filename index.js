@@ -62,7 +62,9 @@ const newNodelet = (name, key, secret) => {
 
     log('starting nodelet, name: ' + name)
 
-    db.addStrat(nodelet.id, [
+    db.add(nodelet.id,
+        'name, symbol, tf, tpPercent, stopPercent, size, scalePercent, scaleQty, scaleWeight, trigger, scaleChase'
+        ,[
         'stratname',
         'XBTUSD',
         1,
@@ -76,7 +78,9 @@ const newNodelet = (name, key, secret) => {
         true
     ])
 
-    db.addTrade(nodelet.id, [
+    db.addTrade(nodelet.id,
+        'trades', 'active, trigger, entryPrice, entrySize, tpPrice, stopPrice, startBalance, endingBalance, pnl, diff, resultType, resultMove, filled, startTime, endTime, endPrice, startStartEquity'
+        ,[
         false,
         0.01,
         1,
