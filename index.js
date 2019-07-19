@@ -282,7 +282,7 @@ const newNodelet = (name, key, secret) => {
     }
 
 
-    const checkPriceLoop = loop(300, () => {
+    const checkPriceLoop = utils.loop(300, () => {
 
         if (!nodelet.running) {
             return
@@ -293,7 +293,7 @@ const newNodelet = (name, key, secret) => {
         })
     }, 500)
 
-    const checkPositionLoop = loop(300, () => {
+    const checkPositionLoop = utils.loop(300, () => {
 
         if (!nodelet.running) {
             return
@@ -304,7 +304,7 @@ const newNodelet = (name, key, secret) => {
         })
     }, 1000)
 
-    const checkEquityLoop = loop(300, () => {
+    const checkEquityLoop = utils.loop(300, () => {
 
         if (!nodelet.running) {
             return
@@ -339,7 +339,7 @@ const newNodelet = (name, key, secret) => {
     }, 2000)
 
 
-    const triggerLoop = loop(10000, () => {
+    const triggerLoop = utils.loop(10000, () => {
 
         console.log('nodelet ' + nodelet.id + ' triggerloop, balance: ' + nodelet.currentEquity)
 
@@ -386,7 +386,7 @@ const newNodelet = (name, key, secret) => {
         }
     })
 
-    const getBarsLoop = loop(1000, () => {
+    const getBarsLoop = utils.loop(1000, () => {
 
         if (!nodelet.running) {
             return
@@ -412,7 +412,7 @@ const newNodelet = (name, key, secret) => {
             })
     })
 
-    const setCloseLoop = loop(1000, () => {
+    const setCloseLoop = utils.loop(1000, () => {
 
         if (!nodelet.running) {
             return
