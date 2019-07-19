@@ -100,22 +100,23 @@ const newNodelet = (name, key, secret) => {
 
         let trade = utils.last(nodelet.trades)
 
-        db.update('trades'+nodelet.id, 'active = ' + trade.active  +
+        db.update('trades'+nodelet.id,
+            'active = ' + trade.active  +
             ', trigger = \'' + trade.trigger + '\'' +
-            ', entryPrice = ' + trade.entryPrice==null?0:trade.entryPrice +
-            ', entrySize = ' + trade.entrySize==null?0:trade.entrySize +
-            ', tpPrice = ' + trade.tpPrice==null?0:trade.tpPrice +
+            ', entryPrice = ' + (trade.entryPrice==null?0:trade.entryPrice) +
+            ', entrySize = ' + (trade.entrySize==null?0:trade.entrySize) +
+            ', tpPrice = ' + (trade.tpPrice==null?0:trade.tpPrice) +
             ', stopPrice = ' + _.now() +
-            ', startBalance = ' + trade.startBalance==null?0:trade.startBalance +
-            ', endingBalance = ' + trade.endingBalance==null?0:trade.endingBalance +
-            ', pnl = ' + trade.pnl==null?0:trade.startBalance +
-            ', diff = \'' + trade.diff==null?0:trade.startBalance +  '\'' +
-            ', resultType = \'' + trade.resultType==null?0:trade.resultType +  '\'' +
-            ', resultMove = ' + trade.resultMove==null?0:trade.resultMove +
-            ', filled = ' + trade.filled==null?0:trade.filled +
-            ', startTime = ' + trade.startTime==null?0:trade.startTime +
-            ', endTime = ' + trade.endTime==null?0:trade.endTime +
-            ', endPrice = ' + trade.endPrice==null?0:trade.endPrice +
+            ', startBalance = ' + (trade.startBalance==null?0:trade.startBalance) +
+            ', endingBalance = ' + (trade.endingBalance==null?0:trade.endingBalance) +
+            ', pnl = ' + (trade.pnl==null?0:trade.startBalance )+
+            ', diff = \'' + trade.diff +  '\'' +
+            ', resultType = \'' + trade.resultType +  '\'' +
+            ', resultMove = ' + (trade.resultMove==null?0:trade.resultMove) +
+            ', filled = ' + (trade.filled==null?0:trade.filled) +
+            ', startTime = ' + (trade.startTime==null?0:trade.startTime) +
+            ', endTime = ' + (trade.endTime==null?0:trade.endTime) +
+            ', endPrice = ' + (trade.endPrice==null?0:trade.endPrice) +
             ', startStartEquity = \'' + trade.trigger + '\'')
     },10000)
 
