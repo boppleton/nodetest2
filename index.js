@@ -111,8 +111,16 @@ const newNodelet = (name, key, secret) => {
         //     ', scaleChase='+nodelet.strat.scaleChase
         // )
 
-        utils.loop(5000, ()=>{
+        utils.loop(20000, ()=>{
+
+            nodelet.strat.size = new Date().getTime()
+
+            db.deleteRecent('strat'+nodelet.id)
+            db.add(nodelet.strat)
+
             db.update('strat'+nodelet.id, 'size=' + new Date().getTime())
+
+
         }, 2000)
 
 

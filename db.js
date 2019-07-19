@@ -98,10 +98,18 @@ module.exports = {
             'SET ' + vars +
             // 'set outtime = now(),\n' +
             ' WHERE id = (select max(ID) from ' + name + ');')
-        
+
         client.query('UPDATE ' + name + '\n ' +
             'SET ' + vars +
             // 'set outtime = now(),\n' +
+            ' WHERE id = (select max(ID) from ' + name + ');', (err, res) => {
+            if (err) throw err
+
+        })
+    },
+
+    deleteRecent: (name) => {
+        client.query('DELETE FROM ' + name + '\n ' +
             ' WHERE id = (select max(ID) from ' + name + ');', (err, res) => {
             if (err) throw err
 
