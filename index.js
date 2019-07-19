@@ -74,21 +74,21 @@ const newNodelet = (name, key, secret) => {
 
     // db.createAll(nodelet.id)
 
-    db.add('strat'+nodelet.id,
-        'name, symbol, tf, tpPercent, stopPercent, size, scalePercent, scaleQty, scaleWeight, trigger, scaleChase'
-        ,[
-            'stratname',
-            'XBTUSD',
-            1,
-            0.36,
-            4.1,
-            5,
-            4,
-            20,
-            3,
-            'xdiv',
-            true
-        ])
+    // db.add('strat'+nodelet.id,
+    //     'name, symbol, tf, tpPercent, stopPercent, size, scalePercent, scaleQty, scaleWeight, trigger, scaleChase'
+    //     ,[
+    //         'stratname',
+    //         'XBTUSD',
+    //         1,
+    //         0.36,
+    //         4.1,
+    //         5,
+    //         4,
+    //         20,
+    //         3,
+    //         'xdiv',
+    //         true
+    //     ])
 
 
     // utils.loop(5000, ()=>{
@@ -149,28 +149,28 @@ const newNodelet = (name, key, secret) => {
 
 
 
-    db.add('trades'+nodelet.id,
-        'active, trigger, entryPrice, entrySize, tpPrice, stopPrice, startBalance, endingBalance, ' +
-        'pnl, diff, resultType, resultMove, filled, startTime, endTime, endPrice, startStartEquity'
-        ,[
-        false,
-        'xdiv',
-        21,
-        21,
-        31,
-        31,
-        31,
-        31.2,
-        31,
-        31,
-        'tp',
-        31,
-        31,
-        31,
-        31,
-        31,
-        0.01
-    ])
+    // db.add('trades'+nodelet.id,
+    //     'active, trigger, entryPrice, entrySize, tpPrice, stopPrice, startBalance, endingBalance, ' +
+    //     'pnl, diff, resultType, resultMove, filled, startTime, endTime, endPrice, startStartEquity'
+    //     ,[
+    //     false,
+    //     'xdiv',
+    //     21,
+    //     21,
+    //     31,
+    //     31,
+    //     31,
+    //     31.2,
+    //     31,
+    //     31,
+    //     'tp',
+    //     31,
+    //     31,
+    //     31,
+    //     31,
+    //     31,
+    //     0.01
+    // ])
 
     let ws = null
 
