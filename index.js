@@ -128,11 +128,10 @@ const newNodelet = (name, key, secret) => {
     // }, 10000)
 
 
-    log('[nodelet ' + nodelet.id + ' starting..(' + '#46ffc7' + ')]')
 
 
 
-    return
+
 
 
     /// deribit ws
@@ -357,6 +356,9 @@ const newNodelet = (name, key, secret) => {
         if (nodelet.strat.trigger === 'xdiv') {
             trigger = xdiv()
         }
+
+
+        log('[nodelet ' + nodelet.id + ' triggerloop..(' + '#46ffc7' + ')]')
 
         return
 
