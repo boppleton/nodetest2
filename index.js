@@ -72,7 +72,7 @@ const newNodelet = (name, key, secret) => {
     }
     nodelets.push(nodelet)
 
-    db.createAll(nodelet.id)
+    // db.createAll(nodelet.id)
 
     db.add('strat'+nodelet.id,
         'name, symbol, tf, tpPercent, stopPercent, size, scalePercent, scaleQty, scaleWeight, trigger, scaleChase'
