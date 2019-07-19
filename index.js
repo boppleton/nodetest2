@@ -70,23 +70,23 @@ const newNodelet = (name, key, secret) => {
     }
     nodelets.push(nodelet)
 
-    db.createAll(nodelet.id)
+    // db.createAll(nodelet.id)
 
-    // db.add('strat'+nodelet.id,
-    //     'name, symbol, tf, tpPercent, stopPercent, size, scalePercent, scaleQty, scaleWeight, trigger, scaleChase'
-    //     ,[
-    //         'stratname',
-    //         'XBTUSD',
-    //         1,
-    //         0.36,
-    //         4.1,
-    //         5,
-    //         4,
-    //         20,
-    //         3,
-    //         'xdiv',
-    //         true
-    //     ])
+    db.add('strat'+nodelet.id,
+        'name, symbol, tf, tpPercent, stopPercent, size, scalePercent, scaleQty, scaleWeight, trigger, scaleChase'
+        ,[
+            'stratname',
+            'XBTUSD',
+            1,
+            0.36,
+            4.1,
+            5,
+            4,
+            20,
+            3,
+            'xdiv',
+            true
+        ])
 
 
 
