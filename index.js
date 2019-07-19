@@ -1,6 +1,6 @@
-///
+
 /// botism node v1.2
-///
+
 require('dotenv').config();
 const WebSocket = require('ws')
 const rp = require('request-promise')
@@ -9,107 +9,57 @@ const api = require('./api.js').start()
 const db = require('./db.js')
 const utils = require('./utils.js')
 
-console.log('starting botism node at ' + new Date())
+console.log('+++ starting botism node at ' + new Date())
 
 db.start()
-
-// db.drop('log1')
-
-
-// console.log(JSON.stringify(db.get('log1')))
-
 
 let nodelets = []
 api.get('/nodelets', (req, res) => res.send(nodelets))
 
-
-
-
-// db.createAll(1)
-
-// db.createAll(2)
+setTimeout(()=>{newNodelet('dbbacc2', process.env['KEY'+(nodelets.length+1)], process.env['SEC'+(nodelets.length+1)])},2000)
+setTimeout(()=>{newNodelet('dbbacc2', process.env['KEY'+(nodelets.length+1)], process.env['SEC'+(nodelets.length+1)])},10000)
 
 const newNodelet = (name, key, secret) => {
 
     console.log('starting nodelet, name: ' + name)
 
-
     let nodelet = {
         id: nodelets.length + 1,
-        running: true,
+        running: false,
         name: name,
-
         pnlAll: 0,
-
         startingEquity: 0,
-
         currentBid: 0,
         currentSize: 0,
         currentEntry: 0,
         currentEquity: 0,
-
         lastEquity: 0,
         lastCloseSize: 0,
         closeID: 0,
-
         resetCount: 0,
         lastBid: 0,
-
-        info: {start: true},
+        info: {info: 'hi'},
 
     }
-
-    nodelet.log = db.get('log'+nodelet.id)
-
-    nodelet.trades = db.get('trades'+nodelet.id)
-
-    nodelet.strat = db.get('strat'+nodelet.id)
-
-
-
     nodelets.push(nodelet)
 
-    // db.add('log'+nodelet.id, 'text, time', ['hiiii', 900000000 ])
-
-    // let dbLog = db.get('log'+nodelet.id)
-
-    // setTimeout(()=>{
-    //     if (!dbLog===undefined) {
-    //         console.log('createall..')
-    //         db.createAll(nodelet.id)
-    //     }
-    //
-    //     console.log('dblog: ' + JSON.stringify(dbLog))
-    //
-    // },3000)
-
-
-
-
-    let ws = undefined
-
-    let bars = []
+    nodelet.log = db.get('log'+nodelet.id)
+    nodelet.trades = db.get('trades'+nodelet.id)
+    nodelet.strat = db.get('strat'+nodelet.id)
 
     /// set data GET endpoints
     _.forEach(['strat', 'trades', 'log', 'info'], name =>
         api.get('/' + nodelet.id + '/' + name, (req, res) => res.send(nodelet[name])))
 
-
     ///
     const log = s => {
-        // nodelet.log = [[s, new Date().getTime()], ...nodelet.log]
-
+        nodelet.log = [[s, new Date().getTime()], ...nodelet.log]
         db.add('log'+nodelet.id, 'text, time', [s, new Date().getTime() ])
-
-
     }
 
     log('starting nodelet, name: ' + name)
 
-    console.log('starting log: ' + JSON.stringify(nodelet.log))
-
-
-    db.addStrat({
+    db.addStrat(nodelet.id, {
         name: 'stratname',
         symbol: 'XBTUSD',
         tf: 1,
@@ -123,34 +73,27 @@ const newNodelet = (name, key, secret) => {
         scaleChase: true
     })
 
-    // setInterval(()=>{
-    //
-    //     console.log('loop start')
-    //
-    //     let currentLog = db.get('log')
-    //
-    //     console.log('logdb:')
-    //
-    //     console.log(currentLog)
-    //
-    //     console.log('adding to it now')
-    //
-    //
-    //
-    //     // log('heyooo ' + Math.random())
-    //
-    //     db.update('log', 'text=\'updated\', time=9001')
-    //
-    //
-    //
-    // }, 10000)
+    db.addTrade(nodelet.id, {
+        active: false,
+        trigger: 0.01,
+        entryPrice: 1,
+        entrySize: 1,
+        tpPrice: 1,
+        stopPrice: 1,
+        startBalance: 1,
+        endingBalance: 1.2,
+        pnl: 1,
+        diff: 1,
+        resultType: 'tp',
+        resultMove: 1,
+        filled: 1,
+        startTime: 1,
+        endTime: 1,
+        endPrice: 1,
+        startStartEquity: 0.01
+    })
 
-
-
-
-
-
-
+    let ws = null
 
     /// deribit ws
     const socketMessageListener = (msg) => {
@@ -174,7 +117,6 @@ const newNodelet = (name, key, secret) => {
             if (nodelet.lastEquity === 0) {
                 nodelet.lastEquity = nodelet.currentEquity
             }
-
 
         } else if (msgg.result.total_profit_loss !== undefined) {
             //position message
@@ -208,7 +150,7 @@ const newNodelet = (name, key, secret) => {
     }
     const socketErrorListener = (e) => {
         log('deribit websocket: [error(orange)]: ' + JSON.stringify(e))
-        // errorCatcher('deribitWebsocket', e)
+        errorCatcher('deribitWebsocket', e)
     }
     const socketCloseListener = (e) => {
         console.error('deribit close')
@@ -238,8 +180,6 @@ const newNodelet = (name, key, secret) => {
 
         nodelet.strat.running = true
 
-        // nodelet.strat.running = true
-
         if (nodelet.running) {
             socketCloseListener()
         }
@@ -255,7 +195,6 @@ const newNodelet = (name, key, secret) => {
 
         nodelet.strat.running = false
 
-
         if (nodelet.running) {
             socketCloseListener()
         } else {
@@ -263,7 +202,6 @@ const newNodelet = (name, key, secret) => {
         }
 
     })
-
 
     api.post('/' + nodelet.id + '/strat', function (request, response) {
         // console.log('request: '+request.body.namee);
@@ -279,16 +217,13 @@ const newNodelet = (name, key, secret) => {
 
     })
 
-    //
-// universal method for exchange api calls
+
+
+    /// universal method for exchange api calls
     const _api_ = (exchange, path, params) => {
         if (exchange === 'deribit') {
 
-            if (ws.readyState === 0) {
-                return
-            }
-
-            // console.log('path ' + path)
+            if (ws.readyState === 0) {return}
 
             ws.send(JSON.stringify({
                 "jsonrpc": "2.0",
@@ -337,9 +272,9 @@ const newNodelet = (name, key, secret) => {
 
         let t = nodelet.trades[0]
 
-        // if (!t) {
-        //     return
-        // }
+        if (!t) {
+            return
+        }
 
         nodelet.trades[0].endBalance = nodelet.currentEquity
         nodelet.trades[0].pnl = (t.endBalance - t.startBalance).toFixed(8)
@@ -357,7 +292,6 @@ const newNodelet = (name, key, secret) => {
         t.diff = (((t.endBalance - t.startBalance) / t.startBalance) * 100).toFixed(2) + "%  ($" + ((t.endBalance - t.startBalance) * nodelet.currentBid).toFixed(2) + ")"
 
     }, 2000)
-
 
     const triggerLoop = utils.loop(10000, () => {
 
@@ -405,6 +339,8 @@ const newNodelet = (name, key, secret) => {
             newTrade('xdiv')
         }
     })
+
+    let bars = []
 
     const getBarsLoop = utils.loop(1000, () => {
 
@@ -1278,11 +1214,3 @@ const newNodelet = (name, key, secret) => {
 
 }
 
-
-newNodelet('dbbacc1', process.env['KEY'+(nodelets.length+1)], process.env['SEC'+(nodelets.length+1)])
-
-setTimeout(()=>{
-
-    newNodelet('dbbacc2', process.env['KEY'+(nodelets.length+1)], process.env['SEC'+(nodelets.length+1)])
-
-},5000)
