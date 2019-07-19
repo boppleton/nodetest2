@@ -40,10 +40,10 @@ const newNodelet = (name, key, secret) => {
         lastBid: 0,
         info: {info: 'hi'},
 
-        log: null,
-        trades: null,
-        strat: null,
-        info: null
+        log: [],
+        trades: [],
+        strat: [],
+        info: []
 
     }
     nodelets.push(nodelet)
