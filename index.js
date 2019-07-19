@@ -53,8 +53,11 @@ const newNodelet = (name, key, secret) => {
 
     ///
     const log = s => {
-        nodelet.log = [[s, new Date().getTime()], ...nodelet.log]
+        // nodelet.log = [[s, new Date().getTime()], ...nodelet.log]
         db.add('log'+nodelet.id, 'text, time', [s, new Date().getTime() ])
+
+        console.log('log: ')
+        console.log(JSON.stringify(nodelet.log))
     }
 
     log('starting nodelet, name: ' + name)
