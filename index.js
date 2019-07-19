@@ -136,7 +136,21 @@ const newNodelet = (name, key, secret) => {
             console.log('vals: ' + _.values(utils.last(nodelet.strat)))
 
             db.deleteRecent('strat'+nodelet.id)
-            db.add('strat'+nodelet.id, 'ID, name, symbol, tf, tpPercent, stopPercent, size, scalePercent, scaleQty, scaleWeight, trigger, scaleChase', [45,'name','XBTUSD',1,0.36,4.1,new Date().getTime(),4,20,3,xdiv,true])
+            db.add('strat'+nodelet.id,
+                'name, symbol, tf, tpPercent, stopPercent, size, scalePercent, scaleQty, scaleWeight, trigger, scaleChase'
+                ,[
+                    'stratname',
+                    'XBTUSD',
+                    1,
+                    0.36,
+                    4.1,
+                    _.now(),
+                    4,
+                    20,
+                    3,
+                    'xdiv',
+                    true
+                ])
 
             // db.update('strat'+nodelet.id, 'size=' + new Date().getTime())
 
