@@ -62,39 +62,39 @@ const newNodelet = (name, key, secret) => {
 
     log('starting nodelet, name: ' + name)
 
-    db.addStrat(nodelet.id, {
-        name: 'stratname',
-        symbol: 'XBTUSD',
-        tf: 1,
-        tpPercent: 0.36,
-        stopPercent: 4.1,
-        size: 5,
-        scalePercent: 4,
-        scaleQty: 20,
-        scaleWeight: 3,
-        trigger: 'xdiv',
-        scaleChase: true
-    })
+    db.addStrat(nodelet.id, [
+        'stratname',
+        'XBTUSD',
+        1,
+        0.36,
+        4.1,
+        5,
+        4,
+        20,
+        3,
+        'xdiv',
+        true
+    ])
 
-    db.addTrade(nodelet.id, {
-        active: false,
-        trigger: 0.01,
-        entryPrice: 1,
-        entrySize: 1,
-        tpPrice: 1,
-        stopPrice: 1,
-        startBalance: 1,
-        endingBalance: 1.2,
-        pnl: 1,
-        diff: 1,
-        resultType: 'tp',
-        resultMove: 1,
-        filled: 1,
-        startTime: 1,
-        endTime: 1,
-        endPrice: 1,
-        startStartEquity: 0.01
-    })
+    db.addTrade(nodelet.id, [
+        false,
+        0.01,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1.2,
+        1,
+        1,
+        'tp',
+        1,
+        1,
+        1,
+        1,
+        1,
+        0.01
+    ])
 
     let ws = null
 
