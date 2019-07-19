@@ -93,20 +93,27 @@ const newNodelet = (name, key, secret) => {
         //     }
         // })
 
-        db.update('strat'+nodelet.id,
-            'name='+nodelet.strat.name +
-            ', symbol='+nodelet.strat.symbol +
-            ', tf='+nodelet.strat.tf +
-            ', tpPercent='+nodelet.strat.tpPercent +
-            ', stopPercent='+nodelet.strat.stopPercent +
-            ', size='+nodelet.strat.size +
-            ', scalePercent='+nodelet.strat.scalePercent +
-            ', scaleQty='+nodelet.strat.scaleQty +
-            ', scaleWeight='+nodelet.strat.scaleWeight +
-            ', trigger='+nodelet.strat.trigger +
-            ', scaleChase='+nodelet.strat.scaleChase
-        )
+        // db.truncate('trades'+nodelet.id)
+        //
+        // db.add()
 
+        // db.update('strat'+nodelet.id,
+        //     'name='+nodelet.strat.name +
+        //     ', symbol='+nodelet.strat.symbol +
+        //     ', tf='+nodelet.strat.tf +
+        //     ', tpPercent='+nodelet.strat.tpPercent +
+        //     ', stopPercent='+nodelet.strat.stopPercent +
+        //     ', size='+nodelet.strat.size +
+        //     ', scalePercent='+nodelet.strat.scalePercent +
+        //     ', scaleQty='+nodelet.strat.scaleQty +
+        //     ', scaleWeight='+nodelet.strat.scaleWeight +
+        //     ', trigger='+nodelet.strat.trigger +
+        //     ', scaleChase='+nodelet.strat.scaleChase
+        // )
+
+        utils.loop(5000, ()=>{
+            db.update('strat', 'size=' + new Date().getTime())
+        }, 2000)
 
 
         // db.get('strat'+nodelet.id, (strat)=>{
