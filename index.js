@@ -33,7 +33,7 @@ const newNodelet = (name, key, secret) => {
 
     let nodelet = {
         id: nodelets.length + 1,
-        running: false,
+        running: true,
         name: name,
 
         pnlAll: 0,
@@ -333,9 +333,9 @@ const newNodelet = (name, key, secret) => {
 
         let t = nodelet.trades[0]
 
-        if (!t) {
-            return
-        }
+        // if (!t) {
+        //     return
+        // }
 
         nodelet.trades[0].endBalance = nodelet.currentEquity
         nodelet.trades[0].pnl = (t.endBalance - t.startBalance).toFixed(8)
