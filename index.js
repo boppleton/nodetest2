@@ -79,7 +79,7 @@ const newNodelet = (name, key, secret) => {
     ])
 
     db.addTrade(nodelet.id,
-        'trades', 'active, trigger, entryPrice, entrySize, tpPrice, stopPrice, startBalance, endingBalance, pnl, diff, resultType, resultMove, filled, startTime, endTime, endPrice, startStartEquity'
+        'active, trigger, entryPrice, entrySize, tpPrice, stopPrice, startBalance, endingBalance, pnl, diff, resultType, resultMove, filled, startTime, endTime, endPrice, startStartEquity'
         ,[
         false,
         0.01,
