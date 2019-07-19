@@ -102,7 +102,12 @@ const newNodelet = (name, key, secret) => {
     ///
     const log = s => {
         // nodelet.log = [[s, new Date().getTime()], ...nodelet.log]
-        db.add('log'+nodelet.id, 'text, time', [s, 900000000 ])
+        if (dbLog.length) {
+            db.add('log'+nodelet.id, 'text, time', [s, 900000000 ])
+        } else {
+            console.log('!!!!!!!!!!!!!!11couldnt log ' + s)
+        }
+
     }
 
     // setInterval(()=>{

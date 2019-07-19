@@ -43,13 +43,10 @@ module.exports = {
 
         let varstring = ''
 
-        console.log('vars ' + vars)
         for (let i = 0; i < vars.length; i++) {
-            console.log('add..')
             varstring = varstring + ('$' + (i + 1) + (i === vars.length - 1 ? '' : ', '))
         }
 
-        console.log('varstring: ' + varstring)
 
         client.query('INSERT INTO ' + name + ' (' + strings + ')\n' +
             '  VALUES (' + varstring + ');', vars, (err, res) => {
