@@ -48,9 +48,9 @@ module.exports = {
             varstring = varstring + ('$' + (i + 1) + (i === vars.length - 1 ? '' : ', '))
         }
 
-        console.log('add vars: ' + JSON.stringify(vars))
-
-        console.log('len: ' + vars.length + 'varstrong: ' + varstring)
+        // console.log('add vars: ' + JSON.stringify(vars))
+        //
+        // console.log('len: ' + vars.length + 'varstrong: ' + varstring)
 
 
         client.query('INSERT INTO ' + name + ' (' + strings + ')\n' +

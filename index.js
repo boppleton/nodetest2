@@ -13,14 +13,14 @@ console.log('+++ starting botism node at ' + new Date())
 
 db.start()
 
-// db.drop('strat1')
-//
-// db.drop('strat2')
-// db.drop('log1')
-// db.drop('log2')
-//
-// db.drop('trades1')
-// db.drop('trades2')
+db.drop('strat1')
+
+db.drop('strat2')
+db.drop('log1')
+db.drop('log2')
+
+db.drop('trades1')
+db.drop('trades2')
 
 // db.truncate('log1')
 // db.truncate('log2')
@@ -68,7 +68,7 @@ const newNodelet = (name, key, secret) => {
     }
     nodelets.push(nodelet)
 
-    // db.createAll(nodelet.id)
+    db.createAll(nodelet.id)
 
     db.add('strat'+nodelet.id,
         'name, symbol, tf, tpPercent, stopPercent, size, scalePercent, scaleQty, scaleWeight, trigger, scaleChase'
@@ -114,28 +114,8 @@ const newNodelet = (name, key, secret) => {
 
     utils.loop(5000, ()=>{
 
-        nodelet.strat.size = new Date().getTime()
 
-        console.log('vals: ' + _.values(utils.last(nodelet.strat)))
-
-        db.deleteRecent('strat'+nodelet.id)
-        db.add('strat'+nodelet.id,
-            'name, symbol, tf, tpPercent, stopPercent, size, scalePercent, scaleQty, scaleWeight, trigger, scaleChase'
-            ,[
-                'stratname',
-                'XBTUSD',
-                1,
-                0.36,
-                4.1,
-                _.now(),
-                4,
-                20,
-                3,
-                'xdiv',
-                true
-            ])
-
-        // db.update('strat'+nodelet.id, 'size=' + new Date().getTime())
+        db.update('strat'+nodelet.id, 'size=' + new Date().getTime())
 
 
     }, 2000)
