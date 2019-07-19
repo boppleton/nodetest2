@@ -113,72 +113,32 @@ const newNodelet = (name, key, secret) => {
     },2000)
 
     utils.loop(5000, ()=>{
-        // db.get('log'+nodelet.id, (log)=>{
-        //     if (log) {
-        //         nodelet.log = log
-        //     }
-        // })
-        // db.get('trades'+nodelet.id, (trades)=>{
-        //     if (trades) {
-        //         nodelet.trades = trades
-        //     }
-        // })
 
-        // db.truncate('trades'+nodelet.id)
-        //
-        // db.add()
+        nodelet.strat.size = new Date().getTime()
 
-        // db.update('strat'+nodelet.id,
-        //     'name='+nodelet.strat.name +
-        //     ', symbol='+nodelet.strat.symbol +
-        //     ', tf='+nodelet.strat.tf +
-        //     ', tpPercent='+nodelet.strat.tpPercent +
-        //     ', stopPercent='+nodelet.strat.stopPercent +
-        //     ', size='+nodelet.strat.size +
-        //     ', scalePercent='+nodelet.strat.scalePercent +
-        //     ', scaleQty='+nodelet.strat.scaleQty +
-        //     ', scaleWeight='+nodelet.strat.scaleWeight +
-        //     ', trigger='+nodelet.strat.trigger +
-        //     ', scaleChase='+nodelet.strat.scaleChase
-        // )
+        console.log('vals: ' + _.values(utils.last(nodelet.strat)))
 
-        utils.loop(5000, ()=>{
+        db.deleteRecent('strat'+nodelet.id)
+        db.add('strat'+nodelet.id,
+            'name, symbol, tf, tpPercent, stopPercent, size, scalePercent, scaleQty, scaleWeight, trigger, scaleChase'
+            ,[
+                'stratname',
+                'XBTUSD',
+                1,
+                0.36,
+                4.1,
+                _.now(),
+                4,
+                20,
+                3,
+                'xdiv',
+                true
+            ])
 
-            nodelet.strat.size = new Date().getTime()
-
-            console.log('vals: ' + _.values(utils.last(nodelet.strat)))
-
-            db.deleteRecent('strat'+nodelet.id)
-            db.add('strat'+nodelet.id,
-                'name, symbol, tf, tpPercent, stopPercent, size, scalePercent, scaleQty, scaleWeight, trigger, scaleChase'
-                ,[
-                    'stratname',
-                    'XBTUSD',
-                    1,
-                    0.36,
-                    4.1,
-                    _.now(),
-                    4,
-                    20,
-                    3,
-                    'xdiv',
-                    true
-                ])
-
-            // db.update('strat'+nodelet.id, 'size=' + new Date().getTime())
+        // db.update('strat'+nodelet.id, 'size=' + new Date().getTime())
 
 
-        }, 2000)
-
-
-        // db.get('strat'+nodelet.id, (strat)=>{
-        //     if (strat) {
-        //         nodelet.strat = strat
-        //     }
-        // })
-
-        // console.log('trades: ' + JSON.stringify(trades))
-    }, 5000)
+    }, 2000)
 
 
     /// set data GET endpoints
