@@ -13,14 +13,14 @@ console.log('+++ starting botism node at ' + new Date())
 
 db.start()
 
-db.drop('strat1')
-
-db.drop('strat2')
-db.drop('log1')
-db.drop('log2')
-
-db.drop('trades1')
-db.drop('trades2')
+// db.drop('strat1')
+//
+// db.drop('strat2')
+// db.drop('log1')
+// db.drop('log2')
+//
+// db.drop('trades1')
+// db.drop('trades2')
 
 // db.truncate('log1')
 // db.truncate('log2')
