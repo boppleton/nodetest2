@@ -96,6 +96,29 @@ const newNodelet = (name, key, secret) => {
     // }, 5000)
 
 
+    utils.loop(1000, ()=>{
+
+        let trade = utils.last(nodelet.trades)
+
+        db.update('trades'+nodelet.id, 'active = ' + trade.active  +
+            ', trigger = \'' + trade.trigger + '\'' +
+            ', entryPrice = ' + trade.entryPrice +
+            ', entrySize = ' + trade.entrySize +
+            ', tpPrice = ' + trade.tpPrice +
+            ', stopPrice = ' + _.now() +
+            ', startBalance = ' + trade.startBalance +
+            ', endingBalance = ' + trade.endingBalance +
+            ', pnl = ' + trade.pnl +
+            ', diff = \'' + trade.diff +  '\'' +
+            ', resultType = \'' + trade.resultType +  '\'' +
+            ', resultMove = ' + trade.resultMove +
+            ', filled = ' + trade.filled +
+            ', startTime = ' + trade.startTime +
+            ', endTime = ' + trade.endTime +
+            ', endPrice = ' + trade.endPrice +
+            ', startStartEquity = \'' + trade.trigger + '\'')
+    },10000)
+
     setTimeout(()=>{
 
         db.get('log'+nodelet.id, (log)=>{
@@ -149,28 +172,28 @@ const newNodelet = (name, key, secret) => {
 
 
 
-    // db.add('trades'+nodelet.id,
-    //     'active, trigger, entryPrice, entrySize, tpPrice, stopPrice, startBalance, endingBalance, ' +
-    //     'pnl, diff, resultType, resultMove, filled, startTime, endTime, endPrice, startStartEquity'
-    //     ,[
-    //     false,
-    //     'xdiv',
-    //     21,
-    //     21,
-    //     31,
-    //     31,
-    //     31,
-    //     31.2,
-    //     31,
-    //     31,
-    //     'tp',
-    //     31,
-    //     31,
-    //     31,
-    //     31,
-    //     31,
-    //     0.01
-    // ])
+    db.add('trades'+nodelet.id,
+        'active, trigger, entryPrice, entrySize, tpPrice, stopPrice, startBalance, endingBalance, ' +
+        'pnl, diff, resultType, resultMove, filled, startTime, endTime, endPrice, startStartEquity'
+        ,[
+        false,
+        'xdiv',
+        21,
+        21,
+        31,
+        31,
+        31,
+        31.2,
+        31,
+        31,
+        'tp',
+        31,
+        31,
+        31,
+        31,
+        31,
+        0.01
+    ])
 
     let ws = null
 
