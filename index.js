@@ -57,6 +57,24 @@ const newNodelet = (name, key, secret) => {
     }
     nodelets.push(nodelet)
 
+    db.add('strat'+nodelet.id,
+        'name, symbol, tf, tpPercent, stopPercent, size, scalePercent, scaleQty, scaleWeight, trigger, scaleChase'
+        ,[
+            'stratname',
+            'XBTUSD',
+            1,
+            0.36,
+            4.1,
+            5,
+            4,
+            20,
+            3,
+            'xdiv',
+            true
+        ])
+
+
+
     setTimeout(()=>{
         db.get('log'+nodelet.id, (log)=>{
                     if (log) {
@@ -79,7 +97,7 @@ const newNodelet = (name, key, secret) => {
         // nodelet.log = db.get('log'+nodelet.id)
         // nodelet.trades = db.get('trades'+nodelet.id)
         // nodelet.strat = db.get('strat'+nodelet.id)
-    },5000)
+    },2000)
 
     utils.loop(5000, ()=>{
         // db.get('log'+nodelet.id, (log)=>{
@@ -131,7 +149,7 @@ const newNodelet = (name, key, secret) => {
         // })
 
         // console.log('trades: ' + JSON.stringify(trades))
-    }, 2000)
+    }, 5000)
 
 
     /// set data GET endpoints
@@ -150,21 +168,7 @@ const newNodelet = (name, key, secret) => {
 
     log('starting nodelet, name: ' + name)
 
-    db.add('strat'+nodelet.id,
-        'name, symbol, tf, tpPercent, stopPercent, size, scalePercent, scaleQty, scaleWeight, trigger, scaleChase'
-        ,[
-        'stratname',
-        'XBTUSD',
-        1,
-        0.36,
-        4.1,
-        5,
-        4,
-        20,
-        3,
-        'xdiv',
-        true
-    ])
+
 
     db.add('trades'+nodelet.id,
         'active, trigger, entryPrice, entrySize, tpPrice, stopPrice, startBalance, endingBalance, ' +
