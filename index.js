@@ -61,7 +61,7 @@ const newNodelet = (name, key, secret) => {
             }
         })
 
-        console.log('trades: ' + JSON.stringify(trades))
+        // console.log('trades: ' + JSON.stringify(trades))
     }, 5000)
 
 
