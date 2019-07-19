@@ -291,6 +291,22 @@ const newNodelet = (name, key, secret) => {
 
         console.log(nodelet.strat)
 
+        db.add('strat'+nodelet.id,
+            'name, symbol, tf, tpPercent, stopPercent, size, scalePercent, scaleQty, scaleWeight, trigger, scaleChase'
+            ,[
+                nodelet.strat.name,
+                nodelet.strat.symbol,
+                nodelet.strat.tf,
+                nodelet.strat.tpPercent,
+                nodelet.strat.stopPercent,
+                nodelet.strat.size,
+                nodelet.strat.scalePercent,
+                nodelet.strat.scaleQty,
+                nodelet.strat.scaleWeight,
+                nodelet.strat.trigger,
+                nodelet.strat.scaleChase
+            ])
+
 
     })
 
