@@ -13,6 +13,10 @@ console.log('starting botism node at ' + new Date())
 
 db.start()
 
+db.truncate('log1')
+
+return
+
 let nodelets = []
 api.get('/nodelets', (req, res) => res.send(nodelets))
 
@@ -73,7 +77,7 @@ const newNodelet = (name, key, secret) => {
     let dbLog = db.get('log'+nodelet.id)
 
     setTimeout(()=>{
-        if (dbLog===undefined) {
+        if (!dbLog.length) {
             console.log('createall..')
             db.createAll(nodelet.id)
         }
