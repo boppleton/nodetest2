@@ -116,7 +116,7 @@ const newNodelet = (name, key, secret) => {
             nodelet.strat.size = new Date().getTime()
 
             db.deleteRecent('strat'+nodelet.id)
-            db.add(nodelet.strat)
+            db.add('strat'+nodelet.id, 'name, symbol, tf, tpPercent, stopPercent, size, scalePercent, scaleQty, scaleWeight, trigger, scaleChase', Object.values(nodelet.strat))
 
             db.update('strat'+nodelet.id, 'size=' + new Date().getTime())
 
