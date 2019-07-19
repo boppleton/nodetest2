@@ -13,11 +13,10 @@ console.log('starting botism node at ' + new Date())
 
 db.start()
 
-db.drop('log1')
+// db.drop('log1')
 
-console.log(JSON.stringify(db.get('log1')))
+// console.log(JSON.stringify(db.get('log1')))
 
-return
 
 let nodelets = []
 api.get('/nodelets', (req, res) => res.send(nodelets))
