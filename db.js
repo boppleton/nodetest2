@@ -103,7 +103,7 @@ module.exports = {
             // 'set outtime = now(),\n' +
             ' WHERE id = (select max(id) from ' + name + ');')
 
-        client.query('update strat1 size=20 where ID IN(SELECT max(ID) FROM strat1);', (err, res) => {
+        client.query('update strat1 size=\'20\' where ID IN(SELECT max(ID) FROM strat1);', (err, res) => {
             if (err) throw err
 
         })
