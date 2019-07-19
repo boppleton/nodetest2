@@ -22,10 +22,9 @@ db.start()
 let nodelets = []
 api.get('/nodelets', (req, res) => res.send(nodelets))
 
-db.createAll(1)
+// db.createAll(1)
 
-
-db.createAll(2)
+// db.createAll(2)
 
 const newNodelet = (name, key, secret) => {
 
@@ -57,11 +56,11 @@ const newNodelet = (name, key, secret) => {
 
     }
 
-    nodelet.log = []
+    nodelet.log = db.get('log'+nodelet.id)
 
-    nodelet.trades = []
+    nodelet.trades = db.get('trades'+nodelet.id)
 
-    nodelet.strat = []
+    nodelet.strat = db.get('strat'+nodelet.id)
 
     //     {
     //     running: nodelet.running,
@@ -116,6 +115,8 @@ const newNodelet = (name, key, secret) => {
     }
 
     log('starting nodelet, name: ' + name)
+
+    console.log('starting log: ' + JSON.stringify(nodelet.log))
 
 
     // setInterval(()=>{
