@@ -13,6 +13,15 @@ console.log('+++ starting botism node at ' + new Date())
 
 db.start()
 
+db.drop('strat1')
+
+db.drop('strat2')
+db.drop('log1')
+db.drop('log2')
+
+db.drop('trades1')
+db.drop('trades2')
+
 // db.truncate('log1')
 // db.truncate('log2')
 // db.truncate('trades1')
@@ -31,6 +40,8 @@ setTimeout(()=>{newNodelet('dbbacc2', process.env['KEY'+(nodelets.length+1)], pr
 const newNodelet = (name, key, secret) => {
 
     console.log('starting nodelet, name: ' + name)
+
+    db.createAll(nodelet.id)
 
     let nodelet = {
         id: nodelets.length + 1,
