@@ -82,6 +82,7 @@ const newNodelet = (name, key, secret) => {
         'active, trigger, entryPrice, entrySize, tpPrice, stopPrice, startBalance, endingBalance, pnl, diff, resultType, resultMove, filled, startTime, endTime, endPrice, startStartEquity'
         ,[
         false,
+        'xdiv',
         0.01,
         1,
         1,
