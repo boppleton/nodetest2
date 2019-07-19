@@ -48,6 +48,10 @@ const newNodelet = (name, key, secret) => {
     }
     nodelets.push(nodelet)
 
+    console.log('logggg')
+    console.log(db.get('log'+nodelet.id))
+    return
+
     nodelet.log = db.get('log'+nodelet.id)
     nodelet.trades = db.get('trades'+nodelet.id)
     nodelet.strat = db.get('strat'+nodelet.id)
