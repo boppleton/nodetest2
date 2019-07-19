@@ -55,14 +55,24 @@ const newNodelet = (name, key, secret) => {
     },5000)
 
     utils.loop(5000, ()=>{
+        db.get('log'+nodelet.id, (log)=>{
+            if (log) {
+                nodelet.log = log
+            }
+        })
         db.get('trades'+nodelet.id, (trades)=>{
             if (trades) {
                 nodelet.trades = trades
             }
         })
+        db.get('strat'+nodelet.id, (strat)=>{
+            if (strat) {
+                nodelet.strat = strat
+            }
+        })
 
         // console.log('trades: ' + JSON.stringify(trades))
-    }, 5000)
+    }, 1000)
 
 
     /// set data GET endpoints
@@ -322,6 +332,8 @@ const newNodelet = (name, key, secret) => {
     const triggerLoop = utils.loop(10000, () => {
 
         // console.log('nodelet ' + nodelet.id + ' triggerloop, balance: ' + nodelet.currentEquity)
+
+        log('triglooop')
 
         if (!nodelet.running) {
             return
