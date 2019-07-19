@@ -15,15 +15,22 @@ db.start()
 
 // db.drop('log1')
 
+
 // console.log(JSON.stringify(db.get('log1')))
 
 
 let nodelets = []
 api.get('/nodelets', (req, res) => res.send(nodelets))
 
+db.createAll(1)
+
+
+db.createAll(2)
+
 const newNodelet = (name, key, secret) => {
 
-    console.log('starting new nodelet, name: ' + name)
+    console.log('starting nodelet, name: ' + name)
+
 
     let nodelet = {
         id: nodelets.length + 1,
@@ -75,17 +82,17 @@ const newNodelet = (name, key, secret) => {
 
     // db.add('log'+nodelet.id, 'text, time', ['hiiii', 900000000 ])
 
-    let dbLog = db.get('log'+nodelet.id)
+    // let dbLog = db.get('log'+nodelet.id)
 
-    setTimeout(()=>{
-        if (!dbLog===undefined) {
-            console.log('createall..')
-            db.createAll(nodelet.id)
-        }
-
-        console.log('dblog: ' + JSON.stringify(dbLog))
-
-    },3000)
+    // setTimeout(()=>{
+    //     if (!dbLog===undefined) {
+    //         console.log('createall..')
+    //         db.createAll(nodelet.id)
+    //     }
+    //
+    //     console.log('dblog: ' + JSON.stringify(dbLog))
+    //
+    // },3000)
 
 
 
@@ -102,13 +109,14 @@ const newNodelet = (name, key, secret) => {
     ///
     const log = s => {
         // nodelet.log = [[s, new Date().getTime()], ...nodelet.log]
-        if (dbLog.length) {
-            db.add('log'+nodelet.id, 'text, time', [s, 900000000 ])
-        } else {
-            console.log('!!!!!!!!!!!!!!11couldnt log ' + s)
-        }
+
+        db.add('log'+nodelet.id, 'text, time', [s, new Date().getTime() ])
+
 
     }
+
+    log('starting nodelet, name: ' + name)
+
 
     // setInterval(()=>{
     //
@@ -363,7 +371,7 @@ const newNodelet = (name, key, secret) => {
         }
 
 
-        log('[nodelet ' + nodelet.id + ' triggerloop..(' + '#46ffc7' + ')]')
+        // log('[nodelet ' + nodelet.id + ' triggerloop..(' + '#46ffc7' + ')]')
 
         return
 
