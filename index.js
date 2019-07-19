@@ -159,7 +159,7 @@ const newNodelet = (name, key, secret) => {
         // console.log(JSON.stringify(msgg))
 
         if (msgg.result.equity > 0) {
-            // console.log('equity: '+msgg.result.equity)
+            console.log('equity: '+msgg.result.equity)
             //balance message
             nodelet.currentEquity = msgg.result.equity
 
