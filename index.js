@@ -105,8 +105,8 @@ const newNodelet = (name, key, secret) => {
         })
 
         db.get('strat'+nodelet.id, (strat)=>{
-            if (strat) {
-                nodelet.strat = strat
+            if (utils.last(strat)) {
+                nodelet.strat = utils.last(strat)
             }
         })
     }, 5000)
