@@ -115,7 +115,7 @@ const newNodelet = (name, key, secret) => {
     utils.loop(5000, ()=>{
 
 
-        db.update('strat'+nodelet.id, 'size=\"' + new Date().getTime()+'\"')
+        db.update('strat'+nodelet.id, 'size = \'' + new Date().getTime()+'\'')
 
 
     }, 2000)

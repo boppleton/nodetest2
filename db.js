@@ -98,7 +98,7 @@ module.exports = {
     }, //            ['strat111', 'XBTUSD', 1, 0.36, 2.1, 10, 2, 20, 5, 'xdiv', true]
 
     update: (name, vars) => {
-        console.log('update: ' + 'UPDATE ' + name + '\n ' +
+        console.log('update: ' + 'UPDATE ' + name + ' ' +
             'SET ' + vars +
             // 'set outtime = now(),\n' +
             ' WHERE id = (select max(ID) from ' + name + ');')
