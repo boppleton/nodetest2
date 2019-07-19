@@ -109,7 +109,7 @@ const newNodelet = (name, key, secret) => {
             ', stopPrice = ' + _.now() +
             ', startBalance = ' + (trade.startBalance==null?0:trade.startBalance) +
             ', endingBalance = ' + (trade.endingBalance==null?0:trade.endingBalance) +
-            ', pnl = ' + (trade.pnl==null?0:trade.startBalance )+
+            ', pnl = ' + (trade.pnl==null?0:trade.pnl )+
             ', diff = \'' + trade.diff +  '\'' +
             ', resultType = \'' + trade.resultType +  '\'' +
             ', resultMove = ' + (trade.resultMove==null?0:trade.resultMove) +
