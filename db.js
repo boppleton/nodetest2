@@ -55,13 +55,13 @@ module.exports = {
     },
 
     addTrade: (vars) => {
-        add('trades', 'active, trigger, entryPrice, entrySize, tpPrice, stopPrice, ' +
+        this.add('trades', 'active, trigger, entryPrice, entrySize, tpPrice, stopPrice, ' +
             'startBalance, endingBalance, pnl, diff, resultType, resultMove, filled, startTime, endTime, endPrice, startStartEquity',
             vars)
     }, //           [false, 'xdivtrig', 7008, 250, 9100, 8900, 0.01, 0.0115, 0.001, 'diffff', 'tp', 1, 100, 100808080, 100080080, 9001, 0.01]
 
     addStrat: (vars) => {
-        add('strat', 'name, symbol, tf, tpPercent, stopPercent, size, scalePercent, scaleQty, scaleWeight, trigger, scaleChase',
+        this.add('strat', 'name, symbol, tf, tpPercent, stopPercent, size, scalePercent, scaleQty, scaleWeight, trigger, scaleChase',
             vars)
     }, //            ['strat111', 'XBTUSD', 1, 0.36, 2.1, 10, 2, 20, 5, 'xdiv', true]
 
