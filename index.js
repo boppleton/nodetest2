@@ -156,7 +156,7 @@ const newNodelet = (name, key, secret) => {
             return
         }
 
-        console.log(JSON.stringify(msgg))
+        // console.log(JSON.stringify(msgg))
 
         if (msgg.result.equity > 0) {
             // console.log('equity: '+msgg.result.equity)
@@ -222,7 +222,7 @@ const newNodelet = (name, key, secret) => {
         ws.addEventListener('close', socketCloseListener)
         ws.addEventListener('error', socketErrorListener)
     }
-    // socketCloseListener()
+    socketCloseListener()
 
 
     api.post('/' + nodelet.id + '/run', function (request, response) {
