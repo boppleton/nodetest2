@@ -91,7 +91,13 @@ const newNodelet = (name, key, secret) => {
         ])
 
 
-    utils.loop(5000, ()=>{
+    // utils.loop(5000, ()=>{
+    //
+    // }, 5000)
+
+
+    setTimeout(()=>{
+
         db.get('log'+nodelet.id, (log)=>{
             if (log) {
                 nodelet.log = log
@@ -109,24 +115,20 @@ const newNodelet = (name, key, secret) => {
                 nodelet.strat = utils.last(strat)
             }
         })
-    }, 5000)
 
 
-    // setTimeout(()=>{
+        // nodelet.log = db.get('log'+nodelet.id)
+        // nodelet.trades = db.get('trades'+nodelet.id)
+        // nodelet.strat = db.get('strat'+nodelet.id)
+    },2000)
+
+    // utils.loop(5000, ()=>{
     //
     //
-    //     // nodelet.log = db.get('log'+nodelet.id)
-    //     // nodelet.trades = db.get('trades'+nodelet.id)
-    //     // nodelet.strat = db.get('strat'+nodelet.id)
-    // },2000)
-
-    utils.loop(5000, ()=>{
-
-
-        db.update('strat'+nodelet.id, 'size = \'' + new Date().getTime()+'\'')
-
-
-    }, 2000)
+    //     db.update('strat'+nodelet.id, 'size = \'' + new Date().getTime()+'\'')
+    //
+    //
+    // }, 2000)
 
 
     /// set data GET endpoints
