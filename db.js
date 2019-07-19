@@ -101,12 +101,12 @@ module.exports = {
         console.log('update: ' + 'UPDATE ' + name + ' ' +
             'SET ' + vars +
             // 'set outtime = now(),\n' +
-            ' WHERE id = (select max(ID) from ' + name + ');')
+            ' WHERE id = (select max(id) from ' + name + ');')
 
         client.query('UPDATE ' + name + '\n ' +
             'SET ' + vars +
             // 'set outtime = now(),\n' +
-            ' WHERE id = (select max(ID) from ' + name + ');', (err, res) => {
+            ' WHERE id = (select max(id) from ' + name + ');', (err, res) => {
             if (err) throw err
 
         })
