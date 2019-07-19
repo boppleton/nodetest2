@@ -22,6 +22,9 @@ db.start()
 let nodelets = []
 api.get('/nodelets', (req, res) => res.send(nodelets))
 
+
+
+
 // db.createAll(1)
 
 // db.createAll(2)
@@ -62,20 +65,7 @@ const newNodelet = (name, key, secret) => {
 
     nodelet.strat = db.get('strat'+nodelet.id)
 
-    //     {
-    //     running: nodelet.running,
-    //     id: 'xdiv1',
-    //     symbol: 'XBTUSD',
-    //     tf: 1,
-    //     tpPercent: 0.5,
-    //     stopPercent: 5.1,
-    //     size: 20,
-    //     scalePercent: 5,
-    //     scaleQty: 20,
-    //     scaleWeight: 3,
-    //     trigger: 'xdiv',
-    //     scaleChase: true,
-    // }
+
 
     nodelets.push(nodelet)
 
@@ -118,6 +108,18 @@ const newNodelet = (name, key, secret) => {
 
     console.log('starting log: ' + JSON.stringify(nodelet.log))
 
+
+    db.addStrat({name: 'stratname',
+        symbol: 'XBTUSD',
+        tf: 1,
+        tpPercent: 0.36,
+        stopPercent: 4.1,
+        size: 5,
+        scalePercent: 4,
+        scaleQty: 20,
+        scaleWeight: 3,
+        trigger: 'xdiv',
+        scaleChase: true})
 
     // setInterval(()=>{
     //
