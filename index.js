@@ -16,7 +16,6 @@ db.start()
 let nodelets = []
 api.get('/nodelets', (req, res) => res.send(nodelets))
 
-
 const newNodelet = (name, key, secret) => {
 
     console.log('starting new nodelet, name: ' + name)
@@ -80,7 +79,7 @@ const newNodelet = (name, key, secret) => {
         }
 
         console.log('dblog: ' + JSON.stringify(dbLog))
-        
+
     },3000)
 
 
@@ -336,7 +335,9 @@ const newNodelet = (name, key, secret) => {
     }, 2000)
 
 
-    const triggerLoop = loop(1000, () => {
+    const triggerLoop = loop(10000, () => {
+
+        console.log('nodelet ' + nodelet.id + ' triggerloop, balance: ' + nodelet.currentEquity)
 
         if (!nodelet.running) {
             return
@@ -351,6 +352,8 @@ const newNodelet = (name, key, secret) => {
         if (nodelet.strat.trigger === 'xdiv') {
             trigger = xdiv()
         }
+
+        return
 
         // pick trigger function
         // let trigger =
