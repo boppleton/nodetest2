@@ -109,7 +109,8 @@ const newNodelet = (name, key, secret) => {
     console.log('starting log: ' + JSON.stringify(nodelet.log))
 
 
-    db.addStrat({name: 'stratname',
+    db.addStrat({
+        name: 'stratname',
         symbol: 'XBTUSD',
         tf: 1,
         tpPercent: 0.36,
@@ -119,7 +120,8 @@ const newNodelet = (name, key, secret) => {
         scaleQty: 20,
         scaleWeight: 3,
         trigger: 'xdiv',
-        scaleChase: true})
+        scaleChase: true
+    })
 
     // setInterval(()=>{
     //
