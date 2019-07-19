@@ -78,8 +78,8 @@ module.exports = {
         })
     },
 
-    truncate: (name) => {
-        client.query('DELETE ' + name + ';', (err, res) => {
+    drop: (name) => {
+        client.query('DROP TABLE ' + name + ';', (err, res) => {
             if (err) throw err
         })
     },

@@ -13,6 +13,8 @@ console.log('starting botism node at ' + new Date())
 
 db.start()
 
+db.drop('log1')
+
 console.log(JSON.stringify(db.get('log1')))
 
 return
