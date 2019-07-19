@@ -73,7 +73,7 @@ const newNodelet = (name, key, secret) => {
 
     nodelets.push(nodelet)
 
-    db.add('log'+nodelet.id, 'text, time', ['hiiii', 900000000 ])
+    // db.add('log'+nodelet.id, 'text, time', ['hiiii', 900000000 ])
 
     let dbLog = db.get('log'+nodelet.id)
 
