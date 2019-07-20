@@ -350,7 +350,7 @@ const newNodelet = (name, key, secret) => {
         //     ])
 
         db.add('strat'+nodelet.id,
-            'name, symbol, tf, tppercent, stoppercent, size, scalepercent, scaleqty, scaleweight, trigger, scalechase'
+            'name, running, symbol, tf, tppercent, stoppercent, size, scalepercent, scaleqty, scaleweight, trigger, scalechase'
             ,[
                 utils.last(nodelet.strat).name,
                 false,
