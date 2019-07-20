@@ -277,7 +277,7 @@ const newNodelet = (name, key, secret) => {
 
         nodelet.running = true
 
-        nodelet.strat.running = true
+        utils.last(nodelet.strat).running = true
 
         if (nodelet.running) {
             socketCloseListener()
@@ -292,7 +292,7 @@ const newNodelet = (name, key, secret) => {
 
         nodelet.running = false
 
-        nodelet.strat.running = false
+        utils.last(nodelet.strat).running = false
 
         if (nodelet.running) {
             socketCloseListener()
