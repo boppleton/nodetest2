@@ -24,7 +24,7 @@ db.start()
 
 // db.truncate('log1')
 // db.truncate('log2')
-// db.truncate('trades1')
+db.truncate('trades1')
 // db.truncate('trades2')
 // db.truncate('strat1')
 // db.truncate('strat2')
@@ -140,9 +140,9 @@ const newNodelet = (name, key, secret) => {
 
 
         // nodelet.log = db.get('log'+nodelet.id)
-        if (!msgg.result) {
-            return
-        }
+        // if (!msgg.result) {
+        //     return
+        // }
 
         // console.log(JSON.stringify(msgg))
         // nodelet.trades = db.get('trades'+nodelet.id)
