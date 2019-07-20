@@ -764,7 +764,7 @@ if (!msgg.result) {
             upperPrice = lowerPrice * (1 + (utils.last(nodelet.strat).scalepercent / 100))
         }
 
-        console.log("upperprice: " + upperPrice + " lowerprice: " + lowerPrice)
+        console.log('side: '+ side +  " upperprice: " + upperPrice + " lowerprice: " + lowerPrice)
 
         let totalSize = Math.ceil((utils.last(nodelet.strat).size * (nodelet.currentEquity * nodelet.currentBid)) / 10) * 10
 
