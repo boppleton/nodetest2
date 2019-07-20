@@ -117,7 +117,7 @@ const newNodelet = (name, key, secret) => {
             ', startTime = ' + (trade.startTime==null?0:trade.startTime) +
             ', endTime = ' + (trade.endTime==null?0:trade.endTime) +
             ', endPrice = ' + (trade.endPrice==null?0:trade.endPrice) +
-            ', startStartEquity = \'' + trade.startStartEquity + '\'')
+            ', startStartEquity = ' + (trade.startStartEquity==null?0:trade.startStartEquity))
     },10000)
 
     setTimeout(()=>{
