@@ -348,6 +348,11 @@ const newNodelet = (name, key, secret) => {
             ])
 
 
+        db.get('strat1', (strats)=>{
+            console.log(JSON.stringify(strats))
+        } )
+
+
         //
         // let vars = [
         //     utils.last(nodelet.strat).name,
