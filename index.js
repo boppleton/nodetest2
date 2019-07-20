@@ -22,7 +22,7 @@ db.start()
 //
 // return
 
-// db.truncate('log1')
+db.truncate('log1')
 // db.truncate('log2')
 db.truncate('trades1')
 // db.truncate('trades2')
@@ -682,7 +682,7 @@ if (!msgg.result) {
 
                     nodelet.lastBid = nodelet.currentBid
 
-                    // log('reset entry orders')
+                    log('reset entry orders')
                     _api_('deribit', 'private/cancel_all', {})
                     startTrades('reset')
                 } else {
