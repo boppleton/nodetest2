@@ -434,24 +434,24 @@ if (!msgg.result) {
             "extended": true
         })
 
-        let t = nodelet.trades[0]
+        let t = utils.last(nodelet.trades)
 
         if (!t) {
             return
         }
 
-        nodelet.trades[0].endBalance = nodelet.currentEquity
-        nodelet.trades[0].pnl = (t.endBalance - t.startBalance).toFixed(8)
+        t.endBalance = nodelet.currentEquity
+        t.pnl = (t.endBalance - t.startBalance).toFixed(8)
 
         //fix accuracy after
         if (t.active) {
 
             if (nodelet.currentEntry > 0) {
-                nodelet.trades[0].entryPrice = nodelet.currentEntry
+                t.entryPrice = nodelet.currentEntry
             }
         }
 
-        t.resultMove = ((((nodelet.trades[0].endPrice || nodelet.currentBid) - nodelet.currentEntry) / (nodelet.currentEntry)) * 100).toFixed(2)
+        t.resultMove = ((((t.endPrice || nodelet.currentBid) - nodelet.currentEntry) / (nodelet.currentEntry)) * 100).toFixed(2)
 
         t.diff = (((t.endBalance - t.startBalance) / t.startBalance) * 100).toFixed(2) + "%  ($" + ((t.endBalance - t.startBalance) * nodelet.currentBid).toFixed(2) + ")"
 
@@ -476,7 +476,7 @@ if (!msgg.result) {
             return
         }
 
-        if (nodelet.trades[0] && nodelet.trades[0].active) {
+        if (utils.last(nodelet.trades) && utils.last(nodelet.trades).active) {
             return
         }
 
@@ -549,16 +549,16 @@ if (!msgg.result) {
             return
         }
 
-        if (!nodelet.trades[0] || !utils.last(nodelet.trades).active) {
+        if (!utils.last(nodelet.trades) || !utils.last(nodelet.trades).active) {
             return
         }
 
         if (nodelet.currentSize === 0 && nodelet.lastCloseSize !== 0) {
             console.log("pos to 0, cancel all and reset!")
 
-            log(('trade id' + nodelet.trades[0].id + " has finished!"))
+            log(('trade id' + utils.last(nodelet.trades).id + " has finished!"))
 
-            nodelet.trades[0].endTime = new Date().getTime()
+            utils.last(nodelet.trades).endTime = new Date().getTime()
 
 
             setTimeout(() => {
@@ -568,9 +568,9 @@ if (!msgg.result) {
 
                 let result = ((dec / nodelet.lastEquity) * 100)
 
-                nodelet.trades[0].endPrice = nodelet.currentBid
+                utils.last(nodelet.trades).endPrice = nodelet.currentBid
 
-                nodelet.trades[0].endingBalance = nodelet.currentEquity
+                utils.last(nodelet.trades).endingBalance = nodelet.currentEquity
 
                 log('result: [' + (result < 0 ? ('+' + Math.abs(result).toFixed(2)) : '-' + result.toFixed(2)) + '%(' + (result < 0 ? 'yellowgreen' : 'orangered') + ')]')
 
@@ -583,10 +583,10 @@ if (!msgg.result) {
 
             nodelet.lastCloseSize = 0
 
-            nodelet.trades[0].resultType = nodelet.trades[0].pnl > 0 ? 'tp' : 'stop'
+            utils.last(nodelet.trades).resultType = utils.last(nodelet.trades).pnl > 0 ? 'tp' : 'stop'
 
 
-            nodelet.trades[0].active = false
+            utils.last(nodelet.trades).active = false
 
 
         } else if (Math.abs(nodelet.currentSize) > Math.abs(nodelet.lastCloseSize)) {
@@ -640,13 +640,13 @@ if (!msgg.result) {
 
             nodelet.lastCloseSize = nodelet.currentSize
 
-            nodelet.trades[0].filled = nodelet.currentSize
+            utils.last(nodelet.trades).filled = nodelet.currentSize
 
 
-            nodelet.trades[0].tpPrice = tpPrice
+            utils.last(nodelet.trades).tpPrice = tpPrice
 
 
-            nodelet.trades[0].stopPrice = stopPrice
+            utils.last(nodelet.trades).stopPrice = stopPrice
 
         }
     })
@@ -731,12 +731,9 @@ if (!msgg.result) {
             startStartEquity: nodelet.startingEquity,
         }
 
-        if (!nodelet.trades[0]) {
-            trade.id = 1
-            nodelet.trades.push(trade)
-        } else {
-            nodelet.trades = [trade].concat(nodelet.trades)
-        }
+
+        nodelet.trades.push(trade)
+
 
     }
 
