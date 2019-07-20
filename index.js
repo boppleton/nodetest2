@@ -332,10 +332,28 @@ const newNodelet = (name, key, secret) => {
 
         console.log(utils.last(nodelet.strat))
 
+        // db.add('strat'+nodelet.id,
+        //     'name, running, symbol, tf, tppercent, stoppercent, size, scalepercent, scaleqty, scaleweight, trigger, scalechase'
+        //     ,[
+        //         'new'+nodelet.id,
+        //         false,
+        //         'XBTUSD',
+        //         1,
+        //         0.36,
+        //         4.1,
+        //         5,
+        //         4,
+        //         20,
+        //         3,
+        //         'xdiv',
+        //         true
+        //     ])
+
         db.add('strat'+nodelet.id,
             'name, symbol, tf, tppercent, stoppercent, size, scalepercent, scaleqty, scaleweight, trigger, scalechase'
             ,[
                 utils.last(nodelet.strat).name,
+                false,
                 utils.last(nodelet.strat).symbol,
                 utils.last(nodelet.strat).tf,
                 utils.last(nodelet.strat).tpPercent,
