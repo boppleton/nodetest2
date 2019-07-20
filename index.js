@@ -161,6 +161,9 @@ const newNodelet = (name, key, secret) => {
 
     ///
     const log = s => {
+
+        console.log('log: ' + nodelet.log)
+
         nodelet.log = [[s, new Date().getTime()], ...nodelet.log]
         db.add('log'+nodelet.id, 'text, time', [s, new Date().getTime() ])
 
