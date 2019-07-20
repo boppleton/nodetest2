@@ -307,7 +307,7 @@ const newNodelet = (name, key, secret) => {
 
         log('[strat updated(yellow)]')
 
-        if (Object.is(request.body.strat, utils.last(nodelet.strat)))  {
+        if (request.body.strat.name === utils.last(nodelet.strat).name)  {
             console.log('same strat, return')
             return
         }
