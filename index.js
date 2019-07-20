@@ -664,7 +664,7 @@ if (!msgg.result) {
 
         // return
 
-        if (utils.last(nodelet.strat).scaleChase) {
+        if (utils.last(nodelet.strat).scalechase) {
 
 
             let entryloop = setInterval(() => {
