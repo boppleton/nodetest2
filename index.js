@@ -15,16 +15,16 @@ db.start()
 
 
 
-db.drop('strat1')
-
-db.drop('strat2')
-db.drop('log1')
-db.drop('log2')
+// db.drop('strat1')
 //
-db.drop('trades1')
-db.drop('trades2')
-
-return
+// db.drop('strat2')
+// db.drop('log1')
+// db.drop('log2')
+// //
+// db.drop('trades1')
+// db.drop('trades2')
+//
+// return
 
 // db.truncate('log1')
 // db.truncate('log2')
@@ -72,7 +72,7 @@ const newNodelet = (name, key, secret) => {
     }
     nodelets.push(nodelet)
 
-    // db.createAll(nodelet.id)
+    db.createAll(nodelet.id)
 
     db.add('strat'+nodelet.id,
         'name, symbol, tf, tpPercent, stopPercent, size, scalePercent, scaleQty, scaleWeight, trigger, scaleChase'
