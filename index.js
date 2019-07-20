@@ -335,17 +335,17 @@ const newNodelet = (name, key, secret) => {
         db.add('strat'+nodelet.id,
             'name, symbol, tf, tppercent, stoppercent, size, scalepercent, scaleqty, scaleweight, trigger, scalechase'
             ,[
-                nodelet.strat.name,
-                nodelet.strat.symbol,
-                nodelet.strat.tf,
-                nodelet.strat.tpPercent,
-                nodelet.strat.stopPercent,
-                nodelet.strat.size,
-                nodelet.strat.scalePercent,
-                nodelet.strat.scaleQty,
-                nodelet.strat.scaleWeight,
-                nodelet.strat.trigger,
-                nodelet.strat.scaleChase
+                utils.last(nodelet.strat).name,
+                utils.last(nodelet.strat).symbol,
+                utils.last(nodelet.strat).tf,
+                utils.last(nodelet.strat).tpPercent,
+                utils.last(nodelet.strat).stopPercent,
+                utils.last(nodelet.strat).size,
+                utils.last(nodelet.strat).scalePercent,
+                utils.last(nodelet.strat).scaleQty,
+                utils.last(nodelet.strat).scaleWeight,
+                utils.last(nodelet.strat).trigger,
+                utils.last(nodelet.strat).scaleChase
             ])
 
 
@@ -452,7 +452,7 @@ const newNodelet = (name, key, secret) => {
 
         let trigger = false
 
-        if (nodelet.strat.trigger === 'xdiv') {
+        if (utils.last(nodelet.strat).trigger === 'xdiv') {
             trigger = xdiv()
         }
 
@@ -495,7 +495,7 @@ const newNodelet = (name, key, secret) => {
 
         let url =
             // 'http://localhost:8080/' +
-            'https://mysterious-meadow-37959.herokuapp.com/' + nodelet.strat.symbol + '/' + (nodelet.strat.tf === 1 ? 'm1' : 'h1')
+            'https://mysterious-meadow-37959.herokuapp.com/' + utils.last(nodelet.strat).symbol + '/' + (utils.last(nodelet.strat).tf === 1 ? 'm1' : 'h1')
 
         rp(url)
             .then(data => {
@@ -563,8 +563,8 @@ const newNodelet = (name, key, secret) => {
 
             // console.log(currentSize + " size different, reset close")
 
-            let tpPrice = nodelet.currentEntry * (1 + ((nodelet.strat.tpPercent / 100) * (nodelet.currentSize > 0 ? 1 : -1)))
-            let stopPrice = nodelet.currentBid * (nodelet.strat.size > 0 ? (1 - (nodelet.strat.stopPercent / 100)) : (1 + (nodelet.strat.stopPercent / 100)))
+            let tpPrice = nodelet.currentEntry * (1 + ((utils.last(nodelet.strat).tpPercent / 100) * (nodelet.currentSize > 0 ? 1 : -1)))
+            let stopPrice = nodelet.currentBid * (utils.last(nodelet.strat).size > 0 ? (1 - (utils.last(nodelet.strat).stopPercent / 100)) : (1 + (utils.last(nodelet.strat).stopPercent / 100)))
 
             if (nodelet.closeID === 0) {
                 // console.log("no closeid, place new")
@@ -634,7 +634,7 @@ const newNodelet = (name, key, secret) => {
 
         // return
 
-        if (nodelet.strat.scaleChase) {
+        if (utils.last(nodelet.strat).scaleChase) {
 
 
             let entryloop = setInterval(() => {
@@ -668,11 +668,11 @@ const newNodelet = (name, key, secret) => {
 
         //todo fix this doublecode
         //
-        let stopPrice = stopp || (nodelet.currentBid * (1 + ((nodelet.strat.stopPercent / 100) * (nodelet.strat.size < 0 ? 1 : -1))))
+        let stopPrice = stopp || (nodelet.currentBid * (1 + ((utils.last(nodelet.strat).stopPercent / 100) * (utils.last(nodelet.strat).size < 0 ? 1 : -1))))
         //
-        let sizeLev = Math.ceil((nodelet.strat.size * (nodelet.currentEquity * nodelet.currentBid)) / 10) * 10
+        let sizeLev = Math.ceil((utils.last(nodelet.strat).size * (nodelet.currentEquity * nodelet.currentBid)) / 10) * 10
 
-        let tpPrice = nodelet.currentBid * (1 + ((nodelet.strat.tpPercent / 100) * (nodelet.currentSize > 0 ? 1 : -1)))
+        let tpPrice = nodelet.currentBid * (1 + ((utils.last(nodelet.strat).tpPercent / 100) * (nodelet.currentSize > 0 ? 1 : -1)))
 
         trade = {
             id: (nodelet.trades[0] ? nodelet.trades[0].id : 0) + 1,
@@ -712,9 +712,9 @@ const newNodelet = (name, key, secret) => {
         console.log('startrades ')
 
 
-        let side = nodelet.strat.size > 0
+        let side = nodelet.stratutils.last(nodelet.strat).size > 0
 
-        let numberOfOrders = nodelet.strat.scaleQty
+        let numberOfOrders = utils.last(nodelet.strat).scaleQty
 
         let prices = []
 
@@ -724,15 +724,15 @@ const newNodelet = (name, key, secret) => {
 
         if (side) {
             upperPrice = nodelet.currentBid * 1.0015
-            lowerPrice = upperPrice * (1 - (nodelet.strat.scalePercent / 100))
+            lowerPrice = upperPrice * (1 - (utils.last(nodelet.strat).scalePercent / 100))
         } else {
             lowerPrice = nodelet.currentBid * .9985
-            upperPrice = lowerPrice * (1 + (nodelet.strat.scalePercent / 100))
+            upperPrice = lowerPrice * (1 + (utils.last(nodelet.strat).scalePercent / 100))
         }
 
         console.log("upperprice: " + upperPrice + " lowerprice: " + lowerPrice)
 
-        let totalSize = Math.ceil((nodelet.strat.size * (nodelet.currentEquity * nodelet.currentBid)) / 10) * 10
+        let totalSize = Math.ceil((utils.last(nodelet.strat).size * (nodelet.currentEquity * nodelet.currentBid)) / 10) * 10
 
         let rangeAmt = upperPrice - lowerPrice
 
@@ -771,7 +771,7 @@ const newNodelet = (name, key, secret) => {
 
         let amounts = []
 
-        if (nodelet.strat.scaleWeight === 0) {
+        if (utils.last(nodelet.strat).scaleWeight === 0) {
             singleOrderAmt = totalSize / numberOfOrders
 
             singleOrderAmt = singleOrderAmt.toFixed(0)
@@ -787,7 +787,7 @@ const newNodelet = (name, key, secret) => {
             // Min and max percentage of the amount allocated per price point
             let minPercentage = 0.09
 //            System.out.println("minPercent: " + minPercentage);
-            let maxPercentage = 0.04 * (1.2 + (nodelet.strat.scaleWeight))
+            let maxPercentage = 0.04 * (1.2 + (utils.last(nodelet.strat).scaleWeight))
 //            System.out.println("macxPercent: " + maxPercentage);
 
 
@@ -842,21 +842,21 @@ const newNodelet = (name, key, secret) => {
 
             if (nodelet.resetCount === 0) {
                 nodelet.resetCount++
-                log('entries attempt #' + nodelet.resetCount + ', scaling ' + (trades[0].side ? '[long(yellowgreen)]' : '[short(orangered)]') + ' from ' + trades[0].price.toFixed(1) + ' to ' + (trades[trades.length - 1]).price.toFixed(1) + ' (' + nodelet.strat.scalePercent + '%)'
+                log('entries attempt #' + nodelet.resetCount + ', scaling ' + (trades[0].side ? '[long(yellowgreen)]' : '[short(orangered)]') + ' from ' + trades[0].price.toFixed(1) + ' to ' + (trades[trades.length - 1]).price.toFixed(1) + ' (' + utils.last(nodelet.strat).scalePercent + '%)'
 
-                    + ', total size: ' + totalSize + ', orders: ' + numberOfOrders + ', weight: ' + nodelet.strat.scaleWeight)
+                    + ', total size: ' + totalSize + ', orders: ' + numberOfOrders + ', weight: ' + utils.last(nodelet.strat).scaleWeight)
                 // log('entries attempt #' + resetCount + ', scale range ' + upperPrice + ' to ' + lowerPrice )
             } else {
                 nodelet.resetCount++
 
                 if (nodelet.log[0][0].includes('entries attempt')) {
-                    nodelet.log[0] = [('entries attempt #' + nodelet.resetCount + ', scaling ' + (trades[0].side ? '[long(yellowgreen)]' : '[short(orangered)]') + ' from ' + trades[0].price.toFixed(1) + ' to ' + (trades[trades.length - 1]).price.toFixed(1) + ' (' + nodelet.strat.scalePercent + '%)'
+                    nodelet.log[0] = [('entries attempt #' + nodelet.resetCount + ', scaling ' + (trades[0].side ? '[long(yellowgreen)]' : '[short(orangered)]') + ' from ' + trades[0].price.toFixed(1) + ' to ' + (trades[trades.length - 1]).price.toFixed(1) + ' (' + utils.last(nodelet.strat).scalePercent + '%)'
 
-                        + ', total size: ' + totalSize + ', orders: ' + numberOfOrders + ', weight: ' + nodelet.strat.scaleWeight), new Date().getTime()]
+                        + ', total size: ' + totalSize + ', orders: ' + numberOfOrders + ', weight: ' + utils.last(nodelet.strat).scaleWeight), new Date().getTime()]
                 } else {
-                    log('entries attempt #' + nodelet.resetCount + ', scaling ' + (trades[0].side ? '[long(yellowgreen)]' : '[short(orangered)]') + ' from ' + trades[0].price.toFixed(1) + ' to ' + (trades[trades.length - 1]).price.toFixed(1) + ' (' + nodelet.strat.scalePercent + '%)'
+                    log('entries attempt #' + nodelet.resetCount + ', scaling ' + (trades[0].side ? '[long(yellowgreen)]' : '[short(orangered)]') + ' from ' + trades[0].price.toFixed(1) + ' to ' + (trades[trades.length - 1]).price.toFixed(1) + ' (' + utils.last(nodelet.strat).scalePercent + '%)'
 
-                        + ', total size: ' + totalSize + ', orders: ' + numberOfOrders + ', weight: ' + nodelet.strat.scaleWeight)
+                        + ', total size: ' + totalSize + ', orders: ' + numberOfOrders + ', weight: ' + utils.last(nodelet.strat).scaleWeight)
                 }
 
                 // log_[0] = ['reset entries attempt #' + resetCount + ', new scale range ' + upperPrice.toFixed(1) + ' to ' + lowerPrice.toFixed(1), new Date().getTime()]
@@ -864,9 +864,9 @@ const newNodelet = (name, key, secret) => {
 
 
         } else {
-            log('scaling ' + (trades[0].side ? '[long(yellowgreen)]' : '[short(orangered)]') + ' from ' + trades[0].price.toFixed(1) + ' to ' + (trades[trades.length - 1]).price.toFixed(1) + ' (' + nodelet.strat.scalePercent + '%)'
+            log('scaling ' + (trades[0].side ? '[long(yellowgreen)]' : '[short(orangered)]') + ' from ' + trades[0].price.toFixed(1) + ' to ' + (trades[trades.length - 1]).price.toFixed(1) + ' (' + utils.last(nodelet.strat).scalePercent + '%)'
 
-                + ', total size: ' + totalSize + ', orders: ' + numberOfOrders + ', weight: ' + nodelet.strat.scaleWeight)
+                + ', total size: ' + totalSize + ', orders: ' + numberOfOrders + ', weight: ' + utils.last(nodelet.strat).scaleWeight)
         }
 
 
@@ -897,7 +897,7 @@ const newNodelet = (name, key, secret) => {
                 "amount": Math.abs(trade.size),
                 "type": "stop_market",
                 // "price" : this.state.price,
-                "stop_price": (nodelet.currentBid * (1 + ((nodelet.strat.stopPercent / 100) * (nodelet.strat.size < 0 ? 1 : -1)))),
+                "stop_price": (nodelet.currentBid * (1 + ((utils.last(nodelet.strat).stopPercent / 100) * (utils.last(nodelet.strat).size < 0 ? 1 : -1)))),
                 "label": "stop",
                 "trigger": 'index_price',
                 "reduce_only": true
@@ -1304,7 +1304,7 @@ const newNodelet = (name, key, secret) => {
 
                         console.log('div! long it')
 
-                        nodelet.strat.size = Math.abs(nodelet.strat.size)
+                        utils.last(nodelet.strat)nodelet.strat.size = Math.abs(utils.last(nodelet.strat).size)
 
                         div = true
                     }
@@ -1326,7 +1326,7 @@ const newNodelet = (name, key, secret) => {
 
                         console.log('div! short it')
 
-                        nodelet.strat.size = -Math.abs(nodelet.strat.size)
+                        utils.last(nodelet.strat)nodelet.strat.size = -Math.abs(utils.last(nodelet.strat).size)
 
                         div = true
                     }
