@@ -654,7 +654,7 @@ const newNodelet = (name, key, secret) => {
     function newTrade(trigger, stopp) {
         console.log("NEW TRADE! nodelet: " + nodelet.id)
         setTimeout(() => {
-            log(nodelet.id + ' [new trade(yellow)] - id: ' + ((nodelet.trades[0] ? nodelet.trades[0].id : 1))
+            log(nodelet.id + ' [new trade(yellow)] - id: ' + ((nodelet.trades.length>=1 ? utils.last(nodelet.trades).id+1 : 1))
                 + ", equity: " + nodelet.currentEquity + ' ($' + (nodelet.currentEquity * nodelet.currentBid).toFixed(2) + ')'
                 + ', trigger: ' + trigger
                 + ", price: " + nodelet.currentBid
@@ -704,7 +704,7 @@ const newNodelet = (name, key, secret) => {
         let tpPrice = nodelet.currentBid * (1 + ((utils.last(nodelet.strat).tpPercent / 100) * (nodelet.currentSize > 0 ? 1 : -1)))
 
         trade = {
-            id: (nodelet.trades[0] ? nodelet.trades[0].id : 0) + 1,
+            id: (nodelet.trades.length>=1 ? nodelet.trades.length : 0) + 1,
             active: true,
             trigger: trigger,
             entryPrice: nodelet.currentBid,
@@ -728,7 +728,7 @@ const newNodelet = (name, key, secret) => {
 
         if (!nodelet.trades[0]) {
             trade.id = 1
-            nodelet.trades = [trade]
+            nodelet.trades.push(trade)
         } else {
             nodelet.trades = [trade].concat(nodelet.trades)
         }
@@ -743,7 +743,7 @@ const newNodelet = (name, key, secret) => {
 
         let side = utils.last(nodelet.strat).size > 0
 
-        let numberOfOrders = utils.last(nodelet.strat).scaleQty
+        let numberOfOrders = utils.last(nodelet.strat).scaleqty
 
         let prices = []
 
@@ -753,10 +753,10 @@ const newNodelet = (name, key, secret) => {
 
         if (side) {
             upperPrice = nodelet.currentBid * 1.0015
-            lowerPrice = upperPrice * (1 - (utils.last(nodelet.strat).scalePercent / 100))
+            lowerPrice = upperPrice * (1 - (utils.last(nodelet.strat).scalepercent / 100))
         } else {
             lowerPrice = nodelet.currentBid * .9985
-            upperPrice = lowerPrice * (1 + (utils.last(nodelet.strat).scalePercent / 100))
+            upperPrice = lowerPrice * (1 + (utils.last(nodelet.strat).scalepercent / 100))
         }
 
         console.log("upperprice: " + upperPrice + " lowerprice: " + lowerPrice)
@@ -800,7 +800,7 @@ const newNodelet = (name, key, secret) => {
 
         let amounts = []
 
-        if (utils.last(nodelet.strat).scaleWeight === 0) {
+        if (utils.last(nodelet.strat).scaleweight === 0) {
             singleOrderAmt = totalSize / numberOfOrders
 
             singleOrderAmt = singleOrderAmt.toFixed(0)
@@ -816,7 +816,7 @@ const newNodelet = (name, key, secret) => {
             // Min and max percentage of the amount allocated per price point
             let minPercentage = 0.09
 //            System.out.println("minPercent: " + minPercentage);
-            let maxPercentage = 0.04 * (1.2 + (utils.last(nodelet.strat).scaleWeight))
+            let maxPercentage = 0.04 * (1.2 + (utils.last(nodelet.strat).scaleweight))
 //            System.out.println("macxPercent: " + maxPercentage);
 
 
@@ -873,7 +873,7 @@ const newNodelet = (name, key, secret) => {
                 nodelet.resetCount++
                 log('entries attempt #' + nodelet.resetCount + ', scaling ' + (trades[0].side ? '[long(yellowgreen)]' : '[short(orangered)]') + ' from ' + trades[0].price.toFixed(1) + ' to ' + (trades[trades.length - 1]).price.toFixed(1) + ' (' + utils.last(nodelet.strat).scalePercent + '%)'
 
-                    + ', total size: ' + totalSize + ', orders: ' + numberOfOrders + ', weight: ' + utils.last(nodelet.strat).scaleWeight)
+                    + ', total size: ' + totalSize + ', orders: ' + numberOfOrders + ', weight: ' + utils.last(nodelet.strat).scaleweight)
                 // log('entries attempt #' + resetCount + ', scale range ' + upperPrice + ' to ' + lowerPrice )
             } else {
                 nodelet.resetCount++
@@ -883,9 +883,9 @@ const newNodelet = (name, key, secret) => {
                 }
 
 
-                log('entries attempt #' + nodelet.resetCount + ', scaling ' + (trades[0].side ? '[long(yellowgreen)]' : '[short(orangered)]') + ' from ' + trades[0].price.toFixed(1) + ' to ' + (trades[trades.length - 1]).price.toFixed(1) + ' (' + utils.last(nodelet.strat).scalePercent + '%)'
+                log('entries attempt #' + nodelet.resetCount + ', scaling ' + (trades[0].side ? '[long(yellowgreen)]' : '[short(orangered)]') + ' from ' + trades[0].price.toFixed(1) + ' to ' + (trades[trades.length - 1]).price.toFixed(1) + ' (' + utils.last(nodelet.strat).scalepercent + '%)'
 
-                    + ', total size: ' + totalSize + ', orders: ' + numberOfOrders + ', weight: ' + utils.last(nodelet.strat).scaleWeight)
+                    + ', total size: ' + totalSize + ', orders: ' + numberOfOrders + ', weight: ' + utils.last(nodelet.strat).scaleweight)
 
 
                 // log_[0] = ['reset entries attempt #' + resetCount + ', new scale range ' + upperPrice.toFixed(1) + ' to ' + lowerPrice.toFixed(1), new Date().getTime()]
@@ -893,9 +893,9 @@ const newNodelet = (name, key, secret) => {
 
 
         } else {
-            log('scaling ' + (trades[0].side ? '[long(yellowgreen)]' : '[short(orangered)]') + ' from ' + trades[0].price.toFixed(1) + ' to ' + (trades[trades.length - 1]).price.toFixed(1) + ' (' + utils.last(nodelet.strat).scalePercent + '%)'
+            log('scaling ' + (trades[0].side ? '[long(yellowgreen)]' : '[short(orangered)]') + ' from ' + trades[0].price.toFixed(1) + ' to ' + (trades[trades.length - 1]).price.toFixed(1) + ' (' + utils.last(nodelet.strat).scalepercent + '%)'
 
-                + ', total size: ' + totalSize + ', orders: ' + numberOfOrders + ', weight: ' + utils.last(nodelet.strat).scaleWeight)
+                + ', total size: ' + totalSize + ', orders: ' + numberOfOrders + ', weight: ' + utils.last(nodelet.strat).scaleweight)
         }
 
 
@@ -926,7 +926,7 @@ const newNodelet = (name, key, secret) => {
                 "amount": Math.abs(trade.size),
                 "type": "stop_market",
                 // "price" : this.state.price,
-                "stop_price": (nodelet.currentBid * (1 + ((utils.last(nodelet.strat).stopPercent / 100) * (utils.last(nodelet.strat).size < 0 ? 1 : -1)))),
+                "stop_price": (nodelet.currentBid * (1 + ((utils.last(nodelet.strat).stoppercent / 100) * (utils.last(nodelet.strat).size < 0 ? 1 : -1)))),
                 "label": "stop",
                 "trigger": 'index_price',
                 "reduce_only": true
