@@ -15,15 +15,15 @@ db.start()
 
 
 
-// db.drop('strat1')
-// db.drop('strat2')
-// db.drop('log1')
-// db.drop('log2')
+db.drop('strat1')
+db.drop('strat2')
+db.drop('log1')
+db.drop('log2')
 
-// db.drop('trades1')
-// db.drop('trades2')
+db.drop('trades1')
+db.drop('trades2')
 
-// return
+return
 
 // db.truncate('log1')
 // db.truncate('log2')
@@ -69,24 +69,24 @@ const newNodelet = (name, key, secret) => {
     }
     nodelets.push(nodelet)
 
-    db.createAll(nodelet.id)
+    // db.createAll(nodelet.id)
 
-    db.add('strat'+nodelet.id,
-        'name, running, symbol, tf, tppercent, stoppercent, size, scalepercent, scaleqty, scaleweight, trigger, scalechase'
-        ,[
-            'new'+nodelet.id,
-            false,
-            'XBTUSD',
-            1,
-            0.36,
-            4.1,
-            5,
-            4,
-            20,
-            3,
-            'xdiv',
-            true
-        ])
+    // db.add('strat'+nodelet.id,
+    //     'name, running, symbol, tf, tppercent, stoppercent, size, scalepercent, scaleqty, scaleweight, trigger, scalechase'
+    //     ,[
+    //         'new'+nodelet.id,
+    //         false,
+    //         'XBTUSD',
+    //         1,
+    //         0.36,
+    //         4.1,
+    //         5,
+    //         4,
+    //         20,
+    //         3,
+    //         'xdiv',
+    //         true
+    //     ])
 
 
     // utils.loop(5000, ()=>{
