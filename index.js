@@ -591,7 +591,7 @@ if (!msgg.result) {
 
         } else if (Math.abs(nodelet.currentSize) > Math.abs(nodelet.lastCloseSize)) {
 
-            console.log(currentSize + " size different, reset close")
+            console.log(nodelet.currentSize + " size different, reset close")
 
             let tpPrice = nodelet.currentEntry * (1 + ((utils.last(nodelet.strat).tpPercent / 100) * (nodelet.currentSize > 0 ? 1 : -1)))
             let stopPrice = nodelet.currentBid * (utils.last(nodelet.strat).size > 0 ? (1 - (utils.last(nodelet.strat).stopPercent / 100)) : (1 + (utils.last(nodelet.strat).stopPercent / 100)))
