@@ -26,14 +26,14 @@ db.start()
 
 // return
 
-// db.truncate('log1')
-// db.truncate('log2')
-// db.truncate('trades1')
-// db.truncate('trades2')
-// db.truncate('strat1')
-// db.truncate('strat2')
+db.truncate('log1')
+db.truncate('log2')
+db.truncate('trades1')
+db.truncate('trades2')
+db.truncate('strat1')
+db.truncate('strat2')
 //
-// return
+return
 
 let nodelets = []
 api.get('/nodelets', (req, res) => res.send(nodelets))
@@ -96,29 +96,29 @@ const newNodelet = (name, key, secret) => {
     // }, 5000)
 
 
-    utils.loop(1000, ()=>{
-
-        let trade = utils.last(nodelet.trades)
-
-        db.update('trades'+nodelet.id,
-            'active = ' + trade.active  +
-            ', trigger = \'' + trade.trigger + '\'' +
-            ', entryPrice = ' + (trade.entryPrice==null?0:trade.entryPrice) +
-            ', entrySize = ' + (trade.entrySize==null?0:trade.entrySize) +
-            ', tpPrice = ' + (trade.tpPrice==null?0:trade.tpPrice) +
-            ', stopPrice = ' + _.now() +
-            ', startBalance = ' + (trade.startBalance==null?0:trade.startBalance) +
-            ', endingBalance = ' + (trade.endingBalance==null?0:trade.endingBalance) +
-            ', pnl = ' + (trade.pnl==null?0:trade.pnl )+
-            ', diff = \'' + trade.diff +  '\'' +
-            ', resultType = \'' + trade.resultType +  '\'' +
-            ', resultMove = ' + (trade.resultMove==null?0:trade.resultMove) +
-            ', filled = ' + (trade.filled==null?0:trade.filled) +
-            ', startTime = ' + (trade.startTime==null?0:trade.startTime) +
-            ', endTime = ' + (trade.endTime==null?0:trade.endTime) +
-            ', endPrice = ' + (trade.endPrice==null?0:trade.endPrice) +
-            ', startStartEquity = ' + (trade.startStartEquity==null?0:trade.startStartEquity))
-    },10000)
+    // utils.loop(1000, ()=>{
+    //
+    //     let trade = utils.last(nodelet.trades)
+    //
+    //     db.update('trades'+nodelet.id,
+    //         'active = ' + trade.active  +
+    //         ', trigger = \'' + trade.trigger + '\'' +
+    //         ', entryPrice = ' + (trade.entryPrice==null?0:trade.entryPrice) +
+    //         ', entrySize = ' + (trade.entrySize==null?0:trade.entrySize) +
+    //         ', tpPrice = ' + (trade.tpPrice==null?0:trade.tpPrice) +
+    //         ', stopPrice = ' + _.now() +
+    //         ', startBalance = ' + (trade.startBalance==null?0:trade.startBalance) +
+    //         ', endingBalance = ' + (trade.endingBalance==null?0:trade.endingBalance) +
+    //         ', pnl = ' + (trade.pnl==null?0:trade.pnl )+
+    //         ', diff = \'' + trade.diff +  '\'' +
+    //         ', resultType = \'' + trade.resultType +  '\'' +
+    //         ', resultMove = ' + (trade.resultMove==null?0:trade.resultMove) +
+    //         ', filled = ' + (trade.filled==null?0:trade.filled) +
+    //         ', startTime = ' + (trade.startTime==null?0:trade.startTime) +
+    //         ', endTime = ' + (trade.endTime==null?0:trade.endTime) +
+    //         ', endPrice = ' + (trade.endPrice==null?0:trade.endPrice) +
+    //         ', startStartEquity = ' + (trade.startStartEquity==null?0:trade.startStartEquity))
+    // },10000)
 
     setTimeout(()=>{
 
