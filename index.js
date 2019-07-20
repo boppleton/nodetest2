@@ -1,7 +1,6 @@
-
 /// botism node v1.2
 
-require('dotenv').config();
+require('dotenv').config()
 const WebSocket = require('ws')
 const rp = require('request-promise')
 const _ = require('lodash')
@@ -14,12 +13,11 @@ console.log('+++ starting botism node at ' + new Date())
 db.start()
 
 
-
-// db.drop('strat1')
+db.drop('strat1')
 // db.drop('strat2')
-// db.drop('log1')
+db.drop('log1')
 // db.drop('log2')
-// db.drop('trades1')
+db.drop('trades1')
 // db.drop('trades2')
 //
 // return
@@ -36,7 +34,9 @@ db.start()
 let nodelets = []
 api.get('/nodelets', (req, res) => res.send(nodelets))
 
-setTimeout(()=>{newNodelet('dbbacc1', process.env['KEY'+(nodelets.length+1)], process.env['SEC'+(nodelets.length+1)])},2000)
+setTimeout(() => {
+    newNodelet('dbbacc1', process.env['KEY' + (nodelets.length + 1)], process.env['SEC' + (nodelets.length + 1)])
+}, 2000)
 // setTimeout(()=>{newNodelet('dbbacc2', process.env['KEY'+(nodelets.length+1)], process.env['SEC'+(nodelets.length+1)])},10000)
 
 const newNodelet = (name, key, secret) => {
@@ -68,24 +68,24 @@ const newNodelet = (name, key, secret) => {
     }
     nodelets.push(nodelet)
 
-    // db.createAll(nodelet.id)
+    db.createAll(nodelet.id)
     //
-    // db.add('strat'+nodelet.id,
-    //     'name, running, symbol, tf, tppercent, stoppercent, size, scalepercent, scaleqty, scaleweight, trigger, scalechase'
-    //     ,[
-    //         'new'+nodelet.id,
-    //         false,
-    //         'XBTUSD',
-    //         1,
-    //         0.36,
-    //         4.1,
-    //         5,
-    //         4,
-    //         20,
-    //         3,
-    //         'xdiv',
-    //         true
-    //     ])
+    db.add('strat'+nodelet.id,
+        'name, running, symbol, tf, tppercent, stoppercent, size, scalepercent, scaleqty, scaleweight, trigger, scalechase'
+        ,[
+            'new'+nodelet.id,
+            false,
+            'XBTUSD',
+            1,
+            0.36,
+            4.1,
+            5,
+            4,
+            20,
+            3,
+            'xdiv',
+            true
+        ])
 
 
     // utils.loop(5000, ()=>{
@@ -117,21 +117,21 @@ const newNodelet = (name, key, secret) => {
     //         ', startStartEquity = ' + (trade.startStartEquity==null?0:trade.startStartEquity))
     // },10000)
 
-    setTimeout(()=>{
+    setTimeout(() => {
 
-        db.get('log'+nodelet.id, (log)=>{
+        db.get('log' + nodelet.id, (log) => {
             if (log) {
                 nodelet.log = log
             }
         })
 
-        db.get('trades'+nodelet.id, (trades)=>{
+        db.get('trades' + nodelet.id, (trades) => {
             if (trades) {
                 nodelet.trades = trades
             }
         })
 
-        db.get('strat'+nodelet.id, (strat)=>{
+        db.get('strat' + nodelet.id, (strat) => {
             if (utils.last(strat)) {
                 nodelet.strat = strat
             }
@@ -141,7 +141,7 @@ const newNodelet = (name, key, secret) => {
         // nodelet.log = db.get('log'+nodelet.id)
         // nodelet.trades = db.get('trades'+nodelet.id)
         // nodelet.strat = db.get('strat'+nodelet.id)
-    },2000)
+    }, 2000)
 
     // utils.loop(5000, ()=>{
     //
@@ -159,14 +159,13 @@ const newNodelet = (name, key, secret) => {
     ///
     const log = s => {
 
-        nodelet.log.push({id: nodelet.log.length+1, text: s, time:_.now() })
+        nodelet.log.push({id: nodelet.log.length + 1, text: s, time: _.now()})
 
-        db.add('log'+nodelet.id, 'text, time', [s, new Date().getTime() ])
+        db.add('log' + nodelet.id, 'text, time', [s, new Date().getTime()])
 
     }
 
     log('starting nodelet, name: ' + name)
-
 
 
     // db.add('trades'+nodelet.id,
@@ -205,7 +204,7 @@ const newNodelet = (name, key, secret) => {
         // console.log(JSON.stringify(msgg))
 
         if (msgg.result.equity > 0) {
-            console.log('equity: '+msgg.result.equity)
+            console.log('equity: ' + msgg.result.equity)
             //balance message
             nodelet.currentEquity = msgg.result.equity
 
@@ -253,7 +252,7 @@ const newNodelet = (name, key, secret) => {
     }
     const socketCloseListener = (e) => {
         console.error('deribit close')
-        log('deribit websocket: [close(brightred)] code: ' + (e&&e.code?e.code:'none') )
+        log('deribit websocket: [close(brightred)] code: ' + (e && e.code ? e.code : 'none'))
 
         if (e && e.code === 1000) {
             return
@@ -303,8 +302,7 @@ const newNodelet = (name, key, secret) => {
     })
 
     api.post('/' + nodelet.id + '/strat', function (request, response) {
-        console.log('post request: '+request.body);
-
+        console.log('post request: ' + request.body)
 
 
         if (
@@ -319,7 +317,7 @@ const newNodelet = (name, key, secret) => {
             && request.body.strat.scaleweight === utils.last(nodelet.strat).scaleweight
             && request.body.strat.trigger === utils.last(nodelet.strat).trigger
             && request.body.strat.scalechase === utils.last(nodelet.strat).scalechase
-        )  {
+        ) {
             console.log('same strat, return')
             return
         }
@@ -349,33 +347,34 @@ const newNodelet = (name, key, secret) => {
         //         true
         //     ])
 
-        db.add('strat'+nodelet.id,
+        db.add('strat' + nodelet.id,
             'name, running, symbol, tf, tppercent, stoppercent, size, scalepercent, scaleqty, scaleweight, trigger, scalechase'
-            ,[
-                utils.last(nodelet.strat).name,
-                false,
-                utils.last(nodelet.strat).symbol,
-                utils.last(nodelet.strat).tf,
-                utils.last(nodelet.strat).tpPercent,
-                utils.last(nodelet.strat).stopPercent,
-                utils.last(nodelet.strat).size,
-                utils.last(nodelet.strat).scalePercent,
-                utils.last(nodelet.strat).scaleQty,
-                utils.last(nodelet.strat).scaleWeight,
-                utils.last(nodelet.strat).trigger,
-                utils.last(nodelet.strat).scaleChase
+            , [
+                _.toString(utils.last(nodelet.strat).name),
+                    false,
+                    _.toString(utils.last(nodelet.strat).symbol),
+                    _.toString(utils.last(nodelet.strat).tf),
+                    _.toString(utils.last(nodelet.strat).tpPercent),
+                    _.toString(utils.last(nodelet.strat).stopPercent),
+                    _.toString(utils.last(nodelet.strat).size),
+                    _.toString(utils.last(nodelet.strat).scalePercent),
+                    _.toString(utils.last(nodelet.strat).scaleQty),
+                    _.toString(utils.last(nodelet.strat).scaleWeight),
+                    _.toString(utils.last(nodelet.strat).trigger),
+                    _.toString(utils.last(nodelet.strat).scaleChase),
             ])
 
 
     })
 
 
-
     /// universal method for exchange api calls
     const _api_ = (exchange, path, params) => {
         if (exchange === 'deribit') {
 
-            if (ws.readyState === 0) {return}
+            if (ws.readyState === 0) {
+                return
+            }
 
             ws.send(JSON.stringify({
                 "jsonrpc": "2.0",
@@ -867,18 +866,14 @@ const newNodelet = (name, key, secret) => {
             } else {
                 nodelet.resetCount++
 
-                if (!nodelet.resetCount%10===0) {
-                     return
+                if (!nodelet.resetCount % 10 === 0) {
+                    return
                 }
 
 
+                log('entries attempt #' + nodelet.resetCount + ', scaling ' + (trades[0].side ? '[long(yellowgreen)]' : '[short(orangered)]') + ' from ' + trades[0].price.toFixed(1) + ' to ' + (trades[trades.length - 1]).price.toFixed(1) + ' (' + utils.last(nodelet.strat).scalePercent + '%)'
 
-
-
-
-                    log('entries attempt #' + nodelet.resetCount + ', scaling ' + (trades[0].side ? '[long(yellowgreen)]' : '[short(orangered)]') + ' from ' + trades[0].price.toFixed(1) + ' to ' + (trades[trades.length - 1]).price.toFixed(1) + ' (' + utils.last(nodelet.strat).scalePercent + '%)'
-
-                        + ', total size: ' + totalSize + ', orders: ' + numberOfOrders + ', weight: ' + utils.last(nodelet.strat).scaleWeight)
+                    + ', total size: ' + totalSize + ', orders: ' + numberOfOrders + ', weight: ' + utils.last(nodelet.strat).scaleWeight)
 
 
                 // log_[0] = ['reset entries attempt #' + resetCount + ', new scale range ' + upperPrice.toFixed(1) + ' to ' + lowerPrice.toFixed(1), new Date().getTime()]
