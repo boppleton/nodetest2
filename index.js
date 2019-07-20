@@ -873,7 +873,7 @@ if (!msgg.result) {
 
             if (nodelet.resetCount === 0) {
                 nodelet.resetCount++
-                log('entries attempt #' + nodelet.resetCount + ', scaling ' + (trades[0].side ? '[long(yellowgreen)]' : '[short(orangered)]') + ' from ' + trades[0].price.toFixed(1) + ' to ' + (trades[trades.length - 1]).price.toFixed(1) + ' (' + utils.last(nodelet.strat).scalePercent + '%)'
+                log('entries attempt #' + nodelet.resetCount + ', scaling ' + (trades[0].side ? '[long(yellowgreen)]' : '[short(orangered)]') + ' from ' + utils.last(nodelet.trades).price.toFixed(1) + ' to ' + utils.last(nodelet.trades).price.toFixed(1) + ' (' + utils.last(nodelet.strat).scalepercent + '%)'
 
                     + ', total size: ' + totalSize + ', orders: ' + numberOfOrders + ', weight: ' + utils.last(nodelet.strat).scaleweight)
                 // log('entries attempt #' + resetCount + ', scale range ' + upperPrice + ' to ' + lowerPrice )
@@ -885,7 +885,7 @@ if (!msgg.result) {
                 // }
 
 
-                log('entries attempt #' + nodelet.resetCount + ', scaling ' + (trades[0].side ? '[long(yellowgreen)]' : '[short(orangered)]') + ' from ' + trades[0].price.toFixed(1) + ' to ' + (trades[trades.length - 1]).price.toFixed(1) + ' (' + utils.last(nodelet.strat).scalepercent + '%)'
+                log('entries attempt #' + nodelet.resetCount + ', scaling ' + (trades[0].side ? '[long(yellowgreen)]' : '[short(orangered)]') + ' from ' + utils.last(nodelet.trades).price.toFixed(1) + ' to ' + utils.last(nodelet.trades).price.toFixed(1) + ' (' + utils.last(nodelet.strat).scalepercent + '%)'
 
                     + ', total size: ' + totalSize + ', orders: ' + numberOfOrders + ', weight: ' + utils.last(nodelet.strat).scaleweight)
 
