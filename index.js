@@ -356,7 +356,7 @@ const newNodelet = (name, key, secret) => {
             utils.last(nodelet.strat).stoppercent,
             utils.last(nodelet.strat).size,
             utils.last(nodelet.strat).scalepercent,
-            utils.last(nodelet.strat).scalepty,
+            utils.last(nodelet.strat).scaleqty,
             utils.last(nodelet.strat).scaleweight,
             utils.last(nodelet.strat).trigger,
             utils.last(nodelet.strat).scalechase
