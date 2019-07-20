@@ -167,7 +167,7 @@ module.exports = {
         client.query('CREATE TABLE strat'+id+' (\n' +
             '  ID SERIAL PRIMARY KEY,\n' +
             '  name VARCHAR(30),\n' +
-            '  running BOOLEAN\n' +
+            '  running BOOLEAN,\n' +
             '  symbol VARCHAR(30),\n' +
             '  tf NUMERIC\n,' +
             '  tppercent NUMERIC\n,' +
