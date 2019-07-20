@@ -226,7 +226,7 @@ if (!msgg.result) {
         } else if (msgg.result.best_bid_price !== 0 && msgg.result.best_bid_price !== undefined && msgg.result.best_bid_price !== nodelet.currentBid) {
             //ticker message
             nodelet.currentBid = msgg.result.best_bid_price
-            console.log('new currentbid: ' + nodelet.currentBid)
+            // console.log('new currentbid: ' + nodelet.currentBid)
         } else {
             // console.log('msg: '+JSON.stringify(msgg.result))
         }
@@ -664,11 +664,12 @@ if (!msgg.result) {
 
         // return
 
-        if (utils.last(nodelet.strat).scalechase) {
+        if (utils.last(nodelet.strat).scalechase && (1+1===3)) {
+
 
 
             let entryloop = setInterval(() => {
-                console.log('entryloop curentsize ')
+                console.log('entryloop curentsize ' + nodelet.currentSize)
                 if (nodelet.currentSize === 0) {
 
                     if (nodelet.lastBid === 0) {
