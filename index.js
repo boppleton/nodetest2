@@ -444,7 +444,7 @@ const newNodelet = (name, key, secret) => {
 
         // log('[nodelet ' + nodelet.id + ' triggerloop..(' + '#46ffc7' + ')]')
 
-        return
+        // return
 
         // pick trigger function
         // let trigger =
@@ -454,7 +454,7 @@ const newNodelet = (name, key, secret) => {
         // console.log('trigger loop.  current bid: ' + nodelet.currentBid + 'current equity: ' + nodelet.currentEquity)
 
 
-        if (trigger) {
+        if (trigger || true) {
 
             // let size = Math.abs(strat_.size)
             //
