@@ -883,9 +883,9 @@ if (!msgg.result) {
             } else {
                 nodelet.resetCount++
 
-                if (!nodelet.resetCount % 10 === 0) {
-                    return
-                }
+                // if (!nodelet.resetCount % 10 === 0) {
+                //     return
+                // }
 
 
                 log('entries attempt #' + nodelet.resetCount + ', scaling ' + (trades[0].side ? '[long(yellowgreen)]' : '[short(orangered)]') + ' from ' + trades[0].price.toFixed(1) + ' to ' + (trades[trades.length - 1]).price.toFixed(1) + ' (' + utils.last(nodelet.strat).scalepercent + '%)'
@@ -904,7 +904,7 @@ if (!msgg.result) {
         }
 
 
-        //place trades (trade+stop+reduceTP)
+        // place trades (trade+stop+reduceTP)
 
 
         // console.log("stopprice " + stopPrice)
