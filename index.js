@@ -593,8 +593,8 @@ if (!msgg.result) {
 
             console.log(nodelet.currentSize + " size different, reset close")
 
-            let tpPrice = nodelet.currentEntry * (1 + ((utils.last(nodelet.strat).tpPercent / 100) * (nodelet.currentSize > 0 ? 1 : -1)))
-            let stopPrice = nodelet.currentBid * (utils.last(nodelet.strat).size > 0 ? (1 - (utils.last(nodelet.strat).stopPercent / 100)) : (1 + (utils.last(nodelet.strat).stopPercent / 100)))
+            let tpPrice = nodelet.currentEntry * (1 + ((utils.last(nodelet.strat).tppercent / 100) * (nodelet.currentSize > 0 ? 1 : -1)))
+            let stopPrice = nodelet.currentBid * (utils.last(nodelet.strat).size > 0 ? (1 - (utils.last(nodelet.strat).stoppercent / 100)) : (1 + (utils.last(nodelet.strat).stoppercent / 100)))
 
             if (nodelet.closeID === 0) {
                 // console.log("no closeid, place new")
@@ -756,10 +756,10 @@ if (!msgg.result) {
         let lowerPrice
 
         if (side) {
-            upperPrice = nodelet.currentBid * 1.0015
+            upperPrice = nodelet.currentBid
             lowerPrice = upperPrice * (1 - (utils.last(nodelet.strat).scalepercent / 100))
         } else {
-            lowerPrice = nodelet.currentBid * .9985
+            lowerPrice = nodelet.currentBid
             upperPrice = lowerPrice * (1 + (utils.last(nodelet.strat).scalepercent / 100))
         }
 
