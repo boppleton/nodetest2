@@ -167,16 +167,17 @@ module.exports = {
         client.query('CREATE TABLE strat'+id+' (\n' +
             '  ID SERIAL PRIMARY KEY,\n' +
             '  name VARCHAR(30),\n' +
+            '  running BOOLEAN\n' +
             '  symbol VARCHAR(30),\n' +
             '  tf NUMERIC\n,' +
-            '  tpPercent NUMERIC\n,' +
-            '  stopPercent NUMERIC\n,' +
+            '  tppercent NUMERIC\n,' +
+            '  stoppercent NUMERIC\n,' +
             '  size NUMERIC\n,' +
-            '  scalePercent NUMERIC\n,' +
-            '  scaleQty NUMERIC\n,' +
-            '  scaleWeight NUMERIC\n,' +
+            '  scalepercent NUMERIC\n,' +
+            '  scaleqty NUMERIC\n,' +
+            '  scaleweight NUMERIC\n,' +
             '  trigger VARCHAR(30)\n,' +
-            '  scaleChase BOOLEAN\n' +
+            '  scalechase BOOLEAN\n' +
             ');', (err, res) => {
             if (err) throw err
         })
