@@ -68,24 +68,24 @@ const newNodelet = (name, key, secret) => {
     }
     nodelets.push(nodelet)
 
-    db.createAll(nodelet.id)
+    // db.createAll(nodelet.id)
 
-    db.add('strat'+nodelet.id,
-        'name, running, symbol, tf, tppercent, stoppercent, size, scalepercent, scaleqty, scaleweight, trigger, scalechase'
-        ,[
-            'new'+nodelet.id,
-            false,
-            'XBTUSD',
-            1,
-            0.36,
-            4.1,
-            5,
-            4,
-            20,
-            3,
-            'xdiv',
-            true
-        ])
+    // db.add('strat'+nodelet.id,
+    //     'name, running, symbol, tf, tppercent, stoppercent, size, scalepercent, scaleqty, scaleweight, trigger, scalechase'
+    //     ,[
+    //         'new'+nodelet.id,
+    //         false,
+    //         'XBTUSD',
+    //         1,
+    //         0.36,
+    //         4.1,
+    //         5,
+    //         4,
+    //         20,
+    //         3,
+    //         'xdiv',
+    //         true
+    //     ])
 
 
     // utils.loop(5000, ()=>{
@@ -306,6 +306,11 @@ const newNodelet = (name, key, secret) => {
         console.log('post request: '+request.body);
 
         log('[strat updated(yellow)]')
+
+        if (Object.is(request.body.strat, utils.last(nodelet.strat)))  {
+            console.log('same strat, return')
+            return
+        }
 
         nodelet.strat.push(request.body.strat)
 
