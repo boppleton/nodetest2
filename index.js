@@ -352,14 +352,14 @@ const newNodelet = (name, key, secret) => {
             false,
             utils.last(nodelet.strat).symbol,
             utils.last(nodelet.strat).tf,
-            utils.last(nodelet.strat).tpPercent,
-            utils.last(nodelet.strat).stopPercent,
+            utils.last(nodelet.strat).tppercent,
+            utils.last(nodelet.strat).stoppercent,
             utils.last(nodelet.strat).size,
-            utils.last(nodelet.strat).scalePercent,
-            utils.last(nodelet.strat).scaleQty,
-            utils.last(nodelet.strat).scaleWeight,
+            utils.last(nodelet.strat).scalepercent,
+            utils.last(nodelet.strat).scalepty,
+            utils.last(nodelet.strat).scaleweight,
             utils.last(nodelet.strat).trigger,
-            utils.last(nodelet.strat).scaleChase
+            utils.last(nodelet.strat).scalechase
         ]
 
         console.log('VARS:: ' + JSON.stringify(vars))
