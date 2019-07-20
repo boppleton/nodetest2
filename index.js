@@ -15,12 +15,12 @@ db.start()
 
 
 
-db.drop('strat1')
-// db.drop('strat2')
-// db.drop('log1')
-// db.drop('log2')
-// db.drop('trades1')
-// db.drop('trades2')
+// db.drop('strat1')
+db.drop('strat2')
+db.drop('log1')
+db.drop('log2')
+db.drop('trades1')
+db.drop('trades2')
 
 return
 
@@ -37,7 +37,7 @@ let nodelets = []
 api.get('/nodelets', (req, res) => res.send(nodelets))
 
 setTimeout(()=>{newNodelet('dbbacc1', process.env['KEY'+(nodelets.length+1)], process.env['SEC'+(nodelets.length+1)])},2000)
-setTimeout(()=>{newNodelet('dbbacc2', process.env['KEY'+(nodelets.length+1)], process.env['SEC'+(nodelets.length+1)])},10000)
+// setTimeout(()=>{newNodelet('dbbacc2', process.env['KEY'+(nodelets.length+1)], process.env['SEC'+(nodelets.length+1)])},10000)
 
 const newNodelet = (name, key, secret) => {
 
