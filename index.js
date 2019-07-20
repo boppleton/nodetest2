@@ -741,7 +741,7 @@ const newNodelet = (name, key, secret) => {
         console.log('startrades ')
 
 
-        let side = nodelet.stratutils.last(nodelet.strat).size > 0
+        let side = utils.last(nodelet.strat).size > 0
 
         let numberOfOrders = utils.last(nodelet.strat).scaleQty
 
