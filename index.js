@@ -26,14 +26,14 @@ db.start()
 
 // return
 
-db.truncate('log1')
-db.truncate('log2')
-db.truncate('trades1')
-db.truncate('trades2')
-db.truncate('strat1')
-db.truncate('strat2')
+// db.truncate('log1')
+// db.truncate('log2')
+// db.truncate('trades1')
+// db.truncate('trades2')
+// db.truncate('strat1')
+// db.truncate('strat2')
 //
-return
+// return
 
 let nodelets = []
 api.get('/nodelets', (req, res) => res.send(nodelets))
@@ -74,21 +74,21 @@ const newNodelet = (name, key, secret) => {
 
     // db.createAll(nodelet.id)
 
-    // db.add('strat'+nodelet.id,
-    //     'name, symbol, tf, tpPercent, stopPercent, size, scalePercent, scaleQty, scaleWeight, trigger, scaleChase'
-    //     ,[
-    //         'stratname',
-    //         'XBTUSD',
-    //         1,
-    //         0.36,
-    //         4.1,
-    //         5,
-    //         4,
-    //         20,
-    //         3,
-    //         'xdiv',
-    //         true
-    //     ])
+    db.add('strat'+nodelet.id,
+        'name, symbol, tf, tpPercent, stopPercent, size, scalePercent, scaleQty, scaleWeight, trigger, scaleChase'
+        ,[
+            'stratname',
+            'XBTUSD',
+            1,
+            0.36,
+            4.1,
+            5,
+            4,
+            20,
+            3,
+            'xdiv',
+            true
+        ])
 
 
     // utils.loop(5000, ()=>{
