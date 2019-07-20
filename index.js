@@ -226,7 +226,7 @@ if (!msgg.result) {
         } else if (msgg.result.best_bid_price !== 0 && msgg.result.best_bid_price !== undefined && msgg.result.best_bid_price !== nodelet.currentBid) {
             //ticker message
             nodelet.currentBid = msgg.result.best_bid_price
-            // console.log('new currentbid: ' + nodelet.currentBid)
+            console.log('new currentbid: ' + nodelet.currentBid)
         } else {
             // console.log('msg: '+JSON.stringify(msgg.result))
         }
