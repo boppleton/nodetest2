@@ -347,22 +347,26 @@ const newNodelet = (name, key, secret) => {
         //         true
         //     ])
 
+        let vars = [
+            utils.last(nodelet.strat).name,
+            false,
+            utils.last(nodelet.strat).symbol,
+            utils.last(nodelet.strat).tf,
+            utils.last(nodelet.strat).tpPercent,
+            utils.last(nodelet.strat).stopPercent,
+            utils.last(nodelet.strat).size,
+            utils.last(nodelet.strat).scalePercent,
+            utils.last(nodelet.strat).scaleQty,
+            utils.last(nodelet.strat).scaleWeight,
+            utils.last(nodelet.strat).trigger,
+            utils.last(nodelet.strat).scaleChase
+        ]
+
+        console.log('VARS:: ' + JSON.stringify(vars))
+
         db.add('strat' + nodelet.id,
             'name, running, symbol, tf, tppercent, stoppercent, size, scalepercent, scaleqty, scaleweight, trigger, scalechase'
-            , [
-                _.toString(utils.last(nodelet.strat).name),
-                    false,
-                    _.toString(utils.last(nodelet.strat).symbol),
-                    _.toString(utils.last(nodelet.strat).tf),
-                    _.toString(utils.last(nodelet.strat).tpPercent),
-                    _.toString(utils.last(nodelet.strat).stopPercent),
-                    _.toString(utils.last(nodelet.strat).size),
-                    _.toString(utils.last(nodelet.strat).scalePercent),
-                    _.toString(utils.last(nodelet.strat).scaleQty),
-                    _.toString(utils.last(nodelet.strat).scaleWeight),
-                    _.toString(utils.last(nodelet.strat).trigger),
-                    _.toString(utils.last(nodelet.strat).scaleChase),
-            ])
+            , vars)
 
 
     })
