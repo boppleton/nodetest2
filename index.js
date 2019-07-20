@@ -38,7 +38,7 @@ db.start()
 let nodelets = []
 api.get('/nodelets', (req, res) => res.send(nodelets))
 
-setTimeout(()=>{newNodelet('dbbacc2', process.env['KEY'+(nodelets.length+1)], process.env['SEC'+(nodelets.length+1)])},2000)
+setTimeout(()=>{newNodelet('dbbacc1', process.env['KEY'+(nodelets.length+1)], process.env['SEC'+(nodelets.length+1)])},2000)
 setTimeout(()=>{newNodelet('dbbacc2', process.env['KEY'+(nodelets.length+1)], process.env['SEC'+(nodelets.length+1)])},10000)
 
 const newNodelet = (name, key, secret) => {
