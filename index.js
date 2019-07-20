@@ -15,16 +15,16 @@ db.start()
 
 
 
-// db.drop('strat1')
+db.drop('strat1')
+
+db.drop('strat2')
+db.drop('log1')
+db.drop('log2')
 //
-// db.drop('strat2')
-// db.drop('log1')
-// db.drop('log2')
-// //
-// db.drop('trades1')
-// db.drop('trades2')
+db.drop('trades1')
+db.drop('trades2')
 //
-// return
+return
 
 // db.truncate('log1')
 // db.truncate('log2')
@@ -162,14 +162,10 @@ const newNodelet = (name, key, secret) => {
     ///
     const log = s => {
 
-        console.log('log: ' + nodelet.log)
+        nodelet.log.push({id: nodelet.log.length+1, text: s, time:_.now() })
 
-        nodelet.log = [[s, new Date().getTime()], ...nodelet.log]
         db.add('log'+nodelet.id, 'text, time', [s, new Date().getTime() ])
 
-
-        console.log('log: ')
-        console.log(JSON.stringify(nodelet.log))
     }
 
     log('starting nodelet, name: ' + name)
