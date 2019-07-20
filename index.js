@@ -698,11 +698,14 @@ if (!msgg.result) {
 
         //todo fix this doublecode
         //
-        let stopPrice = stopp || (nodelet.currentBid * (1 + ((utils.last(nodelet.strat).stopPercent / 100) * (utils.last(nodelet.strat).size < 0 ? 1 : -1))))
+        let stopPrice = stopp || (nodelet.currentBid * (1 + ((utils.last(nodelet.strat).stoppercent / 100) * (utils.last(nodelet.strat).size < 0 ? 1 : -1))))
         //
         let sizeLev = Math.ceil((utils.last(nodelet.strat).size * (nodelet.currentEquity * nodelet.currentBid)) / 10) * 10
 
-        let tpPrice = nodelet.currentBid * (1 + ((utils.last(nodelet.strat).tpPercent / 100) * (nodelet.currentSize > 0 ? 1 : -1)))
+        let tpPrice = nodelet.currentBid * (1 + ((utils.last(nodelet.strat).tppercent / 100) * (nodelet.currentSize > 0 ? 1 : -1)))
+
+
+        console.log('tpprice: ' + tpPrice)
 
         trade = {
             id: (nodelet.trades.length>=1 ? nodelet.trades.length : 0) + 1,
