@@ -330,43 +330,45 @@ const newNodelet = (name, key, secret) => {
 
         console.log(utils.last(nodelet.strat))
 
-        // db.add('strat'+nodelet.id,
-        //     'name, running, symbol, tf, tppercent, stoppercent, size, scalepercent, scaleqty, scaleweight, trigger, scalechase'
-        //     ,[
-        //         'new'+nodelet.id,
-        //         false,
-        //         'XBTUSD',
-        //         1,
-        //         0.36,
-        //         4.1,
-        //         5,
-        //         4,
-        //         20,
-        //         3,
-        //         'xdiv',
-        //         true
-        //     ])
-
-        let vars = [
-            utils.last(nodelet.strat).name,
-            false,
-            utils.last(nodelet.strat).symbol,
-            utils.last(nodelet.strat).tf,
-            utils.last(nodelet.strat).tppercent,
-            utils.last(nodelet.strat).stoppercent,
-            utils.last(nodelet.strat).size,
-            utils.last(nodelet.strat).scalepercent,
-            utils.last(nodelet.strat).scaleqty,
-            utils.last(nodelet.strat).scaleweight,
-            utils.last(nodelet.strat).trigger,
-            utils.last(nodelet.strat).scalechase
-        ]
-
-        console.log('VARS:: ' + JSON.stringify(vars))
-
-        db.add('strat' + nodelet.id,
+        db.add('strat'+nodelet.id,
             'name, running, symbol, tf, tppercent, stoppercent, size, scalepercent, scaleqty, scaleweight, trigger, scalechase'
-            , vars)
+            ,[
+                'new'+nodelet.id,
+                false,
+                'XBTUSD',
+                1,
+                10.36,
+                14.1,
+                15,
+                14,
+                120,
+                3,
+                'xdiv',
+                true
+            ])
+
+
+        //
+        // let vars = [
+        //     utils.last(nodelet.strat).name,
+        //     false,
+        //     utils.last(nodelet.strat).symbol,
+        //     utils.last(nodelet.strat).tf,
+        //     utils.last(nodelet.strat).tppercent,
+        //     utils.last(nodelet.strat).stoppercent,
+        //     utils.last(nodelet.strat).size,
+        //     utils.last(nodelet.strat).scalepercent,
+        //     utils.last(nodelet.strat).scaleqty,
+        //     utils.last(nodelet.strat).scaleweight,
+        //     utils.last(nodelet.strat).trigger,
+        //     utils.last(nodelet.strat).scalechase
+        // ]
+        //
+        // console.log('VARS:: ' + JSON.stringify(vars))
+        //
+        // db.add('strat' + nodelet.id,
+        //     'name, running, symbol, tf, tppercent, stoppercent, size, scalepercent, scaleqty, scaleweight, trigger, scalechase'
+        //     , vars)
 
 
     })
