@@ -140,9 +140,7 @@ const newNodelet = (name, key, secret) => {
 
 
         // nodelet.log = db.get('log'+nodelet.id)
-        // if (!msgg.result) {
-        //     return
-        // }
+
 
         // console.log(JSON.stringify(msgg))
         // nodelet.trades = db.get('trades'+nodelet.id)
@@ -203,6 +201,9 @@ const newNodelet = (name, key, secret) => {
     const socketMessageListener = (msg) => {
         let msgg = JSON.parse(msg.data)
 
+if (!msgg.result) {
+            return
+        }
 
         if (msgg.result.equity > 0) {
             // console.log('equity: ' + msgg.result.equity)
@@ -548,7 +549,7 @@ const newNodelet = (name, key, secret) => {
             return
         }
 
-        if (!nodelet.trades[0] || !nodelet.trades[0].active) {
+        if (!nodelet.trades[0] || !utils.last(nodelet.trades).active) {
             return
         }
 
@@ -590,7 +591,7 @@ const newNodelet = (name, key, secret) => {
 
         } else if (Math.abs(nodelet.currentSize) > Math.abs(nodelet.lastCloseSize)) {
 
-            // console.log(currentSize + " size different, reset close")
+            console.log(currentSize + " size different, reset close")
 
             let tpPrice = nodelet.currentEntry * (1 + ((utils.last(nodelet.strat).tpPercent / 100) * (nodelet.currentSize > 0 ? 1 : -1)))
             let stopPrice = nodelet.currentBid * (utils.last(nodelet.strat).size > 0 ? (1 - (utils.last(nodelet.strat).stopPercent / 100)) : (1 + (utils.last(nodelet.strat).stopPercent / 100)))
