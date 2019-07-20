@@ -669,7 +669,7 @@ if (!msgg.result) {
 
 
             let entryloop = setInterval(() => {
-                console.log('entryloop curentsize ' + nodelet.currentSize)
+                console.log('entryloop curentsize ' + nodelet.currentSize + ' lastbid: ' + nodelet.lastBid + ' currentbid: ' + nodelet.currentBid)
                 if (nodelet.currentSize === 0) {
 
                     if (nodelet.lastBid === 0) {
