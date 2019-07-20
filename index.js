@@ -664,7 +664,7 @@ if (!msgg.result) {
 
         // return
 
-        if (utils.last(nodelet.strat).scalechase && (1+1===3)) {
+        if (utils.last(nodelet.strat).scalechase) {
 
 
 
