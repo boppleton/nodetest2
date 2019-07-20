@@ -140,6 +140,11 @@ const newNodelet = (name, key, secret) => {
 
 
         // nodelet.log = db.get('log'+nodelet.id)
+        if (!msgg.result) {
+            return
+        }
+
+        // console.log(JSON.stringify(msgg))
         // nodelet.trades = db.get('trades'+nodelet.id)
         // nodelet.strat = db.get('strat'+nodelet.id)
     }, 2000)
@@ -198,14 +203,9 @@ const newNodelet = (name, key, secret) => {
     const socketMessageListener = (msg) => {
         let msgg = JSON.parse(msg.data)
 
-        if (!msgg.result) {
-            return
-        }
-
-        // console.log(JSON.stringify(msgg))
 
         if (msgg.result.equity > 0) {
-            console.log('equity: ' + msgg.result.equity)
+            // console.log('equity: ' + msgg.result.equity)
             //balance message
             nodelet.currentEquity = msgg.result.equity
 
