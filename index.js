@@ -256,9 +256,9 @@ if (!msgg.result) {
         console.error('deribit close')
         log('deribit websocket: [close(brightred)] code: ' + (e && e.code ? e.code : 'none'))
 
-        if (e && e.code === 1000) {
-            return
-        }
+        // if (e && e.code === 1000) {
+        //     return
+        // }
 
         log('deribit websocket: [starting..(brightred)]')
 
