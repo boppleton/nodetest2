@@ -305,12 +305,26 @@ const newNodelet = (name, key, secret) => {
     api.post('/' + nodelet.id + '/strat', function (request, response) {
         console.log('post request: '+request.body);
 
-        log('[strat updated(yellow)]')
 
-        if (request.body.strat.name === utils.last(nodelet.strat).name)  {
+
+        if (
+            request.body.strat.name === utils.last(nodelet.strat).name
+            && request.body.strat.symbol === utils.last(nodelet.strat).symbol
+            && request.body.strat.tf === utils.last(nodelet.strat).tf
+            && request.body.strat.tppercent === utils.last(nodelet.strat).tppercent
+            && request.body.strat.stoppercent === utils.last(nodelet.strat).stoppercent
+            && request.body.strat.size === utils.last(nodelet.strat).size
+            && request.body.strat.scalepercent === utils.last(nodelet.strat).scalepercent
+            && request.body.strat.scaleqty === utils.last(nodelet.strat).scaleqty
+            && request.body.strat.scaleweight === utils.last(nodelet.strat).scaleweight
+            && request.body.strat.trigger === utils.last(nodelet.strat).trigger
+            && request.body.strat.scalechase === utils.last(nodelet.strat).scalechase
+        )  {
             console.log('same strat, return')
             return
         }
+
+        log('[strat updated(yellow)]')
 
         nodelet.strat.push(request.body.strat)
 
