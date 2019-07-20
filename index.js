@@ -833,7 +833,7 @@ const newNodelet = (name, key, secret) => {
 
         // console.log(trades)
 
-        if (nodelet.log[0][0].includes('reset entries attempt')) {
+        if (utils.last(nodelet.log).text.includes('reset entries attempt')) {
 
         }
 
@@ -849,15 +849,19 @@ const newNodelet = (name, key, secret) => {
             } else {
                 nodelet.resetCount++
 
-                if (nodelet.log[0][0].includes('entries attempt')) {
-                    nodelet.log[0] = [('entries attempt #' + nodelet.resetCount + ', scaling ' + (trades[0].side ? '[long(yellowgreen)]' : '[short(orangered)]') + ' from ' + trades[0].price.toFixed(1) + ' to ' + (trades[trades.length - 1]).price.toFixed(1) + ' (' + utils.last(nodelet.strat).scalePercent + '%)'
+                if (!nodelet.resetCount%10===0) {
+                     return
+                }
 
-                        + ', total size: ' + totalSize + ', orders: ' + numberOfOrders + ', weight: ' + utils.last(nodelet.strat).scaleWeight), new Date().getTime()]
-                } else {
+
+
+
+
+
                     log('entries attempt #' + nodelet.resetCount + ', scaling ' + (trades[0].side ? '[long(yellowgreen)]' : '[short(orangered)]') + ' from ' + trades[0].price.toFixed(1) + ' to ' + (trades[trades.length - 1]).price.toFixed(1) + ' (' + utils.last(nodelet.strat).scalePercent + '%)'
 
                         + ', total size: ' + totalSize + ', orders: ' + numberOfOrders + ', weight: ' + utils.last(nodelet.strat).scaleWeight)
-                }
+
 
                 // log_[0] = ['reset entries attempt #' + resetCount + ', new scale range ' + upperPrice.toFixed(1) + ' to ' + lowerPrice.toFixed(1), new Date().getTime()]
             }
@@ -1304,7 +1308,7 @@ const newNodelet = (name, key, secret) => {
 
                         console.log('div! long it')
 
-                        utils.last(nodelet.strat)nodelet.strat.size = Math.abs(utils.last(nodelet.strat).size)
+                        utils.last(nodelet.strat).size = Math.abs(utils.last(nodelet.strat).size)
 
                         div = true
                     }
@@ -1326,7 +1330,7 @@ const newNodelet = (name, key, secret) => {
 
                         console.log('div! short it')
 
-                        utils.last(nodelet.strat)nodelet.strat.size = -Math.abs(utils.last(nodelet.strat).size)
+                        utils.last(nodelet.strat).size = -Math.abs(utils.last(nodelet.strat).size)
 
                         div = true
                     }
