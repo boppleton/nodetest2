@@ -308,11 +308,11 @@ const newNodelet = (name, key, secret) => {
 
         log('[strat updated(yellow)]')
 
-        nodelet.strat = request.body.strat
+        nodelet.strat.push(request.body.strat)
 
         console.log('new strat: ')
 
-        console.log(nodelet.strat)
+        console.log(utils.last(nodelet.strat))
 
         db.add('strat'+nodelet.id,
             'name, symbol, tf, tpPercent, stopPercent, size, scalePercent, scaleQty, scaleWeight, trigger, scaleChase'
