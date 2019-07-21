@@ -22,11 +22,11 @@ db.start()
 //
 // return
 
-// db.truncate('log1')
+db.truncate('log1')
 // db.truncate('log2')
 
 
-// db.truncate('trades1')
+db.truncate('trades1')
 // db.truncate('trades2')
 // db.truncate('strat1')
 // db.truncate('strat2')
@@ -460,6 +460,9 @@ if (!msgg.result) {
 
         t.diff = (((t.endBalance - t.startBalance) / t.startBalance) * 100).toFixed(2) + "%  ($" + ((t.endBalance - t.startBalance) * nodelet.currentBid).toFixed(2) + ")"
 
+        if (_.isNaN(t.pnl)) {
+            return
+        }
         db.update('trades'+nodelet.id, 'pnl='+t.pnl + ', endingBalance=' + t.endBalance)
 
         db.get('trades'+nodelet.id, (trades)=> {
