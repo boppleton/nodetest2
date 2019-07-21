@@ -131,7 +131,7 @@ const newNodelet = (name, key, secret) => {
             if (trades) {
                 nodelet.trades = trades
 
-                if (utils.last(nodelet.trades).active) {
+                if (nodelet.trades.length>0 && utils.last(nodelet.trades).active) {
                     nodelet.running = true
                 }
             }
