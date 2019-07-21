@@ -25,6 +25,7 @@ db.start()
 db.truncate('log1')
 // db.truncate('log2')
 
+
 db.truncate('trades1')
 // db.truncate('trades2')
 // db.truncate('strat1')
@@ -567,7 +568,7 @@ if (!msgg.result) {
 
             log(('trade id' + utils.last(nodelet.trades).id + " has finished!"))
 
-            utils.last(nodelet.trades).endTime =
+            utils.last(nodelet.trades).endTime = new Date().getTime()
 
             db.update('trades'+nodelet.id, 'endTime='+new Date().getTime())
 
