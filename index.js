@@ -458,7 +458,7 @@ if (!msgg.result) {
 
         db.get('trades'+nodelet.id, (trades)=> {
 
-            console.log('trades'+nodelet.id + 'pnl='+t.pnl + ', endBalance=' + t.endBalance + ', resultMove='+t.resultMove)
+            console.log('trades'+nodelet.id + 'pnl='+t.pnl + ', endBalance=' + t.endBalance)
 
             console.log('tradesdb: ' + JSON.stringify(trades))
 
