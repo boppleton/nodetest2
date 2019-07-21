@@ -69,7 +69,7 @@ module.exports = {
         }
 
 
-        client.query('INSERT INTO ' + 'trades' + id + ' (' + 'trades', 'active, trigger, entryPrice, entrySize, tpPrice, stopPrice, ' +
+        client.query('INSERT INTO ' + 'trades' + id + ' (' + 'id, trades, active, trigger, entryPrice, entrySize, tpPrice, stopPrice, ' +
             'startBalance, endingBalance, pnl, diff, resultType, resultMove, filled, startTime, endTime, endPrice, startStartEquity' + ')\n' +
             '  VALUES (' + varstring + ');', vars, (err, res) => {
             if (err) throw err
