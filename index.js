@@ -566,7 +566,9 @@ if (!msgg.result) {
 
             log(('trade id' + utils.last(nodelet.trades).id + " has finished!"))
 
-            utils.last(nodelet.trades).endTime = new Date().getTime()
+            utils.last(nodelet.trades).endTime =
+
+            db.update('trades'+nodelet.id, 'endTime='+new Date().getTime())
 
 
             setTimeout(() => {
@@ -580,6 +582,10 @@ if (!msgg.result) {
 
                 utils.last(nodelet.trades).endingBalance = nodelet.currentEquity
 
+                db.update('trades'+nodelet.id, 'endPrice='+nodelet.currentBid + ', endingBalance=' + nodelet.currentEquity)
+
+
+
                 log('result: [' + (result < 0 ? ('+' + Math.abs(result).toFixed(2)) : '-' + result.toFixed(2)) + '%(' + (result < 0 ? 'yellowgreen' : 'orangered') + ')]')
 
                 nodelet.lastEquity = nodelet.currentEquity
@@ -592,9 +598,10 @@ if (!msgg.result) {
             nodelet.lastCloseSize = 0
 
             utils.last(nodelet.trades).resultType = utils.last(nodelet.trades).pnl > 0 ? 'tp' : 'stop'
-
-
             utils.last(nodelet.trades).active = false
+
+            db.update('trades'+nodelet.id, 'resultType='+ (utils.last(nodelet.trades).pnl > 0 ? '\'tp\'' : '\'stop\'') + ', active=' + false)
+
 
 
         } else if (Math.abs(nodelet.currentSize) > Math.abs(nodelet.lastCloseSize)) {
@@ -655,6 +662,9 @@ if (!msgg.result) {
 
 
             utils.last(nodelet.trades).stopPrice = stopPrice
+
+            db.update('trades'+nodelet.id, 'filled='+ nodelet.currentSize + ', tpPrice=' + tpPrice + ', stopPrice=' + stopPrice)
+
 
         }
     })
