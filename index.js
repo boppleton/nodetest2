@@ -731,7 +731,7 @@ if (!msgg.result) {
             resultMove: 0,
             filled: 0,
             startTime: new Date().getTime(),
-            // startPrice: nodelet.currentBid,
+            startPrice: nodelet.currentBid,
             endTime: 0,
             endPrice: 0,
             startStartEquity: nodelet.startingEquity,
