@@ -470,9 +470,9 @@ if (!msgg.result) {
 
         db.get('trades'+nodelet.id, (trades)=> {
 
-            console.log('trades'+nodelet.id + 'pnl='+t.pnl + ', endingBalance=' + t.endBalance)
+            // console.log('trades'+nodelet.id + 'pnl='+t.pnl + ', endingBalance=' + t.endBalance)
 
-            console.log('tradesdb: ' + JSON.stringify(trades))
+            // console.log('tradesdb: ' + JSON.stringify(trades))
 
         })
 
@@ -618,7 +618,7 @@ if (!msgg.result) {
 
         } else if (Math.abs(nodelet.currentSize) > Math.abs(nodelet.lastCloseSize)) {
 
-            console.log(nodelet.currentSize + " size different, reset close")
+            // console.log(nodelet.currentSize + " size different, reset close")
 
             let tpPrice = nodelet.currentEntry * (1 + ((utils.last(nodelet.strat).tppercent / 100) * (nodelet.currentSize > 0 ? 1 : -1)))
             let stopPrice = nodelet.currentBid * (utils.last(nodelet.strat).size > 0 ? (1 - (utils.last(nodelet.strat).stoppercent / 100)) : (1 + (utils.last(nodelet.strat).stoppercent / 100)))
@@ -646,7 +646,7 @@ if (!msgg.result) {
 
 
             } else {
-                console.log('update close id ' + nodelet.closeID)
+                // console.log('update close id ' + nodelet.closeID)
 
                 let msg =
                     {
@@ -683,7 +683,7 @@ if (!msgg.result) {
 
 
     function newTrade(trigger, stopp) {
-        console.log("NEW TRADE! nodelet: " + nodelet.id)
+        console.log("!!! new trade on nodelet: " + nodelet.id)
         setTimeout(() => {
             log(nodelet.id + ' [new trade(yellow)] - id: ' + ((nodelet.trades.length>=1 ? utils.last(nodelet.trades).id+1 : 1))
                 + ", equity: " + nodelet.currentEquity + ' ($' + (nodelet.currentEquity * nodelet.currentBid).toFixed(2) + ')'
@@ -699,7 +699,7 @@ if (!msgg.result) {
 
 
             let entryloop = setInterval(() => {
-                console.log('entryloop curentsize ' + nodelet.currentSize + ' lastbid: ' + nodelet.lastBid + ' currentbid: ' + nodelet.currentBid)
+                // console.log('entryloop curentsize ' + nodelet.currentSize + ' lastbid: ' + nodelet.lastBid + ' currentbid: ' + nodelet.currentBid)
                 if (nodelet.currentSize === 0) {
 
                     if (nodelet.lastBid === 0) {
@@ -721,7 +721,7 @@ if (!msgg.result) {
 
                 }
 
-            }, 3000)
+            }, 5000)
         } else {
             startTrades()
         }
@@ -736,7 +736,6 @@ if (!msgg.result) {
         let tpPrice = nodelet.currentBid * (1 + ((utils.last(nodelet.strat).tppercent / 100) * (nodelet.currentSize > 0 ? 1 : -1)))
 
 
-        console.log('tpprice: ' + tpPrice)
 
         trade = {
             id: (nodelet.trades.length>=1 ? nodelet.trades.length : 0) + 1,
@@ -767,7 +766,7 @@ if (!msgg.result) {
 
         db.addTrade(nodelet.id, _.values(trade))
 
-        console.log('added trade: ' + JSON.stringify(_.values(trade)))
+        // console.log('added trade: ' + JSON.stringify(_.values(trade)))
 
         db.get('trade1', (trades)=>{
             console.log('tradesdb addednew: ' + JSON.stringify(trades) )
@@ -780,7 +779,7 @@ if (!msgg.result) {
 
     const startTrades = (reset) => {
 
-        console.log('startrades ')
+        // console.log('startrades ')
 
 
         let side = utils.last(nodelet.strat).size > 0
@@ -801,7 +800,7 @@ if (!msgg.result) {
             upperPrice = lowerPrice * (1 + (utils.last(nodelet.strat).scalepercent / 100))
         }
 
-        console.log('side: '+ side +  " upperprice: " + upperPrice + " lowerprice: " + lowerPrice)
+        // console.log('side: '+ side +  " upperprice: " + upperPrice + " lowerprice: " + lowerPrice)
 
         let totalSize = Math.ceil((utils.last(nodelet.strat).size * (nodelet.currentEquity * nodelet.currentBid)) / 10) * 10
 
@@ -948,7 +947,7 @@ if (!msgg.result) {
 
         trades.forEach((trade) => {
 
-            console.log("place trade " + JSON.stringify(trade))
+            // console.log("place trade " + JSON.stringify(trade))
 
 
             _api_('deribit', side ? "private/buy" : "private/sell", {
