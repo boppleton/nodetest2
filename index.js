@@ -130,6 +130,10 @@ const newNodelet = (name, key, secret) => {
         db.get('trades' + nodelet.id, (trades) => {
             if (trades) {
                 nodelet.trades = trades
+
+                if (utils.last(nodelet.trades).active) {
+                    nodelet.running = true
+                }
             }
         })
 
