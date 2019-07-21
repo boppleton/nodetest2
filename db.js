@@ -155,6 +155,7 @@ module.exports = {
             '  resultMove NUMERIC,\n' +
             '  filled NUMERIC,\n' +
             '  startTime NUMERIC,\n' +
+            '  startPrice NUMERIC,\n' +
             '  endTime NUMERIC,\n' +
             '  endPrice NUMERIC,\n' +
             '  startStartEquity NUMERIC\n' +
