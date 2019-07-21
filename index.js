@@ -454,7 +454,7 @@ if (!msgg.result) {
 
         t.diff = (((t.endBalance - t.startBalance) / t.startBalance) * 100).toFixed(2) + "%  ($" + ((t.endBalance - t.startBalance) * nodelet.currentBid).toFixed(2) + ")"
 
-        db.update('trades'+nodelet.id, 'pnl='+t.pnl + ', endBalance=' + t.endBalance + ', resultMove='+t.resultMove)
+        db.update('trades'+nodelet.id, 'pnl='+t.pnl + ', endBalance=' + t.endBalance)
 
         db.get('trades'+nodelet.id, (trades)=> {
 
