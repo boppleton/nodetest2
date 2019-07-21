@@ -462,6 +462,10 @@ if (!msgg.result) {
 
         t.diff = (((t.endBalance - t.startBalance) / t.startBalance) * 100).toFixed(2) + "%  ($" + ((t.endBalance - t.startBalance) * nodelet.currentBid).toFixed(2) + ")"
 
+        if (t.diff.includes('finity')) {
+            t.diff = 0
+        }
+
         if ((t.pnl+'').includes('NaN')) {
             return
         }
