@@ -531,7 +531,7 @@ if (!msgg.result) {
 
             newTrade('xdiv')
         }
-    })
+    }, 15000)
 
     let bars = []
 
