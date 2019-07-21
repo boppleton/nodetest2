@@ -741,6 +741,17 @@ if (!msgg.result) {
         nodelet.trades.push(trade)
 
 
+
+        db.addTrade(nodelet.id, _.values(trade))
+
+        console.log('added trade: ' + JSON.stringify(_.values(trade)))
+
+        db.get('trade1', (trades)=>{
+            console.log('tradesdb addednew: ' + JSON.stringify(trades) )
+        })
+
+
+
     }
 
 
