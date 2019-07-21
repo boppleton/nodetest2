@@ -30,9 +30,9 @@ module.exports = {
                 }
 
             }
-            // console.log('\n printing ' + name + '..')
+            console.log('\n printing ' + name + '..')
             for (let row of res.rows) {
-                // console.log(JSON.stringify(row))
+                console.log(JSON.stringify(row))
             }
             // client.end();
             // return res.rows
