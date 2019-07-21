@@ -227,6 +227,8 @@ if (!msgg.result) {
                 nodelet.lastEquity = nodelet.currentEquity
             }
 
+            
+
         } else if (msgg.result.total_profit_loss !== undefined) {
             //position message
             // console.log('size: '+msgg.result.size)
