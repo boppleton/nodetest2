@@ -612,7 +612,7 @@ if (!msgg.result) {
 
             utils.last(nodelet.trades).endTime = new Date().getTime()
 
-            db.update('trades'+nodelet.id, 'endTime='+new Date().getTime())
+            db.update('trades'+nodelet.id, 'endtime='+new Date().getTime())
 
 
             setTimeout(() => {
@@ -626,7 +626,7 @@ if (!msgg.result) {
 
                 utils.last(nodelet.trades).endingbalance = nodelet.currentEquity
 
-                db.update('trades'+nodelet.id, 'endPrice='+nodelet.currentBid + ', endingBalance=' + nodelet.currentEquity)
+                db.update('trades'+nodelet.id, 'endprice='+nodelet.currentbid + ', endingbalance=' + nodelet.currentEquity)
 
 
 
