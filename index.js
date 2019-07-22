@@ -22,9 +22,9 @@ db.start()
 //
 // return
 
-// db.truncate('log1')
+db.truncate('log1')
 // db.truncate('log2')
-// db.truncate('trades1')
+db.truncate('trades1')
 // db.truncate('trades2')
 // db.truncate('strat1')
 // db.truncate('strat2')
@@ -127,7 +127,9 @@ const newNodelet = (name, key, secret) => {
 
         db.get('trades' + nodelet.id, (trades) => {
             if (trades) {
-                nodelet.trades = trades
+
+                console.log('got tradesdb, ' + JSON.stringify(trades))
+                nodelet.trades = trades.reverse()
 
                 if (nodelet.trades.length>0 && utils.last(nodelet.trades).active) {
                     console.log('active trade found, set nodelet to active')
