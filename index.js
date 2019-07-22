@@ -130,7 +130,11 @@ const newNodelet = (name, key, secret) => {
             if (trades) {
 
                 console.log('got tradesdb, ' + JSON.stringify(trades))
-                nodelet.trades = trades
+
+
+
+                console.log('reversing, now ' + JSON.stringify(trades.reverse()))
+                nodelet.trades = trades.reverse()
 
 
                 console.log('len0'+ (nodelet.trades.length>0))
