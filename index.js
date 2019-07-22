@@ -22,9 +22,9 @@ db.start()
 //
 // return
 
-db.truncate('log1')
+// db.truncate('log1')
 // db.truncate('log2')
-db.truncate('trades1')
+// db.truncate('trades1')
 // db.truncate('trades2')
 // db.truncate('strat1')
 // db.truncate('strat2')
@@ -131,7 +131,7 @@ const newNodelet = (name, key, secret) => {
                 console.log('got tradesdb, ' + JSON.stringify(trades))
                 nodelet.trades = trades
 
-                
+
                 console.log('len0'+ (nodelet.trades.length>0))
 
                 if (nodelet.trades.length>0) {
