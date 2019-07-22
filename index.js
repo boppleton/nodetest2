@@ -131,12 +131,18 @@ const newNodelet = (name, key, secret) => {
                 console.log('got tradesdb, ' + JSON.stringify(trades))
                 nodelet.trades = trades
 
-                console.log('len0'+ (nodelet.trades.length>0) + ' last trade: ' + JSON.stringify(utils.last(nodelet.trades)) + ' active: ' + utils.last(nodelet.trades).active)
+                console.log('len0'+ (nodelet.trades.length>0))
 
-                if (nodelet.trades.length>0 && utils.last(nodelet.trades).active) {
-                    console.log('active trade found, set nodelet to active')
-                    nodelet.running = true
+                if (nodelet.trades.length>0) {
+                    console.log(' last trade: ' + JSON.stringify(utils.last(nodelet.trades)) + ' active: ' + utils.last(nodelet.trades).active)
+
+                    if (utils.last(nodelet.trades).active) {
+                        console.log('active trade found, set nodelet to active')
+                        nodelet.running = true
+                    }
                 }
+
+
             }
         })
 
