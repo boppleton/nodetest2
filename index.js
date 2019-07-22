@@ -309,7 +309,7 @@ if (!msgg.result) {
         utils.last(nodelet.strat).running = true
 
 
-        db.update('strat'+nodelet.id, 'active=true')
+        db.update('strat'+nodelet.id, 'running=true')
 
 
         if (nodelet.running) {
@@ -643,7 +643,7 @@ if (!msgg.result) {
 
             db.update('trades'+nodelet.id, 'resultType='+ (utils.last(nodelet.trades).pnl > 0 ? '\'tp\'' : '\'stop\'') + ', active=' + false)
 
-            db.update('strat'+nodelet.id, 'active=false')
+            db.update('strat'+nodelet.id, 'running=false')
 
 
         } else if (Math.abs(nodelet.currentSize) > Math.abs(nodelet.lastCloseSize)) {
