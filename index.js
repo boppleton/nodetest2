@@ -24,6 +24,7 @@ db.start()
 // return
 
 
+
 db.truncate('log1')
 // db.truncate('log2')
 db.truncate('trades1')
@@ -707,7 +708,7 @@ if (!msgg.result) {
 
             utils.last(nodelet.trades).stopprice = stopPrice
 
-            db.update('trades'+nodelet.id, 'filled='+ nodelet.currentSize + ', tpprice=' + tpprice + ', stopprice=' + stopprice)
+            db.update('trades'+nodelet.id, 'filled='+ nodelet.currentSize + ', tpprice=' + tpPrice + ', stopprice=' + stopPrice)
 
 
         }
