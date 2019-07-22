@@ -25,9 +25,9 @@ db.start()
 
 
 
-db.truncate('log1')
+// db.truncate('log1')
 // db.truncate('log2')
-db.truncate('trades1')
+// db.truncate('trades1')
 // db.truncate('trades2')
 // db.truncate('strat1')
 // db.truncate('strat2')
@@ -497,6 +497,7 @@ if (!msgg.result) {
         if (!Math.abs(t.pnl>=0)) {
             return
         }
+
         db.update('trades'+nodelet.id, 'pnl='+t.pnl + ', endingBalance=' + t.endingbalance)
 
         db.get('trades'+nodelet.id, (trades)=> {
