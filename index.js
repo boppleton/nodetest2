@@ -13,6 +13,7 @@ console.log('+++ starting botism node at ' + new Date())
 db.start()
 
 
+
 // db.drop('strat1')
 // db.drop('strat2')
 // db.drop('log1')
