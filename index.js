@@ -145,7 +145,7 @@ const newNodelet = (name, key, secret) => {
                 if (nodelet.trades.length>0) {
                     console.log(' last trade: ' + JSON.stringify(utils.last(nodelet.trades)) + ' active: ' + utils.last(nodelet.trades).active)
 
-                    if (utils.last(nodelet.trades).active) {
+                    if (utils.last(nodelet.trades).active || nodelet.trades[0].active) {
                         console.log('active trade found, set nodelet to active')
                         nodelet.running = true
                     }
