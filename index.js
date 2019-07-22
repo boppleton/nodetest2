@@ -24,9 +24,9 @@ db.start()
 // return
 
 
-// db.truncate('log1')
+db.truncate('log1')
 // db.truncate('log2')
-// db.truncate('trades1')
+db.truncate('trades1')
 // db.truncate('trades2')
 // db.truncate('strat1')
 // db.truncate('strat2')
@@ -127,6 +127,13 @@ const newNodelet = (name, key, secret) => {
             }
         })
 
+        db.get('strat' + nodelet.id, (strat) => {
+            console.log('set strat to ' + JSON.stringify(strat))
+            if (utils.last(strat)) {
+                nodelet.strat = strat
+            }
+        })
+
         db.get('trades' + nodelet.id, (trades) => {
             if (trades) {
 
@@ -157,12 +164,7 @@ const newNodelet = (name, key, secret) => {
             }
         })
 
-        db.get('strat' + nodelet.id, (strat) => {
-            console.log('set strat to ' + JSON.stringify(strat))
-            if (utils.last(strat)) {
-                nodelet.strat = strat
-            }
-        })
+
 
 
         // nodelet.log = db.get('log'+nodelet.id)
@@ -472,20 +474,20 @@ if (!msgg.result) {
             return
         }
 
-        t.endBalance = nodelet.currentEquity
-        t.pnl = (t.endBalance - t.startBalance).toFixed(8)
+        t.endbalance = nodelet.currentequity
+        t.pnl = (t.endbalance - t.startbalance).toFixed(8)
         // t.pnl = 0
 
         //fix accuracy after
         if (t.active) {
-            if (nodelet.currentEntry > 0) {
-                t.entryPrice = nodelet.currentEntry
+            if (nodelet.currententry > 0) {
+                t.entryprice = nodelet.currententry
             }
         }
 
-        t.resultMove = ((((t.endPrice || nodelet.currentBid) - nodelet.currentEntry) / (nodelet.currentEntry)) * 100).toFixed(2)
+        t.resultmove = ((((t.endprice || nodelet.currentbid) - nodelet.currententry) / (nodelet.currententry)) * 100).toFixed(2)
 
-        t.diff = (((t.endBalance - t.startBalance) / t.startBalance) * 100).toFixed(2) + "%  ($" + ((t.endBalance - t.startBalance) * nodelet.currentBid).toFixed(2) + ")"
+        t.diff = (((t.endbalance - t.startbalance) / t.startbalance) * 100).toFixed(2) + "%  ($" + ((t.endbalance - t.startbalance) * nodelet.currentbid).toFixed(2) + ")"
 
         if (t.diff.includes('finity')) {
             t.diff = 0
@@ -494,7 +496,7 @@ if (!msgg.result) {
         if (!Math.abs(t.pnl>=0)) {
             return
         }
-        db.update('trades'+nodelet.id, 'pnl='+t.pnl + ', endingBalance=' + t.endBalance)
+        db.update('trades'+nodelet.id, 'pnl='+t.pnl + ', endingBalance=' + t.endbalance)
 
         db.get('trades'+nodelet.id, (trades)=> {
 
@@ -618,9 +620,9 @@ if (!msgg.result) {
 
                 let result = ((dec / nodelet.lastEquity) * 100)
 
-                utils.last(nodelet.trades).endPrice = nodelet.currentBid
+                utils.last(nodelet.trades).endprice = nodelet.currentBid
 
-                utils.last(nodelet.trades).endingBalance = nodelet.currentEquity
+                utils.last(nodelet.trades).endingbalance = nodelet.currentEquity
 
                 db.update('trades'+nodelet.id, 'endPrice='+nodelet.currentBid + ', endingBalance=' + nodelet.currentEquity)
 
@@ -637,11 +639,11 @@ if (!msgg.result) {
 
             nodelet.lastCloseSize = 0
 
-            utils.last(nodelet.trades).resultType = utils.last(nodelet.trades).pnl > 0 ? 'tp' : 'stop'
+            utils.last(nodelet.trades).resulttype = utils.last(nodelet.trades).pnl > 0 ? 'tp' : 'stop'
             utils.last(nodelet.trades).active = false
             utils.last(nodelet.strat).running = false
 
-            db.update('trades'+nodelet.id, 'resultType='+ (utils.last(nodelet.trades).pnl > 0 ? '\'tp\'' : '\'stop\'') + ', active=' + false)
+            db.update('trades'+nodelet.id, 'resulttype='+ (utils.last(nodelet.trades).pnl > 0 ? '\'tp\'' : '\'stop\'') + ', active=' + false)
 
             db.update('strat'+nodelet.id, 'running=false')
 
@@ -700,12 +702,12 @@ if (!msgg.result) {
             utils.last(nodelet.trades).filled = nodelet.currentSize
 
 
-            utils.last(nodelet.trades).tpPrice = tpPrice
+            utils.last(nodelet.trades).tpprice = tpPrice
 
 
-            utils.last(nodelet.trades).stopPrice = stopPrice
+            utils.last(nodelet.trades).stopprice = stopPrice
 
-            db.update('trades'+nodelet.id, 'filled='+ nodelet.currentSize + ', tpPrice=' + tpPrice + ', stopPrice=' + stopPrice)
+            db.update('trades'+nodelet.id, 'filled='+ nodelet.currentSize + ', tpprice=' + tpprice + ', stopprice=' + stopprice)
 
 
         }
@@ -771,23 +773,23 @@ if (!msgg.result) {
             id: (nodelet.trades.length>=1 ? nodelet.trades.length : 0) + 1,
             active: true,
             trigger: trigger,
-            entryPrice: nodelet.currentBid,
-            entrySize: sizeLev,
-            tpPrice: tpPrice,
-            stopPrice: stopPrice,
+            entryprice: nodelet.currentBid,
+            entrysize: sizeLev,
+            tpprice: tpPrice,
+            stopprice: stopPrice,
 
-            startBalance: nodelet.currentEquity,
-            endingBalance: nodelet.currentEquity,
+            startbalance: nodelet.currentEquity,
+            endingbalance: nodelet.currentEquity,
             pnl: 0,
             diff: 0,
-            resultType: 'in progress',
-            resultMove: 0,
+            resulttype: 'in progress',
+            resultmove: 0,
             filled: 0,
-            startTime: new Date().getTime(),
-            startPrice: nodelet.currentBid,
-            endTime: 0,
-            endPrice: 0,
-            startStartEquity: nodelet.startingEquity,
+            starttime: new Date().getTime(),
+            startprice: nodelet.currentBid,
+            endtime: 0,
+            endprice: 0,
+            startstartequity: nodelet.startingequity,
         }
 
         nodelet.trades.push(trade)
