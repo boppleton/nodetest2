@@ -475,8 +475,8 @@ if (!msgg.result) {
             return
         }
 
-        t.endbalance = nodelet.currentequity
-        t.pnl = (t.endbalance - t.startbalance).toFixed(8)
+        t.endingbalance = nodelet.currentequity
+        t.pnl = (t.endingbalance - t.startbalance).toFixed(8)
         // t.pnl = 0
 
         //fix accuracy after
@@ -488,7 +488,7 @@ if (!msgg.result) {
 
         t.resultmove = ((((t.endprice || nodelet.currentbid) - nodelet.currententry) / (nodelet.currententry)) * 100).toFixed(2)
 
-        t.diff = (((t.endbalance - t.startbalance) / t.startbalance) * 100).toFixed(2) + "%  ($" + ((t.endbalance - t.startbalance) * nodelet.currentbid).toFixed(2) + ")"
+        t.diff = (((t.endingbalance - t.startbalance) / t.startbalance) * 100).toFixed(2) + "%  ($" + ((t.endingbalance - t.startbalance) * nodelet.currentbid).toFixed(2) + ")"
 
         if (t.diff.includes('finity')) {
             t.diff = 0
@@ -497,7 +497,7 @@ if (!msgg.result) {
         if (!Math.abs(t.pnl>=0)) {
             return
         }
-        db.update('trades'+nodelet.id, 'pnl='+t.pnl + ', endingBalance=' + t.endbalance)
+        db.update('trades'+nodelet.id, 'pnl='+t.pnl + ', endingBalance=' + t.endingbalance)
 
         db.get('trades'+nodelet.id, (trades)=> {
 
