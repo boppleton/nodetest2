@@ -24,6 +24,7 @@ db.start()
 
 
 
+
 db.truncate('log1')
 // db.truncate('log2')
 db.truncate('trades1')
