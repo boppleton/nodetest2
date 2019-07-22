@@ -149,6 +149,7 @@ const newNodelet = (name, key, secret) => {
                     if (utils.last(nodelet.trades).active || nodelet.trades[0].active) {
                         console.log('active trade found, set nodelet to active')
                         nodelet.running = true
+
                     }
                 }
 
@@ -634,6 +635,7 @@ if (!msgg.result) {
 
             utils.last(nodelet.trades).resultType = utils.last(nodelet.trades).pnl > 0 ? 'tp' : 'stop'
             utils.last(nodelet.trades).active = false
+            utils.last(nodelet.strat).running = false
 
             db.update('trades'+nodelet.id, 'resultType='+ (utils.last(nodelet.trades).pnl > 0 ? '\'tp\'' : '\'stop\'') + ', active=' + false)
 
