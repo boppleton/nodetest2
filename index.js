@@ -131,6 +131,7 @@ const newNodelet = (name, key, secret) => {
                 console.log('got tradesdb, ' + JSON.stringify(trades))
                 nodelet.trades = trades
 
+                
                 console.log('len0'+ (nodelet.trades.length>0))
 
                 if (nodelet.trades.length>0) {
